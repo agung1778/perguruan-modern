@@ -19,11 +19,24 @@ class EducationUnitForm
                 TextInput::make('short_name')
                     ->label('Singkatan'),
                 FileUpload::make('logo')
+                    ->label('Logo')
                     ->image()
-                    ->directory('units/logo'),
-                FileUpload::make('photo')
+                    ->disk('public')
+                    ->directory('logos')
+                    ->visibility('public')
+                    ->imageEditor()
+                    ->preserveFilenames(),
+                FileUpload::make('image')
+                    ->label('Foto')
                     ->image()
-                    ->directory('units/photo'),
+                    ->disk('public')
+                    ->directory('homepage-banners')
+                    ->visibility('public')
+                    ->imageEditor()
+                    ->downloadable()
+                    ->openable()
+                    ->preserveFilenames()
+                    ->required(),
                 Textarea::make('description')
                     ->rows(5),
                 TextInput::make('website')

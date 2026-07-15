@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace App\Filament\Resources\FoundationOrganizations;
 
@@ -35,7 +35,7 @@ class FoundationOrganizationResource extends Resource
     }
 
     public static function table(Table $table): Table
-    {
+    {                                                        
         return $table
             ->columns([
                 ImageColumn::make('photo'),

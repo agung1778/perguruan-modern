@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\GalleryPhotos\Schemas;
 
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Schema;
 
 class GalleryPhotoForm
@@ -13,8 +14,12 @@ class GalleryPhotoForm
             ->components([
                 TextInput::make('gallery_album_id')
                     ->required(),
-                TextInput::make('photo')
-                    ->required(),
+                FileUpload::make('photo')
+                ->image()
+                ->disk('public')
+                ->directory('gallery')
+                ->visibility('public')
+                ->multiple()
             ]);
     }
 }

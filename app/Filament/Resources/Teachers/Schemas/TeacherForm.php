@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Teachers\Schemas;
 
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Schema;
 
 class TeacherForm
@@ -15,8 +16,17 @@ class TeacherForm
                     ->required(),
                 TextInput::make('name')
                     ->required(),
-                TextInput::make('photo')
-                    ->default(null),
+                FileUpload::make('image')
+                    ->label('Foto')
+                    ->image()
+                    ->disk('public')
+                    ->directory('homepage-banners')
+                    ->visibility('public')
+                    ->imageEditor()
+                    ->downloadable()
+                    ->openable()
+                    ->preserveFilenames()
+                    ->required(),
                 TextInput::make('nip')
                     ->default(null),
                 TextInput::make('position')

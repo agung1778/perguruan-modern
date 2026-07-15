@@ -14,102 +14,56 @@ use App\Models\GalleryAlbum;
 use App\Models\Testimonial;
 use App\Models\HomepageBanner;
 use App\Models\WebsiteSetting;
+use App\Models\FoundationLeader;
+use App\Models\FoundationOrganization;
 use App\Models\Teacher;
 use App\Models\Student;
 
 
 class HomeController extends Controller
 {
-
 public function index()
 {
+    return view('pages.home', [
 
+        'website' => WebsiteSetting::first(),
 
-return view('home',[
+        'banners' => HomepageBanner::active()->get(),
 
+        'leader' => FoundationLeader::active()->first(),
 
-'banners'=>
+        'organizations' => FoundationOrganization::active()->ordered()->get(),
 
-HomepageBanner::where(
-'is_active',
-true
-)
-->latest()
-->get(),
+        'units' => EducationUnit::active()->get(),
 
+        'news' => NewsArticle::published()->latest()->take(3)->get(),
 
+        'agendas' => Agenda::latest()->take(3)->get(),
 
-'setting'=>
+        'gallery' => GalleryAlbum::with('photos')->latest()->take(6)->get(),
 
-WebsiteSetting::first(),
+        'testimonials' => Testimonial::active()->latest()->take(6)->get(),
 
+        'stats' => [
+            [
+                'title' => 'Guru',
+                'value' => Teacher::count(),
+            ],
+            [
+                'title' => 'Siswa',
+                'value' => Student::count(),
+            ],
+            [
+                'title' => 'Unit',
+                'value' => EducationUnit::count(),
+            ],
+            [
+                'title' => 'Berita',
+                'value' => NewsArticle::count(),
+            ],
+        ]
 
-
-'units'=>
-
-EducationUnit::latest()
-->get(),
-
-
-
-'news'=>
-
-NewsArticle::latest()
-->take(3)
-->get(),
-
-
-
-'agendas'=>
-
-Agenda::latest()
-->take(3)
-->get(),
-
-
-
-'gallery'=>
-
-GalleryAlbum::latest()
-->take(6)
-->get(),
-
-
-
-'testimonials'=>
-
-Testimonial::latest()
-->take(3)
-->get(),
-
-
-
-'stats'=>[
-
-
-'units'=>
-EducationUnit::count(),
-
-
-'teachers'=>
-Teacher::count(),
-
-
-'students'=>
-Student::count(),
-
-
-'news'=>
-NewsArticle::count(),
-
-
-]
-
-
-
-]);
-
-
+    ]);
 }
 
 

@@ -9,11 +9,15 @@ class NewsArticle extends Model
 {
     use HasUuid,SoftDeletes;
 
-    protected $fillable=[
-    'news_category_id',
+    protected $fillable = [
+
     'title',
+    'slug',
     'thumbnail',
-    'content'
+    'content',
+    'category_id',
+    'status'
+
     ];
 
     public function category()

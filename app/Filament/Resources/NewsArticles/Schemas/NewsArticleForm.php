@@ -4,6 +4,7 @@ namespace App\Filament\Resources\NewsArticles\Schemas;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Schema;
 
 class NewsArticleForm
@@ -16,8 +17,17 @@ class NewsArticleForm
                     ->default(null),
                 TextInput::make('title')
                     ->required(),
-                TextInput::make('thumbnail')
-                    ->default(null),
+                FileUpload::make('image')
+                    ->label('Thubnail')
+                    ->image()
+                    ->disk('public')
+                    ->directory('homepage-banners')
+                    ->visibility('public')
+                    ->imageEditor()
+                    ->downloadable()
+                    ->openable()
+                    ->preserveFilenames()
+                    ->required(),
                 Textarea::make('content')
                     ->required()
                     ->columnSpanFull(),

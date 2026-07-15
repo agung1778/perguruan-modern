@@ -8,10 +8,19 @@ class Agenda extends Model
 {
     use HasUuid;
 
-    protected $fillable=[
-    'title',
-    'date',
-    'description'
-    ];
+    protected $fillable = [
 
+    'title',
+    'slug',
+    'date',
+    'location',
+    'description',
+    'is_active'
+
+    ];
+    protected $casts = [
+
+    'date'=>'date'
+
+    ];
 }

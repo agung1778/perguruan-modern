@@ -15,7 +15,9 @@ public function index()
 {
 
 
-$news = NewsArticle::latest()
+$news =
+NewsArticle::with('category')
+->latest()
 ->paginate(9);
 
 

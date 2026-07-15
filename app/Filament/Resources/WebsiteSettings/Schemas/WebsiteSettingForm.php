@@ -4,6 +4,7 @@ namespace App\Filament\Resources\WebsiteSettings\Schemas;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Schema;
 
 class WebsiteSettingForm
@@ -14,8 +15,14 @@ class WebsiteSettingForm
             ->components([
                 TextInput::make('school_name')
                     ->required(),
-                TextInput::make('logo')
-                    ->default(null),
+                FileUpload::make('logo')
+                    ->label('Logo')
+                    ->image()
+                    ->disk('public')
+                    ->directory('logos')
+                    ->visibility('public')
+                    ->imageEditor()
+                    ->preserveFilenames(),
                 TextInput::make('phone')
                     ->tel()
                     ->default(null),
