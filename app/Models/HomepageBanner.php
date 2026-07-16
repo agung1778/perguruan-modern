@@ -32,5 +32,18 @@ protected $fillable=[
 
 ];
 
+protected static function booted()
+{
+    static::saved(function () {
 
+        cache()->forget('homepage');
+
+    });
+
+    static::deleted(function () {
+
+        cache()->forget('homepage');
+
+    });
+}
 }

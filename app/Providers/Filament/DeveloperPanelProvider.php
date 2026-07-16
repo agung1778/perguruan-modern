@@ -35,7 +35,12 @@ class DeveloperPanelProvider extends PanelProvider
         ->discoverResources(in:app_path('Filament/Resources'),for:'App\\Filament\\Resources')
         ->discoverPages(in:app_path('Filament/Pages'),for:'App\\Filament\\Pages')
         ->discoverWidgets(in:app_path('Filament/Widgets'),for:'App\\Filament\\Widgets')
-        ->widgets([\App\Filament\Widgets\SchoolStats::class,])
+        ->widgets([\App\Filament\Widgets\SchoolStats::class,
+                    \App\Filament\Widgets\StatsOverview::class,
+                    \App\Filament\Widgets\TeacherChart::class,
+                    \App\Filament\Widgets\UpcomingAgenda::class,
+                    \App\Filament\Widgets\LatestNews::class,
+                    \App\Filament\Widgets\QuickAction::class,])
         ->middleware([
         EncryptCookies::class,
         AddQueuedCookiesToResponse::class,

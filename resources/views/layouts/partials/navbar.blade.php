@@ -92,17 +92,7 @@
 
             </nav>
 
-            <div class="hidden lg:block">
-
-                <a
-                    href="{{ route('login') }}"
-                    class="bg-blue-900 text-white px-6 py-3 rounded-xl hover:bg-blue-800">
-
-                    Login
-
-                </a>
-
-            </div>
+            
 
             {{-- Mobile Button --}}
             <button
@@ -139,13 +129,7 @@
 
             <a href="{{ route('contact') }}">Kontak</a>
 
-            <a
-                href="{{ route('login') }}"
-                class="bg-blue-900 text-white rounded-xl py-3 text-center">
-
-                Login
-
-            </a>
+            
 
         </div>
 

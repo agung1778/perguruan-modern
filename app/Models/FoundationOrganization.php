@@ -32,6 +32,16 @@ protected $fillable=[
 'is_active'
 
 ];
+public function scopeOrdered($query)
+{
+    return $query
 
+        ->orderBy('order');
+}
+
+public function scopeActive($query)
+{
+    return $query->where('is_active', true);
+}
 
 }

@@ -23,4 +23,11 @@ class Agenda extends Model
     'date'=>'date'
 
     ];
+    public function scopeActive($query)
+    {
+        return $query
+
+            ->where('is_active',true);
+    }
+    protected static string $view = 'filament.widgets.upcoming-agenda';
 }

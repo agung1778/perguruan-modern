@@ -18,16 +18,13 @@ class NewsArticleForm
                 TextInput::make('title')
                     ->required(),
                 FileUpload::make('image')
-                    ->label('Thubnail')
+                    ->label('Image-Article')
                     ->image()
                     ->disk('public')
-                    ->directory('homepage-banners')
+                    ->directory('article')
                     ->visibility('public')
-                    ->imageEditor()
-                    ->downloadable()
-                    ->openable()
-                    ->preserveFilenames()
-                    ->required(),
+                    ->required()
+                    ->preserveFilenames(),
                 Textarea::make('content')
                     ->required()
                     ->columnSpanFull(),

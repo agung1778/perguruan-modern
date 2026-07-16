@@ -20,16 +20,13 @@ class HomepageBannerForm
                     ->default(null)
                     ->columnSpanFull(),
                 FileUpload::make('image')
-                    ->label('Gambar')
+                    ->label('Banner Image')
                     ->image()
                     ->disk('public')
-                    ->directory('homepage-banners')
+                    ->directory('banners')
                     ->visibility('public')
-                    ->imageEditor()
-                    ->downloadable()
-                    ->openable()
-                    ->preserveFilenames()
-                    ->required(),
+                    ->required()
+                    ->preserveFilenames(),
                 TextInput::make('button_text')
                     ->default(null),
                 TextInput::make('button_link')

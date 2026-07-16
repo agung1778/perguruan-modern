@@ -26,5 +26,10 @@ class NewsArticle extends Model
             NewsCategory::class
         );
     }
+    public function scopePublished($query)
+    {
+        return $query
 
+            ->where('status','published');
+    }
 }

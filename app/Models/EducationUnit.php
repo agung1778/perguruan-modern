@@ -33,5 +33,34 @@ class EducationUnit extends Model
     {
         return $this->hasMany(Student::class);
     }
+    protected function getData(): array
+    {
+        $units = EducationUnit::withCount('teachers')->get();
 
+        return [
+
+            'datasets' => [
+
+                [
+
+                    'label' => 'Guru',
+
+                    'data' => $units
+                        ->pluck('teachers_count')
+                        ->toArray(),
+
+                ],
+
+            ],
+
+            'labels' => $units
+                ->pluck('name')
+                ->toArray(),
+
+        ];
+    }
+    protected function getType(): string
+    {
+        return 'bar';
+    }
 }
