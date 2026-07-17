@@ -31,7 +31,7 @@ class GalleryPhotoForm
                     ->maxLength(255),
 
 
-                FileUpload::make('image')
+                FileUpload::make('photo')
                     ->label('Foto Kegiatan')
                     ->image()
                     ->disk('public')
