@@ -25,7 +25,17 @@ class WebsiteSettingResource extends Resource
     {
         return $schema->components([
             TextInput::make('school_name')->label('Nama Perguruan')->required(),
-            FileUpload::make('logo')->image()->directory('website'),
+            FileUpload::make('logo')
+                    ->label('Gambar')
+                    ->image()
+                    ->disk('public')
+                    ->directory('website')
+                    ->visibility('public')
+                    ->imageEditor()
+                    ->downloadable()
+                    ->openable()
+                    ->preserveFilenames()
+                    ->required(),
             TextInput::make('phone'),
             TextInput::make('email')->email(),
             Textarea::make('address')->columnSpanFull(),

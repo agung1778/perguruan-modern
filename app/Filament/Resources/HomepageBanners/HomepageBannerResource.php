@@ -28,7 +28,17 @@ class HomepageBannerResource extends Resource
         return $schema->components([
             TextInput::make('title')->required(),
             Textarea::make('description'),
-            FileUpload::make('image')->image()->directory('banner'),
+            FileUpload::make('image')
+                    ->label('Gambar')
+                    ->image()
+                    ->disk('public')
+                    ->directory('homepage-banners')
+                    ->visibility('public')
+                    ->imageEditor()
+                    ->downloadable()
+                    ->openable()
+                    ->preserveFilenames()
+                    ->required(),
             TextInput::make('button_text'),
             TextInput::make('button_link'),
             Toggle::make('is_active'),

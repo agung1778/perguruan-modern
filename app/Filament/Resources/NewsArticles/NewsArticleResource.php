@@ -28,7 +28,17 @@ class NewsArticleResource extends Resource
         return $schema->components([
             Select::make('news_category_id')->relationship('category', 'name'),
             TextInput::make('title')->required(),
-            FileUpload::make('thumbnail')->image()->directory('news'),
+            FileUpload::make('thumbnail')
+                    ->label('Gambar')
+                    ->image()
+                    ->disk('public')
+                    ->directory('news')
+                    ->visibility('public')
+                    ->imageEditor()
+                    ->downloadable()
+                    ->openable()
+                    ->preserveFilenames()
+                    ->required(),
             RichEditor::make('content')->required()->columnSpanFull(),
         ]);
     }

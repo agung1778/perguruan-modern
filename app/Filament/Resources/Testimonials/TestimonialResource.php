@@ -26,7 +26,17 @@ class TestimonialResource extends Resource
     {
         return $schema->components([
             TextInput::make('name')->required(),
-            FileUpload::make('photo')->image()->directory('testimonial'),
+            FileUpload::make('photo')
+                    ->label('Gambar')
+                    ->image()
+                    ->disk('public')
+                    ->directory('testimonial')
+                    ->visibility('public')
+                    ->imageEditor()
+                    ->downloadable()
+                    ->openable()
+                    ->preserveFilenames()
+                    ->required(),
             Textarea::make('message')->required()->columnSpanFull(),
         ]);
     }

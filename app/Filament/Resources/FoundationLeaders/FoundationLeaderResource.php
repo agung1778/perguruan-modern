@@ -28,7 +28,17 @@ class FoundationLeaderResource extends Resource
     {
         return $schema->components([
             TextInput::make('name')->required(),
-            FileUpload::make('photo')->image()->directory('foundation'),
+            FileUpload::make('foundation')
+                    ->label('Gambar')
+                    ->image()
+                    ->disk('public')
+                    ->directory('foundation')
+                    ->visibility('public')
+                    ->imageEditor()
+                    ->downloadable()
+                    ->openable()
+                    ->preserveFilenames()
+                    ->required(),
             TextInput::make('position'),
             TextInput::make('period'),
             Textarea::make('message')->columnSpanFull(),

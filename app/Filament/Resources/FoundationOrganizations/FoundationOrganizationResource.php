@@ -27,7 +27,17 @@ class FoundationOrganizationResource extends Resource
     {
         return $schema->components([
             TextInput::make('name')->required(),
-            FileUpload::make('photo')->image()->directory('organization'),
+            FileUpload::make('photo')
+                    ->label('Gambar')
+                    ->image()
+                    ->disk('public')
+                    ->directory('organization')
+                    ->visibility('public')
+                    ->imageEditor()
+                    ->downloadable()
+                    ->openable()
+                    ->preserveFilenames()
+                    ->required(),
             TextInput::make('position')->required(),
             TextInput::make('order')->numeric(),
             Toggle::make('is_active'),

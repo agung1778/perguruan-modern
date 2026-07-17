@@ -31,7 +31,17 @@ class TeacherResource extends Resource
             TextInput::make('name')->required(),
             TextInput::make('nip'),
             TextInput::make('position')->label('Jabatan'),
-            FileUpload::make('photo')->image()->directory('teachers'),
+            FileUpload::make('image')
+                    ->label('Gambar')
+                    ->image()
+                    ->disk('public')
+                    ->directory('teachers')
+                    ->visibility('public')
+                    ->imageEditor()
+                    ->downloadable()
+                    ->openable()
+                    ->preserveFilenames()
+                    ->required(),
         ]);
     }
 
