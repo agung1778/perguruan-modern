@@ -16,7 +16,8 @@ class GalleryAlbum extends Model
     public function photos()
     {
         return $this->hasMany(
-            GalleryPhoto::class
+            GalleryPhoto::class,
+            'gallery_album_id'
         );
     }
 

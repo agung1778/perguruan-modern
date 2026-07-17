@@ -15,8 +15,12 @@ class Student extends Model
     'nisn',
     'class'
     ];
+
     public function unit()
     {
-    return $this->belongsTo(EducationUnit::class);
+        return $this->belongsTo(
+            EducationUnit::class,
+            'education_unit_id'
+        );
     }
 }
