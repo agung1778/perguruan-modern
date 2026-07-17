@@ -2,53 +2,44 @@
 
 namespace App\Filament\Resources\Agendas;
 
+use App\Filament\Resources\Agendas\Pages\CreateAgenda;
+use App\Filament\Resources\Agendas\Pages\EditAgenda;
+use App\Filament\Resources\Agendas\Pages\ListAgendas;
+use App\Filament\Resources\Agendas\Schemas\AgendaForm;
+use App\Filament\Resources\Agendas\Tables\AgendasTable;
 use App\Models\Agenda;
 use BackedEnum;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\EditAction;
 use UnitEnum;
 
 class AgendaResource extends Resource
 {
     protected static ?string $model = Agenda::class;
-    protected static string|UnitEnum|null $navigationGroup = 'Konten';
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar-days';
+    protected static string|UnitEnum|null $navigationGroup = 'Website';
+    protected static ?string $navigationLabel = 'Agenda';
+    protected static ?string $modelLabel = 'Agenda';
+    protected static ?string $pluralModelLabel = 'Agenda';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {
-        return $schema->components([
-            TextInput::make('title')->required(),
-            DatePicker::make('date')->required(),
-            Textarea::make('description')->columnSpanFull(),
-        ]);
+        return AgendaForm::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                TextColumn::make('title')->searchable(),
-                TextColumn::make('date')->date(),
-            ])
-            ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
-            ]);
+        return AgendasTable::configure($table);
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAgendas::route('/'),
-            'create' => Pages\CreateAgenda::route('/create'),
-            'edit' => Pages\EditAgenda::route('/{record}/edit'),
+            'index'  => ListAgendas::route('/'),
+            'create' => CreateAgenda::route('/create'),
+            'edit'   => EditAgenda::route('/{record}/edit'),
         ];
     }
 }

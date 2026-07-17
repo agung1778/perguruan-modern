@@ -13,13 +13,24 @@ class AgendaForm
     {
         return $schema
             ->components([
+
                 TextInput::make('title')
-                    ->required(),
-                DatePicker::make('date')
-                    ->required(),
-                Textarea::make('description')
+                    ->label('Judul Agenda')
                     ->required()
+                    ->maxLength(255),
+
+
+                DatePicker::make('date')
+                    ->label('Tanggal Agenda')
+                    ->required(),
+
+
+                Textarea::make('description')
+                    ->label('Deskripsi')
+                    ->required()
+                    ->rows(5)
                     ->columnSpanFull(),
+
             ]);
     }
 }

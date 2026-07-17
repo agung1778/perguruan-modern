@@ -2,10 +2,9 @@
 
 namespace App\Filament\Resources\FoundationLeaders\Schemas;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Schema;
 
 class FoundationLeaderForm
@@ -14,29 +13,38 @@ class FoundationLeaderForm
     {
         return $schema
             ->components([
+
+
                 TextInput::make('name')
-                    ->required(),
-                FileUpload::make('image')
-                    ->label('Gambar')
+                    ->label('Nama Kepala Yayasan')
+                    ->required()
+                    ->maxLength(255),
+
+
+                TextInput::make('position')
+                    ->label('Jabatan')
+                    ->default('Ketua Yayasan')
+                    ->maxLength(255),
+
+
+                FileUpload::make('photo')
+                    ->label('Foto Kepala Yayasan')
                     ->image()
                     ->disk('public')
-                    ->directory('homepage-banners')
+                    ->directory('foundation/leaders')
                     ->visibility('public')
                     ->imageEditor()
                     ->downloadable()
                     ->openable()
                     ->preserveFilenames()
                     ->required(),
-                TextInput::make('position')
-                    ->required()
-                    ->default('Ketua Yayasan'),
-                TextInput::make('period')
-                    ->default(null),
-                Textarea::make('message')
-                    ->default(null)
+
+
+                Textarea::make('description')
+                    ->label('Deskripsi')
+                    ->rows(5)
                     ->columnSpanFull(),
-                Toggle::make('is_active')
-                    ->required(),
+
             ]);
     }
 }

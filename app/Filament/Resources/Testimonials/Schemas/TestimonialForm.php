@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\Testimonials\Schemas;
 
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class TestimonialForm
@@ -13,22 +13,32 @@ class TestimonialForm
     {
         return $schema
             ->components([
+
+
                 TextInput::make('name')
-                    ->required(),
-                FileUpload::make('image')
+                    ->label('Nama')
+                    ->required()
+                    ->maxLength(255),
+
+
+                FileUpload::make('photo')
                     ->label('Foto')
                     ->image()
                     ->disk('public')
-                    ->directory('homepage-banners')
+                    ->directory('testimonials/photos')
                     ->visibility('public')
                     ->imageEditor()
                     ->downloadable()
                     ->openable()
-                    ->preserveFilenames()
-                    ->required(),
+                    ->preserveFilenames(),
+
+
                 Textarea::make('message')
+                    ->label('Pesan Testimoni')
                     ->required()
+                    ->rows(5)
                     ->columnSpanFull(),
+
             ]);
     }
 }

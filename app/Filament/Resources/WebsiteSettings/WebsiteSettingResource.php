@@ -2,56 +2,64 @@
 
 namespace App\Filament\Resources\WebsiteSettings;
 
+use App\Filament\Resources\WebsiteSettings\Pages\CreateWebsiteSetting;
+use App\Filament\Resources\WebsiteSettings\Pages\EditWebsiteSetting;
+use App\Filament\Resources\WebsiteSettings\Pages\ListWebsiteSettings;
+use App\Filament\Resources\WebsiteSettings\Schemas\WebsiteSettingForm;
+use App\Filament\Resources\WebsiteSettings\Tables\WebsiteSettingsTable;
 use App\Models\WebsiteSetting;
 use BackedEnum;
-use Filament\Actions\EditAction;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use UnitEnum;
 
 class WebsiteSettingResource extends Resource
 {
     protected static ?string $model = WebsiteSetting::class;
-    protected static string|UnitEnum|null $navigationGroup = 'Website';
+
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cog-6-tooth';
+
+
+    protected static string|UnitEnum|null $navigationGroup = 'Website';
+
+
     protected static ?string $navigationLabel = 'Pengaturan Website';
+
+
+    protected static ?string $modelLabel = 'Pengaturan Website';
+
+
+    protected static ?string $pluralModelLabel = 'Pengaturan Website';
+
+
+    protected static ?int $navigationSort = 10;
+
+
 
     public static function form(Schema $schema): Schema
     {
-        return $schema->components([
-            TextInput::make('school_name')->label('Nama Perguruan')->required(),
-            FileUpload::make('logo')->image()->directory('website'),
-            TextInput::make('phone'),
-            TextInput::make('email')->email(),
-            Textarea::make('address')->columnSpanFull(),
-            Textarea::make('social_media')->columnSpanFull(),
-        ]);
+        return WebsiteSettingForm::configure($schema);
     }
+
+
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                TextColumn::make('school_name'),
-                TextColumn::make('email'),
-                TextColumn::make('phone'),
-            ])
-            ->recordActions([
-                EditAction::make(),
-            ]);
+        return WebsiteSettingsTable::configure($table);
     }
+
+
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListWebsiteSettings::route('/'),
-            'create' => Pages\CreateWebsiteSetting::route('/create'),
-            'edit' => Pages\EditWebsiteSetting::route('/{record}/edit'),
+            'index' => ListWebsiteSettings::route('/'),
+
+            'create' => CreateWebsiteSetting::route('/create'),
+
+            'edit' => EditWebsiteSetting::route('/{record}/edit'),
         ];
     }
 }

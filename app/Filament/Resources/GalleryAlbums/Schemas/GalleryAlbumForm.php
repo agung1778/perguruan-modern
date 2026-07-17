@@ -12,11 +12,18 @@ class GalleryAlbumForm
     {
         return $schema
             ->components([
+
                 TextInput::make('title')
-                    ->required(),
+                    ->label('Nama Album')
+                    ->required()
+                    ->maxLength(255),
+
+
                 Textarea::make('description')
-                    ->default(null)
+                    ->label('Deskripsi Album')
+                    ->rows(5)
                     ->columnSpanFull(),
+
             ]);
     }
 }

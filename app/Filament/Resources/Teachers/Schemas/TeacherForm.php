@@ -2,8 +2,9 @@
 
 namespace App\Filament\Resources\Teachers\Schemas;
 
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class TeacherForm
@@ -12,25 +13,46 @@ class TeacherForm
     {
         return $schema
             ->components([
-                TextInput::make('education_unit_id')
-                    ->required(),
+
                 TextInput::make('name')
-                    ->required(),
-                FileUpload::make('image')
-                    ->label('Foto')
+                    ->label('Nama Guru')
+                    ->required()
+                    ->maxLength(255),
+
+
+                FileUpload::make('photo')
+                    ->label('Foto Guru')
                     ->image()
                     ->disk('public')
-                    ->directory('homepage-banners')
+                    ->directory('teachers/photos')
                     ->visibility('public')
                     ->imageEditor()
                     ->downloadable()
                     ->openable()
-                    ->preserveFilenames()
-                    ->required(),
+                    ->preserveFilenames(),
+
+
                 TextInput::make('nip')
-                    ->default(null),
+                    ->label('NIP')
+                    ->maxLength(50),
+
+
                 TextInput::make('position')
+                    ->label('Jabatan')
+                    ->required()
+                    ->maxLength(255),
+
+
+                Select::make('education_unit_id')
+                    ->label('Unit Pendidikan')
+                    ->relationship(
+                        'educationUnit',
+                        'name'
+                    )
+                    ->searchable()
+                    ->preload()
                     ->required(),
+
             ]);
     }
 }

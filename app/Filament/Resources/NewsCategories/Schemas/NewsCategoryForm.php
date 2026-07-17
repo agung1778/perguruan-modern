@@ -11,8 +11,12 @@ class NewsCategoryForm
     {
         return $schema
             ->components([
+
                 TextInput::make('name')
-                    ->required(),
+                    ->label('Nama Kategori')
+                    ->required()
+                    ->maxLength(255),
+
             ]);
     }
 }

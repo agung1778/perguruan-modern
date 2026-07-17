@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\WebsiteSettings\Schemas;
 
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class WebsiteSettingForm
@@ -13,29 +13,63 @@ class WebsiteSettingForm
     {
         return $schema
             ->components([
-                TextInput::make('school_name')
-                    ->required(),
+
+
+                TextInput::make('site_name')
+                    ->label('Nama Website')
+                    ->required()
+                    ->maxLength(255),
+
+
                 FileUpload::make('logo')
-                    ->label('Logo')
+                    ->label('Logo Website')
                     ->image()
                     ->disk('public')
-                    ->directory('logos')
+                    ->directory('website/logo')
                     ->visibility('public')
                     ->imageEditor()
+                    ->downloadable()
+                    ->openable()
                     ->preserveFilenames(),
+
+
                 TextInput::make('phone')
-                    ->tel()
-                    ->default(null),
+                    ->label('Nomor Telepon')
+                    ->maxLength(50),
+
+
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label('Email')
                     ->email()
-                    ->default(null),
+                    ->maxLength(255),
+
+
                 Textarea::make('address')
-                    ->default(null)
+                    ->label('Alamat')
+                    ->rows(5)
                     ->columnSpanFull(),
-                Textarea::make('social_media')
-                    ->default(null)
+
+
+                Textarea::make('maps')
+                    ->label('Google Maps Embed')
+                    ->rows(5)
                     ->columnSpanFull(),
+
+
+                TextInput::make('facebook')
+                    ->label('Facebook')
+                    ->url(),
+
+
+                TextInput::make('instagram')
+                    ->label('Instagram')
+                    ->url(),
+
+
+                TextInput::make('youtube')
+                    ->label('Youtube')
+                    ->url(),
+
             ]);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Filament\Resources\FoundationOrganizations\Schemas;
 
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
 
 class FoundationOrganizationForm
@@ -13,27 +13,37 @@ class FoundationOrganizationForm
     {
         return $schema
             ->components([
+
+
                 TextInput::make('name')
-                    ->required(),
-                FileUpload::make('image')
-                    ->label('Gambar')
+                    ->label('Nama Organisasi')
+                    ->required()
+                    ->maxLength(255),
+
+
+                TextInput::make('position')
+                    ->label('Jabatan Struktur')
+                    ->required()
+                    ->maxLength(255),
+
+
+                FileUpload::make('photo')
+                    ->label('Foto')
                     ->image()
                     ->disk('public')
-                    ->directory('homepage-banners')
+                    ->directory('foundation/organization')
                     ->visibility('public')
                     ->imageEditor()
                     ->downloadable()
                     ->openable()
-                    ->preserveFilenames()
-                    ->required(),
-                TextInput::make('position')
-                    ->required(),
-                TextInput::make('order')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-                Toggle::make('is_active')
-                    ->required(),
+                    ->preserveFilenames(),
+
+
+                Textarea::make('description')
+                    ->label('Deskripsi')
+                    ->rows(5)
+                    ->columnSpanFull(),
+
             ]);
     }
 }

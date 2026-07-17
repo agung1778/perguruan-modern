@@ -13,34 +13,52 @@ class EducationUnitForm
     {
         return $schema
             ->components([
+
                 TextInput::make('name')
-                    ->label('Nama Unit')
-                    ->required(),
+                    ->label('Nama Unit Pendidikan')
+                    ->required()
+                    ->maxLength(255),
+
+
                 TextInput::make('short_name')
-                    ->label('Singkatan'),
+                    ->label('Singkatan Unit')
+                    ->maxLength(50),
+
+
                 FileUpload::make('logo')
-                    ->label('Logo')
+                    ->label('Logo Sekolah')
                     ->image()
                     ->disk('public')
-                    ->directory('logos')
+                    ->directory('education-units/logos')
                     ->visibility('public')
                     ->imageEditor()
                     ->preserveFilenames(),
+
+
                 FileUpload::make('photo')
-                    ->label('Foto')
+                    ->label('Foto Sekolah')
                     ->image()
                     ->disk('public')
-                    ->directory('photo')
+                    ->directory('education-units/photos')
                     ->visibility('public')
                     ->imageEditor()
                     ->downloadable()
                     ->openable()
                     ->preserveFilenames()
                     ->required(),
+
+
                 Textarea::make('description')
-                    ->rows(5),
+                    ->label('Deskripsi')
+                    ->rows(5)
+                    ->columnSpanFull(),
+
+
                 TextInput::make('website')
-                    ->url(),
+                    ->label('Website Sekolah')
+                    ->url()
+                    ->placeholder('https://website-sekolah.com'),
+
             ]);
     }
 }
