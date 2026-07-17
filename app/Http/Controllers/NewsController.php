@@ -23,7 +23,7 @@ NewsArticle::with('category')
 
 
 return view(
-'news.index',
+'pages.news.index',
 compact('news')
 );
 
@@ -37,10 +37,9 @@ public function show(NewsArticle $news)
 {
 
 
-return view(
-'news.show',
-compact('news')
-);
+return redirect()->route('news.show', [
+    'news' => $news->slug
+]);
 
 
 }

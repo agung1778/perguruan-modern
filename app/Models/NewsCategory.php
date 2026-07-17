@@ -12,10 +12,18 @@ class NewsCategory extends Model
     'name'
     ];
 
-    public function articles()
+    public function newsArticles()
     {
         return $this->hasMany(
-            NewsArticle::class
+            NewsArticle::class,
+            'category_id'
+        );
+    }
+    public function category()
+    {
+        return $this->belongsTo(
+            NewsCategory::class,
+            'category_id'
         );
     }
 }

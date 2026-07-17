@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Concerns\HasUuid;
+use App\Models\NewsCategory;
 class NewsArticle extends Model
 {
     use HasUuid,SoftDeletes;
@@ -23,7 +24,8 @@ class NewsArticle extends Model
     public function category()
     {
         return $this->belongsTo(
-            NewsCategory::class
+            NewsCategory::class,
+            'category_id'
         );
     }
     public function scopePublished($query)

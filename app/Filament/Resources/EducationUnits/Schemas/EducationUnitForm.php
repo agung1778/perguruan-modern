@@ -26,11 +26,11 @@ class EducationUnitForm
                     ->visibility('public')
                     ->imageEditor()
                     ->preserveFilenames(),
-                FileUpload::make('image')
+                FileUpload::make('photo')
                     ->label('Foto')
                     ->image()
                     ->disk('public')
-                    ->directory('homepage-banners')
+                    ->directory('photo')
                     ->visibility('public')
                     ->imageEditor()
                     ->downloadable()

@@ -15,24 +15,29 @@ class HomepageBannerForm
         return $schema
             ->components([
                 TextInput::make('title')
+                    ->label('Judul Banner')
                     ->required(),
                 Textarea::make('description')
-                    ->default(null)
+                    ->label('Deskripsi')
                     ->columnSpanFull(),
                 FileUpload::make('image')
-                    ->label('Banner Image')
+                    ->label('Gambar Banner')
                     ->image()
                     ->disk('public')
-                    ->directory('banners')
+                    ->directory('homepage-banners')
                     ->visibility('public')
-                    ->required()
-                    ->preserveFilenames(),
-                TextInput::make('button_text')
-                    ->default(null),
-                TextInput::make('button_link')
-                    ->default(null),
-                Toggle::make('is_active')
+                    ->imageEditor()
+                    ->downloadable()
+                    ->openable()
+                    ->preserveFilenames()
                     ->required(),
+                TextInput::make('button_text')
+                    ->label('Text Tombol'),
+                TextInput::make('button_link')
+                    ->label('Link Tombol'),
+                Toggle::make('is_active')
+                    ->label('Aktif')
+                    ->default(true),
             ]);
     }
 }

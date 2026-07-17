@@ -13,18 +13,13 @@ class ContactController extends Controller
 public function index()
 {
 
-
 $setting =
 WebsiteSetting::first();
-
-
 
 return view(
 'contact',
 compact('setting')
 );
-
-
 }
 
 }

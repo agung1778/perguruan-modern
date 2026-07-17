@@ -2,30 +2,45 @@
 
 namespace App\Filament\Resources\NewsArticles\Schemas;
 
+
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Schemas\Schema;
+
 
 class NewsArticleForm
 {
+
     public static function configure(Schema $schema): Schema
     {
+
         return $schema
             ->components([
-                TextInput::make('news_category_id')
-                    ->default(null),
                 TextInput::make('title')
+                    ->label('Judul Berita')
                     ->required(),
-                FileUpload::make('image')
-                    ->label('Image-Article')
+                Select::make('category_id')
+                    ->label('Kategori Berita')
+                    ->relationship(
+                        'category',
+                        'name'
+                    )
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+                FileUpload::make('thumbnail')
+                    ->label('Thumbnail Berita')
                     ->image()
                     ->disk('public')
-                    ->directory('article')
+                    ->directory('news')
                     ->visibility('public')
-                    ->required()
-                    ->preserveFilenames(),
+                    ->imageEditor()
+                    ->preserveFilenames()
+                    ->required(),
                 Textarea::make('content')
+                    ->label('Isi Berita')
                     ->required()
                     ->columnSpanFull(),
             ]);
