@@ -31,8 +31,12 @@ class EducationUnit extends Model
 
     public function students()
     {
-        return $this->hasMany(Student::class);
+        return $this->hasMany(
+            Student::class,
+            'education_unit_id'
+        );
     }
+
     protected function getData(): array
     {
         $units = EducationUnit::withCount('teachers')->get();

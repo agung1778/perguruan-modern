@@ -28,7 +28,17 @@ class GalleryPhotoResource extends Resource
                 ->label('Album')
                 ->relationship('album', 'title')
                 ->required(),
-            FileUpload::make('photo')->image()->directory('gallery'),
+                FileUpload::make('photo')
+                    ->label('Foto')
+                    ->image()
+                    ->disk('public')
+                    ->directory('photo')
+                    ->visibility('public')
+                    ->imageEditor()
+                    ->downloadable()
+                    ->openable()
+                    ->preserveFilenames()
+                    ->required(),
         ]);
     }
 
