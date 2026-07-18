@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Agenda;
 
 
+
 class AgendaController extends Controller
 {
 
@@ -16,19 +17,18 @@ class AgendaController extends Controller
 
         $agendas = Agenda::query()
 
-            ->where('is_active',true)
-
-            ->latest('date')
+            ->orderBy(
+                'date'
+            )
 
             ->paginate(10);
 
 
 
-        return view('pages.agenda.index',[
-
-            'agendas'=>$agendas
-
-        ]);
+        return view(
+            'pages.agenda.index',
+            compact('agendas')
+        );
 
 
     }
@@ -41,18 +41,10 @@ class AgendaController extends Controller
     {
 
 
-        abort_if(
-            !$agenda->is_active,
-            404
+        return view(
+            'pages.agenda.show',
+            compact('agenda')
         );
-
-
-
-        return view('pages.agenda.show',[
-
-            'agenda'=>$agenda
-
-        ]);
 
 
     }

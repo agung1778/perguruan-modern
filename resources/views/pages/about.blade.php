@@ -1,131 +1,80 @@
 @extends('layouts.app')
 
-
 @section('content')
 
-
-<section class="bg-blue-950 py-24">
-
+{{-- Hero --}}
+<section class="bg-gradient-to-r from-blue-950 to-slate-900 py-24">
     <div class="max-w-7xl mx-auto px-6 text-center text-white">
-
-
-        <h1 class="text-5xl font-bold">
-
+        <span class="uppercase tracking-widest text-yellow-400 font-semibold">
             Tentang Kami
-
+        </span>
+        <h1 class="mt-4 text-5xl font-bold">
+            Mengenal Perguruan Modern
         </h1>
-
-
-        <p class="mt-6 text-slate-300">
-
-            Mengenal lebih dekat perjalanan dan komitmen perguruan kami
-
+        <p class="mt-6 max-w-3xl mx-auto text-lg text-slate-300 leading-8">
+            Mengenal lebih dekat sejarah, visi, misi, serta komitmen Perguruan Modern
+            dalam mencetak generasi yang unggul, berkarakter, dan berprestasi.
         </p>
-
-
     </div>
-
 </section>
 
-
-
-<section class="py-24 bg-white">
-
-
+{{-- Sejarah, Visi & Misi --}}
+<section class="bg-white py-24">
     <div class="max-w-7xl mx-auto px-6">
-
-
-        <div class="grid lg:grid-cols-2 gap-16">
-
-
+        <div class="grid lg:grid-cols-2 gap-16 items-start">
+            {{-- Sejarah --}}
             <div>
-
-
-                <span class="text-blue-900 font-semibold">
-
+                <span class="text-blue-900 font-semibold uppercase tracking-wide">
                     Sejarah
-
                 </span>
-
-
-                <h2 class="text-4xl font-bold mt-3">
-
+                <h2 class="mt-3 text-4xl font-bold text-slate-900">
                     Perjalanan Perguruan
-
                 </h2>
-
-
-                <p class="mt-8 text-slate-600 leading-8">
-
-                    {{ $website?->history }}
-
-                </p>
-
-
+                <div class="mt-8 text-slate-600 leading-8 space-y-4">
+                    @if(!empty($website?->history))
+                        {!! nl2br(e($website->history)) !!}
+                    @else
+                        <p>
+                            Informasi sejarah perguruan belum tersedia.
+                        </p>
+                    @endif
+                </div>
             </div>
-
-
-
+            {{-- Visi & Misi --}}
             <div class="space-y-8">
-
-
-                <div>
-
+                <div class="rounded-3xl bg-slate-50 p-8 shadow">
                     <h3 class="text-2xl font-bold text-blue-900">
-
                         Visi
-
                     </h3>
-
-
-                    <p class="mt-3 text-slate-600">
-
-                        {{ $website?->vision }}
-
+                    <p class="mt-4 text-slate-600 leading-8">
+                        {{ $website?->vision ?? 'Visi belum tersedia.' }}
                     </p>
-
-
                 </div>
-
-
-
-                <div>
-
+                <div class="rounded-3xl bg-slate-50 p-8 shadow">
                     <h3 class="text-2xl font-bold text-blue-900">
-
                         Misi
-
                     </h3>
-
-
-                    <p class="mt-3 text-slate-600">
-
-                        {{ $website?->mission }}
-
-                    </p>
-
-
+                    <div class="mt-4 text-slate-600 leading-8">
+                        @if(!empty($website?->mission))
+                            {!! nl2br(e($website->mission)) !!}
+                        @else
+                            Misi belum tersedia.
+                        @endif
+                    </div>
                 </div>
-
-
             </div>
-
-
         </div>
-
-
     </div>
-
-
 </section>
 
+{{-- Pimpinan Yayasan --}}
+@if(isset($leaders) && $leaders->count())
+    @include('sections.foundation')
+@endif
 
-
-@include('sections.foundation')
-
-
-@include('sections.organization')
-
-
+{{-- Struktur Organisasi --}}
+@if(isset($organizations) && $organizations->count())
+    @include('sections.organization')
+@endif
 
 @endsection

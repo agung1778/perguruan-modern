@@ -1,29 +1,40 @@
 ﻿@extends('layouts.app')
 
+
 @section('content')
 
-@include('sections.hero')
 
-@include('sections.welcome')
+@include('components.sections.hero')
 
-@include('sections.about')
 
-@include('sections.foundation')
+@include('components.sections.welcome')
 
-@include('sections.organization')
 
-@include('sections.statistics')
+@include('components.sections.about')
 
-@include('sections.units')
 
-@include('sections.news')
+@include('components.sections.statistics')
 
-@include('sections.agenda')
 
-@include('sections.gallery')
+@include('components.sections.units')
 
-@include('sections.testimonial')
 
-@include('sections.contact')
+@include('components.sections.organization')
+
+
+@include('components.sections.news')
+
+
+@include('components.sections.agenda')
+
+
+@include('components.sections.gallery')
+
+
+@include('components.sections.testimonial')
+
+
+@include('components.sections.contact')
+
 
 @endsection

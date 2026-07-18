@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\GalleryAlbum;
 
 
+
 class GalleryController extends Controller
 {
 
@@ -13,11 +14,10 @@ class GalleryController extends Controller
     public function index()
     {
 
+
         $albums = GalleryAlbum::query()
 
-            ->where('is_active',true)
-
-            ->withCount('photos')
+            ->with('photos')
 
             ->latest()
 
@@ -25,11 +25,11 @@ class GalleryController extends Controller
 
 
 
-        return view('pages.gallery.index',[
+        return view(
+            'pages.gallery.index',
+            compact('albums')
+        );
 
-            'albums'=>$albums
-
-        ]);
 
     }
 
@@ -41,22 +41,14 @@ class GalleryController extends Controller
     {
 
 
-        abort_if(
-            !$album->is_active,
-            404
-        );
-
-
-
         $album->load('photos');
 
 
 
-        return view('pages.gallery.show',[
-
-            'album'=>$album
-
-        ]);
+        return view(
+            'pages.gallery.show',
+            compact('album')
+        );
 
 
     }

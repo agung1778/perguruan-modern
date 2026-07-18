@@ -10,7 +10,7 @@
 
                 <img
 
-                    src="{{ Storage::url($leader->photo) }}"
+                    src="{{ Storage::url($leader->foundation) }}"
 
                     class="w-80 h-80 rounded-full object-cover mx-auto shadow-xl"
 

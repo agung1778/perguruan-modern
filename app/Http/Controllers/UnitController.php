@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\EducationUnit;
 
 
@@ -14,19 +15,25 @@ class UnitController extends Controller
 
         $units = EducationUnit::query()
 
-            ->where('is_active', true)
-
             ->withCount([
-                'teachers',
-                'students'
+                'students',
+                'teachers'
             ])
 
-            ->get();
+            ->latest()
+
+            ->paginate(12);
 
 
-        return view('pages.units.index', compact('units'));
+
+        return view(
+            'pages.units.index',
+            compact('units')
+        );
 
     }
+
+
 
 
 
@@ -34,19 +41,17 @@ class UnitController extends Controller
     {
 
 
-        abort_if(
-            !$unit->is_active,
-            404
-        );
-
-
-        $unit->loadCount([
-            'teachers',
-            'students'
+        $unit->load([
+            'students',
+            'teachers'
         ]);
 
 
-        return view('pages.units.show', compact('unit'));
+
+        return view(
+            'pages.units.show',
+            compact('unit')
+        );
 
 
     }

@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+/*
+|--------------------------------------------------------------------------
+| Controllers
+|--------------------------------------------------------------------------
+*/
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\UnitController;
@@ -11,84 +18,161 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\ContactController;
 
+
+
 /*
 |--------------------------------------------------------------------------
-| Public Website Routes
+| Homepage
 |--------------------------------------------------------------------------
 */
 
-// Home
-Route::get('/', [HomeController::class, 'index'])
+Route::get('/', HomeController::class)
     ->name('home');
 
-// About
-Route::controller(AboutController::class)->group(function () {
-    Route::get('/tentang', 'index')
-        ->name('about');
-});
 
-// Education Units
+
+/*
+|--------------------------------------------------------------------------
+| About / Tentang Perguruan
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/tentang', [AboutController::class, 'index'])
+    ->name('about');
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Education Units
+|--------------------------------------------------------------------------
+*/
+
 Route::prefix('unit-pendidikan')
     ->name('units.')
-    ->controller(UnitController::class)
     ->group(function () {
 
-        Route::get('/', 'index')
+
+        Route::get('/', [UnitController::class, 'index'])
             ->name('index');
 
-        Route::get('/{unit:slug}', 'show')
+
+        Route::get('/{unit}', [UnitController::class, 'show'])
             ->name('show');
+
     });
 
-// News
+
+
+
+/*
+|--------------------------------------------------------------------------
+| News
+|--------------------------------------------------------------------------
+*/
+
 Route::prefix('berita')
     ->name('news.')
-    ->controller(NewsController::class)
     ->group(function () {
 
-        Route::get('/', 'index')
+
+        Route::get('/', [NewsController::class, 'index'])
             ->name('index');
 
-        Route::get('/{news:slug}', 'show')
+
+        Route::get('/{news}', [NewsController::class, 'show'])
             ->name('show');
+
+
     });
 
-// Agenda
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Agenda
+|--------------------------------------------------------------------------
+*/
+
 Route::prefix('agenda')
     ->name('agenda.')
-    ->controller(AgendaController::class)
     ->group(function () {
 
-        Route::get('/', 'index')
+        Route::get('/', [AgendaController::class, 'index'])
             ->name('index');
 
-        Route::get('/{agenda:slug}', 'show')
+        Route::get('/{agenda}', [AgendaController::class, 'show'])
             ->name('show');
+
     });
 
-// Gallery
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Gallery
+|--------------------------------------------------------------------------
+*/
+
 Route::prefix('galeri')
     ->name('gallery.')
-    ->controller(GalleryController::class)
     ->group(function () {
 
-        Route::get('/', 'index')
+
+        Route::get('/', [GalleryController::class, 'index'])
             ->name('index');
 
-        Route::get('/{album:slug}', 'show')
+
+        Route::get('/galeri/{album}', [GalleryController::class, 'show'])
             ->name('show');
+
+
     });
 
-// Testimonials
-Route::controller(TestimonialController::class)->group(function () {
 
-    Route::get('/testimoni', 'index')
-        ->name('testimonials.index');
-});
 
-// Contact
-Route::controller(ContactController::class)->group(function () {
 
-    Route::get('/kontak', 'index')
-        ->name('contact');
+
+/*
+|--------------------------------------------------------------------------
+| Testimonials
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/testimoni', [TestimonialController::class, 'index'])
+    ->name('testimonials.index');
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Contact
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/kontak', [ContactController::class, 'index'])
+    ->name('contact');
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Optional sitemap
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/sitemap.xml', function () {
+
+    return response()
+        ->view('sitemap')
+        ->header('Content-Type', 'text/xml');
+
 });

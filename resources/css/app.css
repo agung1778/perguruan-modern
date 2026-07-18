@@ -1,30 +1,145 @@
-@import 'tailwindcss';
-
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
-
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
-}
 @import "tailwindcss";
 
 
-:root{
+/*
+|--------------------------------------------------------------------------
+| Alpine JS x-cloak
+|--------------------------------------------------------------------------
+*/
 
---primary:#0f172a;
+[x-cloak] {
+    display: none !important;
+}
 
---gold:#d4af37;
+
+/*
+|--------------------------------------------------------------------------
+| Global Style
+|--------------------------------------------------------------------------
+*/
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    font-family:
+        'Inter',
+        ui-sans-serif,
+        system-ui,
+        sans-serif;
+
+    background-color: #ffffff;
 
 }
 
 
-body{
 
-font-family:
-'Inter',
-sans-serif;
+/*
+|--------------------------------------------------------------------------
+| Typography
+|--------------------------------------------------------------------------
+*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+    letter-spacing: -0.02em;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Container
+|--------------------------------------------------------------------------
+*/
+
+.container {
+
+    max-width: 1280px;
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Image
+|--------------------------------------------------------------------------
+*/
+
+img {
+
+    user-select: none;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Scrollbar
+|--------------------------------------------------------------------------
+*/
+
+::-webkit-scrollbar {
+
+    width: 10px;
+
+}
+
+
+::-webkit-scrollbar-track {
+
+    background: #f1f5f9;
+
+}
+
+
+::-webkit-scrollbar-thumb {
+
+    background: #1e3a8a;
+
+    border-radius: 20px;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Animation
+|--------------------------------------------------------------------------
+*/
+
+.fade-enter {
+
+    opacity: 0;
+
+}
+
+
+.fade-enter-active {
+
+    transition: opacity .5s ease;
+
+}
+
+
+.fade-enter-to {
+
+    opacity: 1;
 
 }

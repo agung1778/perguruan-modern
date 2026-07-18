@@ -6,25 +6,30 @@ namespace App\Http\Controllers;
 use App\Models\Testimonial;
 
 
+
 class TestimonialController extends Controller
 {
 
 
-public function index()
-{
+    public function index()
+    {
 
 
-$testimonials =
-Testimonial::latest()->get();
+        $testimonials = Testimonial::query()
+
+            ->latest()
+
+            ->paginate(12);
 
 
 
-return view(
-'testimonial.index',
-compact('testimonials')
-);
+        return view(
+            'pages.testimonials.index',
+            compact('testimonials')
+        );
 
 
-}
+    }
+
 
 }
