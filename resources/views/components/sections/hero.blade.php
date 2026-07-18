@@ -41,9 +41,7 @@
                 </div>
             @endforeach
             {{-- Indicator --}}
-            <div
-                class="absolute bottom-8 left-0 right-0 flex justify-center gap-3"
-            >
+            <div class="absolute bottom-8 left-0 right-0 flex justify-center gap-3">
                 @foreach($banners as $index => $banner)
                     <button
                         @click="active={{ $index }}"

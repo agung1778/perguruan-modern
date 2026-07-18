@@ -1,0 +1,34 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+
+.fi-sidebar {
+
+    background:
+    linear-gradient(
+        180deg,
+        #172554,
+        #020617
+    );
+
+}
+
+
+.fi-sidebar-item-label{
+
+    color:white;
+
+}
+
+
+.fi-topbar{
+
+    background:white;
+
+}
+
+
+.fi-brand-logo{
+
+    height:45px;
+
+}
