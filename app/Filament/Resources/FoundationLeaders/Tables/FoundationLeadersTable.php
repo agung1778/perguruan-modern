@@ -30,6 +30,8 @@ class FoundationLeadersTable
                     ->searchable(),
                 TextColumn::make('period')
                     ->searchable(),
+                TextColumn::make('deskripsi')
+                    ->searchable(),
                 IconColumn::make('is_active')
                     ->boolean(),
                 TextColumn::make('created_at')

@@ -17,9 +17,9 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             @foreach($units as $unit)
             <div class="bg-white rounded-3xl shadow-lg overflow-hidden">
-                <img src="{{ Storage::url($unit->photos) }}" class="h-60 w-full object-cover">
+                <img src="{{ Storage::url($unit->photo) }}" class="h-60 w-full object-cover">
                 <div class="p-8 text-center">
-                    <img src="{{ Storage::url($unit->logos) }}" class="w-24 h-24 object-contain mx-auto -mt-20 bg-white rounded-full p-3 shadow">
+                    <img src="{{ Storage::url($unit->logo) }}" class="w-24 h-24 object-contain mx-auto -mt-20 bg-white rounded-full p-3 shadow">
                     <h2 class="mt-8 text-2xl font-bold">
                         {{ $unit->name }}
                     </h2>

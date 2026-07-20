@@ -13,7 +13,7 @@
             <div class="text-center">
 
                 <img
-                    src="{{ Storage::url($leader->foundation) }}"
+                    src="{{ Storage::url($leader->photo) }}"
                     class="w-80 h-80 rounded-full object-cover mx-auto shadow-xl"
                     alt="{{ $leader->name }}"
                 >

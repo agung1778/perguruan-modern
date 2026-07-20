@@ -28,6 +28,7 @@ protected $fillable=[
 'position',
 
 'period',
+'deskripsi',
 
 'message',
 
