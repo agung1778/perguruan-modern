@@ -5,7 +5,10 @@
 @include('components.sections.hero')
 
 @include('components.sections.welcome')
-@include('components.sections.foundation')
+
+@include('components.sections.foundation', [
+    'leader' => $leader
+])
 
 @include('components.sections.about')
 

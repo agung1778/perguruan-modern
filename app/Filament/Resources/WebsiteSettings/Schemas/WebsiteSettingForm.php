@@ -2,74 +2,117 @@
 
 namespace App\Filament\Resources\WebsiteSettings\Schemas;
 
+
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
+
 
 class WebsiteSettingForm
 {
+
     public static function configure(Schema $schema): Schema
     {
+
         return $schema
+
             ->components([
 
 
-                TextInput::make('site_name')
-                    ->label('Nama Website')
-                    ->required()
-                    ->maxLength(255),
+                TextInput::make('school_name')
+                    ->label('Nama Perguruan')
+                    ->required(),
+
 
 
                 FileUpload::make('logo')
-                    ->label('Logo Website')
+                    ->label('Logo Perguruan')
                     ->image()
                     ->disk('public')
-                    ->directory('website/logo')
+                    ->directory('website')
                     ->visibility('public')
-                    ->imageEditor()
-                    ->downloadable()
-                    ->openable()
-                    ->preserveFilenames(),
+                    ->imageEditor(),
+
+
+
+                FileUpload::make('favicon')
+                    ->label('Favicon')
+                    ->image()
+                    ->disk('public')
+                    ->directory('website')
+                    ->visibility('public'),
+
+
+
+                Textarea::make('about')
+                    ->label('Tentang Perguruan')
+                    ->rows(6)
+                    ->columnSpanFull(),
+
+
+
+                Textarea::make('history')
+                    ->label('Sejarah Perguruan')
+                    ->rows(8)
+                    ->columnSpanFull(),
+
+
+
+                Textarea::make('vision')
+                    ->label('Visi')
+                    ->rows(5)
+                    ->columnSpanFull(),
+
+
+
+                Textarea::make('mission')
+                    ->label('Misi')
+                    ->rows(8)
+                    ->columnSpanFull(),
+
+
+
+                TextInput::make('address')
+                    ->label('Alamat'),
+
 
 
                 TextInput::make('phone')
-                    ->label('Nomor Telepon')
-                    ->maxLength(50),
+                    ->label('Nomor Telepon'),
+
 
 
                 TextInput::make('email')
                     ->label('Email')
-                    ->email()
-                    ->maxLength(255),
+                    ->email(),
 
 
-                Textarea::make('address')
-                    ->label('Alamat')
-                    ->rows(5)
-                    ->columnSpanFull(),
 
+                TextInput::make('google_maps')
+                    ->label('Google Maps Embed'),
 
-                Textarea::make('maps')
-                    ->label('Google Maps Embed')
-                    ->rows(5)
-                    ->columnSpanFull(),
 
 
                 TextInput::make('facebook')
-                    ->label('Facebook')
-                    ->url(),
+                    ->label('Facebook'),
 
 
                 TextInput::make('instagram')
-                    ->label('Instagram')
-                    ->url(),
+                    ->label('Instagram'),
 
 
                 TextInput::make('youtube')
-                    ->label('Youtube')
-                    ->url(),
+                    ->label('Youtube'),
+
+
+                Textarea::make('meta_description')
+                    ->label('SEO Description')
+                    ->rows(3),
+
 
             ]);
+
     }
+
 }

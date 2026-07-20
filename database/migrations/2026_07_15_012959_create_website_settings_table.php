@@ -11,20 +11,48 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('website_settings',function(Blueprint $table){
+        Schema::create('website_settings', function (Blueprint $table) {
+
             $table->uuid('id')->primary();
+
             $table->string('school_name');
-            $table->string('logo')
-                ->nullable();
-            $table->string('phone')
-                ->nullable();
-            $table->string('email')
-                ->nullable();
-            $table->text('address')
-                ->nullable();
-            $table->text('social_media')
-                ->nullable();
+
+            $table->string('logo')->nullable();
+
+            $table->string('favicon')->nullable();
+
+
+            $table->text('about')->nullable();
+
+            $table->text('history')->nullable();
+
+            $table->text('vision')->nullable();
+
+            $table->text('mission')->nullable();
+
+
+            $table->text('address')->nullable();
+
+            $table->string('phone')->nullable();
+
+            $table->string('email')->nullable();
+
+
+            $table->text('google_maps')->nullable();
+
+
+            $table->string('facebook')->nullable();
+
+            $table->string('instagram')->nullable();
+
+            $table->string('youtube')->nullable();
+
+
+            $table->text('meta_description')->nullable();
+
+
             $table->timestamps();
+
         });
     }
 

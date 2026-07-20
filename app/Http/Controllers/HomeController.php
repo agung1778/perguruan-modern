@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Cache;
 
 use App\Models\WebsiteSetting;
 use App\Models\HomepageBanner;
+use App\Models\About;
 use App\Models\EducationUnit;
 use App\Models\Teacher;
 use App\Models\Student;
@@ -48,6 +49,12 @@ class HomeController extends Controller
                     ->where('is_active', true)
                     ->latest()
                     ->get();
+                                    /*
+                |--------------------------------------------------------------------------
+                | About
+                |--------------------------------------------------------------------------
+                */
+                $about = About::first();
                 /*
                 |--------------------------------------------------------------------------
                 | Education Units
@@ -73,9 +80,9 @@ class HomeController extends Controller
                 | Foundation Leader
                 |--------------------------------------------------------------------------
                 */
-                $leaders = FoundationLeader::query()
+                $leader = FoundationLeader::query()
                     ->latest()
-                    ->get();
+                    ->first();
                 /*
                 |--------------------------------------------------------------------------
                 | Latest News
@@ -135,7 +142,7 @@ class HomeController extends Controller
                     'banners',
                     'units',
                     'organizations',
-                    'leaders',
+                    'leader',
                     'news',
                     'agendas',
                     'gallery',

@@ -9,7 +9,7 @@
                 Pilih Jenjang Pendidikan
             </h2>
             <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
-                Kenali unit pendidikan kami dari tingkat TK hingga SMK.
+                Kenali unit pendidikan kami dari tingkat TK hingga Kampus.
             </p>
         </div>
         @if(isset($units) && $units->count())
@@ -18,7 +18,7 @@
                     <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300">
                         {{-- Foto Sekolah --}}
                         @if($unit->photo)
-                            <img src="{{ asset('storage/'.$unit->photo) }}" alt="{{ $unit->name }}" class="h-56 w-full object-cover">
+                            <img src="{{ asset('storage/'.$unit->photos) }}" alt="{{ $unit->name }}" class="h-56 w-full object-cover">
                         @else
                             <div class="h-56 bg-slate-200 flex items-center justify-center">
                                 <span class="text-slate-500">
@@ -30,7 +30,7 @@
                             {{-- Logo --}}
                             <div class="flex justify-center -mt-20">
                                 @if($unit->logo)
-                                    <img src="{{ asset('storage/'.$unit->logo) }}" alt="{{ $unit->name }}" class="h-24 w-24 rounded-full object-cover bg-white p-2 shadow-xl border-4 border-white">
+                                    <img src="{{ asset('storage/'.$unit->logos) }}" alt="{{ $unit->name }}" class="h-24 w-24 rounded-full object-cover bg-white p-2 shadow-xl border-4 border-white">
                                 @else
                                     <div class="h-24 w-24 rounded-full bg-blue-900 flex items-center justify-center text-white text-3xl font-bold shadow-xl">
                                         {{ strtoupper(substr($unit->short_name ?? $unit->name,0,1)) }}
