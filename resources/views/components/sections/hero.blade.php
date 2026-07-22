@@ -20,7 +20,7 @@
                         <div class="max-w-7xl mx-auto px-6 w-full">
                             <div class="max-w-3xl text-white">
                                 <span class="text-yellow-400 font-semibold uppercase tracking-widest">
-                                    Perguruan Modern
+                                    Perguruan Amaliah
                                 </span>
                                 <h1 class="mt-5 text-5xl md:text-6xl font-bold leading-tight">
                                     {{ $banner->title }}

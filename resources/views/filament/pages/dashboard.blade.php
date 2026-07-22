@@ -3,7 +3,7 @@
     <div class="mb-8">
 
         <h1 class="text-3xl font-bold text-blue-900">
-            Selamat Datang di Dashboard Perguruan Modern
+            Selamat Datang di Dashboard Perguruan Amaliah
         </h1>
 
         <p class="mt-2 text-gray-500">

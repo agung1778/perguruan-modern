@@ -17,7 +17,7 @@
             </p>
         @else
             <p class="mt-5 text-slate-400">
-                Dokumentasi kegiatan Perguruan Modern.
+                Dokumentasi kegiatan Perguruan Amaliah.
             </p>
         @endif
     </div>

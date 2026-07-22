@@ -10,7 +10,7 @@
             </h2>
             <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
                 Pengalaman dan kesan dari siswa, orang tua, dan masyarakat
-                terhadap Perguruan Modern.
+                terhadap Perguruan Amaliah.
             </p>
         </div>
         @if(isset($testimonials) && $testimonials->count())

@@ -10,8 +10,8 @@ class SeoMiddleware
     public function handle(Request $request, Closure $next)
     {
         view()->share('seo', [
-            'title' => 'Perguruan Modern',
-            'description' => 'Website resmi Perguruan Modern',
+            'title' => 'SIP perguruan Amaliah',
+            'description' => 'Website resmi SIP Perguruan Amaliah',
         ]);
 
         return $next($request);

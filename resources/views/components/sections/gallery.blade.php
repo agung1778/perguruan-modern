@@ -10,7 +10,7 @@
                     Dokumentasi Kegiatan
                 </h2>
                 <p class="mt-4 text-slate-600">
-                    Berbagai kegiatan dan aktivitas Perguruan Modern.
+                    Berbagai kegiatan dan aktivitas Perguruan Amaliah.
                 </p>
             </div>
             <a href="{{ route('gallery.index') }}"class="inline-flex items-center px-6 py-3 rounded-xl bg-blue-900 text-white hover:bg-yellow-500 hover:text-slate-900 transition font-semibold">

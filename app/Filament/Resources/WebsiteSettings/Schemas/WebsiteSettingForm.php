@@ -2,117 +2,118 @@
 
 namespace App\Filament\Resources\WebsiteSettings\Schemas;
 
-
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
-
 
 class WebsiteSettingForm
 {
-
     public static function configure(Schema $schema): Schema
     {
-
         return $schema
-
             ->components([
+                Section::make('Identitas Perguruan')
+                    ->description('Informasi utama yang digunakan pada website.')
+                    ->icon('heroicon-o-building-library')
+                    ->schema([
+                        TextInput::make('school_name')
+                            ->label('Nama Perguruan')
+                            ->required()
+                            ->maxLength(255),
 
+                        FileUpload::make('logo')
+                            ->label('Logo')
+                            ->image()
+                            ->disk('public')
+                            ->directory('website')
+                            ->visibility('public')
+                            ->imageEditor()
+                            ->maxSize(5120),
 
-                TextInput::make('school_name')
-                    ->label('Nama Perguruan')
-                    ->required(),
+                        FileUpload::make('favicon')
+                            ->label('Favicon')
+                            ->image()
+                            ->disk('public')
+                            ->directory('website')
+                            ->visibility('public')
+                            ->maxSize(1024),
+                    ])
+                    ->columns(2),
 
+                Section::make('Tentang Perguruan')
+                    ->icon('heroicon-o-information-circle')
+                    ->schema([
+                        Textarea::make('about')
+                            ->label('Tentang Singkat')
+                            ->rows(5)
+                            ->columnSpanFull(),
 
+                        Textarea::make('history')
+                            ->label('Sejarah')
+                            ->rows(8)
+                            ->columnSpanFull(),
 
-                FileUpload::make('logo')
-                    ->label('Logo Perguruan')
-                    ->image()
-                    ->disk('public')
-                    ->directory('website')
-                    ->visibility('public')
-                    ->imageEditor(),
+                        Textarea::make('vision')
+                            ->label('Visi')
+                            ->rows(5),
 
+                        Textarea::make('mission')
+                            ->label('Misi')
+                            ->rows(8),
+                    ])
+                    ->columns(2),
 
+                Section::make('Informasi Kontak')
+                    ->icon('heroicon-o-phone')
+                    ->schema([
+                        Textarea::make('address')
+                            ->label('Alamat')
+                            ->rows(4),
 
-                FileUpload::make('favicon')
-                    ->label('Favicon')
-                    ->image()
-                    ->disk('public')
-                    ->directory('website')
-                    ->visibility('public'),
+                        TextInput::make('phone')
+                            ->label('Nomor Telepon')
+                            ->tel(),
 
+                        TextInput::make('email')
+                            ->label('Email')
+                            ->email(),
 
+                        Textarea::make('google_maps')
+                            ->label('Google Maps / Embed URL')
+                            ->rows(4)
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(2),
 
-                Textarea::make('about')
-                    ->label('Tentang Perguruan')
-                    ->rows(6)
-                    ->columnSpanFull(),
+                Section::make('Media Sosial')
+                    ->icon('heroicon-o-share')
+                    ->schema([
+                        TextInput::make('facebook')
+                            ->label('Facebook')
+                            ->url(),
 
+                        TextInput::make('instagram')
+                            ->label('Instagram')
+                            ->url(),
 
+                        TextInput::make('youtube')
+                            ->label('YouTube')
+                            ->url(),
+                    ])
+                    ->columns(3),
 
-                Textarea::make('history')
-                    ->label('Sejarah Perguruan')
-                    ->rows(8)
-                    ->columnSpanFull(),
-
-
-
-                Textarea::make('vision')
-                    ->label('Visi')
-                    ->rows(5)
-                    ->columnSpanFull(),
-
-
-
-                Textarea::make('mission')
-                    ->label('Misi')
-                    ->rows(8)
-                    ->columnSpanFull(),
-
-
-
-                TextInput::make('address')
-                    ->label('Alamat'),
-
-
-
-                TextInput::make('phone')
-                    ->label('Nomor Telepon'),
-
-
-
-                TextInput::make('email')
-                    ->label('Email')
-                    ->email(),
-
-
-
-                TextInput::make('google_maps')
-                    ->label('Google Maps Embed'),
-
-
-
-                TextInput::make('facebook')
-                    ->label('Facebook'),
-
-
-                TextInput::make('instagram')
-                    ->label('Instagram'),
-
-
-                TextInput::make('youtube')
-                    ->label('Youtube'),
-
-
-                Textarea::make('meta_description')
-                    ->label('SEO Description')
-                    ->rows(3),
-
-
+                Section::make('SEO')
+                    ->icon('heroicon-o-magnifying-glass')
+                    ->schema([
+                        Textarea::make('meta_description')
+                            ->label('Meta Description')
+                            ->rows(4)
+                            ->maxLength(160)
+                            ->helperText('Disarankan maksimal 160 karakter.')
+                            ->columnSpanFull(),
+                    ]),
             ]);
-
     }
-
 }

@@ -9,7 +9,7 @@
                 Kegiatan Mendatang
             </h2>
             <p class="mt-4 text-slate-600">
-                Informasi kegiatan terbaru Perguruan Modern.
+                Informasi kegiatan terbaru Perguruan Amaliah.
             </p>
         </div>
         @if(isset($agendas) && $agendas->count())

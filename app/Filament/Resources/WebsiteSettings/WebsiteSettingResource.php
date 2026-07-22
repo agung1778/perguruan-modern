@@ -2,9 +2,6 @@
 
 namespace App\Filament\Resources\WebsiteSettings;
 
-use App\Filament\Resources\WebsiteSettings\Pages\CreateWebsiteSetting;
-use App\Filament\Resources\WebsiteSettings\Pages\EditWebsiteSetting;
-use App\Filament\Resources\WebsiteSettings\Pages\ListWebsiteSettings;
 use App\Filament\Resources\WebsiteSettings\Schemas\WebsiteSettingForm;
 use App\Filament\Resources\WebsiteSettings\Tables\WebsiteSettingsTable;
 use App\Models\WebsiteSetting;
@@ -18,48 +15,34 @@ class WebsiteSettingResource extends Resource
 {
     protected static ?string $model = WebsiteSetting::class;
 
-
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cog-6-tooth';
-
 
     protected static string|UnitEnum|null $navigationGroup = 'Website';
 
-
     protected static ?string $navigationLabel = 'Pengaturan Website';
-
 
     protected static ?string $modelLabel = 'Pengaturan Website';
 
-
     protected static ?string $pluralModelLabel = 'Pengaturan Website';
 
-
-    protected static ?int $navigationSort = 10;
-
-
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {
         return WebsiteSettingForm::configure($schema);
     }
 
-
-
     public static function table(Table $table): Table
     {
         return WebsiteSettingsTable::configure($table);
     }
 
-
-
     public static function getPages(): array
     {
         return [
-            'index' => ListWebsiteSettings::route('/'),
-
-            'create' => CreateWebsiteSetting::route('/create'),
-
-            'edit' => EditWebsiteSetting::route('/{record}/edit'),
+            'index' => Pages\ListWebsiteSettings::route('/'),
+            'create' => Pages\CreateWebsiteSetting::route('/create'),
+            'edit' => Pages\EditWebsiteSetting::route('/{record}/edit'),
         ];
     }
 }

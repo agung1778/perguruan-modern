@@ -12,7 +12,7 @@
             Berita Perguruan
         </h1>
         <p class="mt-5 text-lg text-slate-300">
-            Informasi terbaru, kegiatan, dan perkembangan Perguruan Modern.
+            Informasi terbaru, kegiatan, dan perkembangan Perguruan Amaliah.
         </p>
     </div>
 </section>

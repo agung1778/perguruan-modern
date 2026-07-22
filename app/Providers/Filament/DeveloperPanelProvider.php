@@ -55,7 +55,7 @@ class DeveloperPanelProvider extends PanelProvider
 
 
             ->brandName(
-                'Perguruan Modern Admin'
+                'Perguruan Amaliah Admin'
             )
 
 

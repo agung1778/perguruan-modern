@@ -13,7 +13,7 @@
             @endif
             <div>
                 <h1 class="font-bold text-lg text-blue-900">
-                    {{ $website?->school_name ?? 'Perguruan Modern' }}
+                    {{ $website?->school_name ?? 'Perguruan Amaliah' }}
                 </h1>
                 <p class="text-xs text-slate-500">
                     Website Resmi
@@ -43,6 +43,9 @@
             <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-blue-900 font-semibold'  : 'hover:text-blue-900' }}">
                 Kontak
             </a>
+            <a href="{{ route('ppdb.index') }}" class="{{ request()->routeIs('contact') ? 'text-blue-900 font-semibold'  : 'hover:text-blue-900' }}">
+                PPDB
+            </a>
         </nav>
         {{-- MOBILE BUTTON --}}
         <button class="lg:hidden text-2xl" @click="open=!open">
@@ -51,29 +54,32 @@
     </div>
 </div>
 {{-- MOBILE MENU --}}
-<div x-show="open" x-transition @click.outside="open=false" class="lg:hidden border-t bg-white">
-<div class="flex flex-col p-6 gap-5">
-<a href="{{ route('home') }}">
-    Beranda
-</a>
-<a href="{{ route('about') }}">
-    Tentang
-</a>
-<a href="{{ route('units.index') }}">
-    Unit Pendidikan
-</a>
-<a href="{{ route('news.index') }}">
-    Berita
-</a>
-<a href="{{ route('agenda.index') }}">
-    Agenda
-</a>
-<a href="{{ route('gallery.index') }}">
-    Galeri
-</a>
-<a href="{{ route('contact') }}">
-    Kontak
-</a>
-</div>
-</div>
+    <div x-show="open" x-transition @click.outside="open=false" class="lg:hidden border-t bg-white">
+        <div class="flex flex-col p-6 gap-5">
+            <a href="{{ route('home') }}">
+                Beranda
+            </a>
+            <a href="{{ route('about') }}">
+                Tentang
+            </a>
+            <a href="{{ route('units.index') }}">
+                Unit Pendidikan
+            </a>
+            <a href="{{ route('news.index') }}">
+                Berita
+            </a>
+            <a href="{{ route('agenda.index') }}">
+                Agenda
+            </a>
+            <a href="{{ route('gallery.index') }}">
+                Galeri
+            </a>
+            <a href="{{ route('contact') }}">
+                Kontak
+            </a>
+            <a href="{{ route('ppdb.index') }}">
+                PPDB
+            </a>
+        </div>
+    </div>
 </header>

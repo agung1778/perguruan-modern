@@ -2,34 +2,29 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasUuid;
+use App\Models\Ppdb;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Concerns\HasUuid;
-use App\Models\Teacher;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class EducationUnit extends Model
 {
-
     use HasUuid, SoftDeletes;
 
-
-    protected $fillable=[
+    protected $fillable = [
         'name',
         'short_name',
         'description',
         'logo',
         'photo',
-        'website'
+        'website',
     ];
 
-
-    public function teachers()
-    {
-        return $this->hasMany(Teacher::class);
-    }
-
-
-    public function students()
+    /**
+     * Relasi ke siswa.
+     */
+    public function students(): HasMany
     {
         return $this->hasMany(
             Student::class,
@@ -37,34 +32,21 @@ class EducationUnit extends Model
         );
     }
 
-    protected function getData(): array
+    /**
+     * Relasi ke guru dan karyawan.
+     */
+    public function teachers(): HasMany
     {
-        $units = EducationUnit::withCount('teachers')->get();
-
-        return [
-
-            'datasets' => [
-
-                [
-
-                    'label' => 'Guru',
-
-                    'data' => $units
-                        ->pluck('teachers_count')
-                        ->toArray(),
-
-                ],
-
-            ],
-
-            'labels' => $units
-                ->pluck('name')
-                ->toArray(),
-
-        ];
+        return $this->hasMany(
+            Teacher::class,
+            'education_unit_id'
+        );
     }
-    protected function getType(): string
+    public function ppdbs()
     {
-        return 'bar';
+        return $this->hasMany(
+            Ppdb::class,
+            'education_unit_id'
+        );
     }
 }

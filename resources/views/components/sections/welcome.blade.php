@@ -9,7 +9,7 @@
                 <h2 class="mt-4 text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
                     Selamat Datang di
                     <span class="text-blue-900">
-                        {{ $website?->site_name ?? 'Perguruan Modern' }}
+                        {{ $website?->site_name ?? 'Perguruan Amaliah' }}
                     </span>
                 </h2>
                 @if($website?->welcome_message)
@@ -18,7 +18,7 @@
                     </p>
                 @else
                     <p class="mt-8 text-slate-500 leading-8">
-                        Selamat datang di website resmi Perguruan Modern.
+                        Selamat datang di website resmi Perguruan Amaliah.
                     </p>
                 @endif
             </div>

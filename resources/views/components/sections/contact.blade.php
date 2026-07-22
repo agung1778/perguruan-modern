@@ -11,7 +11,7 @@
                 </h2>
                 <p class="mt-6 text-slate-300 leading-8">
                     Silahkan hubungi kami untuk informasi lebih lanjut mengenai
-                    Perguruan Modern.
+                    Perguruan Amaliah.
                 </p>
                 <div class="mt-10 space-y-8">
                     {{-- Address --}}

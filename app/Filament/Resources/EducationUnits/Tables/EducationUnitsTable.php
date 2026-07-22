@@ -15,19 +15,45 @@ class EducationUnitsTable
     {
         return $table
             ->columns([
-                ImageColumn::make('logo'),
+                ImageColumn::make('logo')
+                    ->label('Logo')
+                    ->disk('public')
+                    ->circular(),
+
                 TextColumn::make('name')
+                    ->label('Nama Unit')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('short_name'),
-                TextColumn::make('website'),
+
+                TextColumn::make('short_name')
+                    ->label('Singkatan')
+                    ->searchable(),
+
+                TextColumn::make('students_count')
+                    ->label('Siswa')
+                    ->counts('students')
+                    ->sortable(),
+
+                TextColumn::make('teachers_count')
+                    ->label('Guru')
+                    ->counts('teachers')
+                    ->sortable(),
+
+                TextColumn::make('website')
+                    ->label('Website')
+                    ->limit(30)
+                    ->url(fn ($record) => $record->website, true),
+
                 TextColumn::make('created_at')
-                    ->date(),
+                    ->label('Dibuat')
+                    ->dateTime('d M Y')
+                    ->sortable(),
             ])
-            ->recordActions([
+            ->defaultSort('created_at', 'desc')
+            ->actions([
                 EditAction::make(),
             ])
-            ->toolbarActions([
+            ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),

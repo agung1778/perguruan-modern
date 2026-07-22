@@ -9,7 +9,7 @@
                 Perguruan Dalam Angka
             </h2>
             <p class="mt-4 text-slate-300">
-                Data terbaru perkembangan Perguruan Modern.
+                Data terbaru perkembangan Perguruan Amaliah.
             </p>
         </div>
         @php

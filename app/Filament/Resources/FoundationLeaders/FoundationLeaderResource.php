@@ -2,9 +2,6 @@
 
 namespace App\Filament\Resources\FoundationLeaders;
 
-use App\Filament\Resources\FoundationLeaders\Pages\CreateFoundationLeader;
-use App\Filament\Resources\FoundationLeaders\Pages\EditFoundationLeader;
-use App\Filament\Resources\FoundationLeaders\Pages\ListFoundationLeaders;
 use App\Filament\Resources\FoundationLeaders\Schemas\FoundationLeaderForm;
 use App\Filament\Resources\FoundationLeaders\Tables\FoundationLeadersTable;
 use App\Models\FoundationLeader;
@@ -43,9 +40,9 @@ class FoundationLeaderResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => ListFoundationLeaders::route('/'),
-            'create' => CreateFoundationLeader::route('/create'),
-            'edit'   => EditFoundationLeader::route('/{record}/edit'),
+            'index' => Pages\ListFoundationLeaders::route('/'),
+            'create' => Pages\CreateFoundationLeader::route('/create'),
+            'edit' => Pages\EditFoundationLeader::route('/{record}/edit'),
         ];
     }
 }

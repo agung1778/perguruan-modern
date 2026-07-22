@@ -9,10 +9,10 @@
             Tentang Kami
         </span>
         <h1 class="mt-4 text-5xl font-bold">
-            Mengenal Perguruan Modern
+            Mengenal Perguruan Amaliah
         </h1>
         <p class="mt-6 max-w-3xl mx-auto text-lg text-slate-300 leading-8">
-            Mengenal lebih dekat sejarah, visi, misi, serta komitmen Perguruan Modern
+            Mengenal lebih dekat sejarah, visi, misi, serta komitmen Perguruan Amaliah
             dalam mencetak generasi yang unggul, berkarakter, dan berprestasi.
         </p>
     </div>

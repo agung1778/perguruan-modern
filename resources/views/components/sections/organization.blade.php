@@ -11,7 +11,7 @@
                 Yayasan
             </h2>
             <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
-                Mengenal jajaran organisasi yang mengelola Perguruan Modern.
+                Mengenal jajaran organisasi yang mengelola Perguruan Amaliah.
             </p>
         </div>
         {{-- Organization Card --}}

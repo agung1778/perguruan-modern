@@ -5,12 +5,9 @@ namespace App\Filament\Resources\FoundationLeaders\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ForceDeleteBulkAction;
-use Filament\Actions\RestoreBulkAction;
-use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
 class FoundationLeadersTable
@@ -19,46 +16,40 @@ class FoundationLeadersTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
+                ImageColumn::make('photo')
+                    ->label('Foto')
+                    ->disk('public')
+                    ->circular(),
+
                 TextColumn::make('name')
-                    ->searchable(),
-                TextColumn::make('photo')
-                    ->searchable(),
+                    ->label('Nama')
+                    ->searchable()
+                    ->sortable(),
+
                 TextColumn::make('position')
+                    ->label('Jabatan')
                     ->searchable(),
+
                 TextColumn::make('period')
-                    ->searchable(),
-                TextColumn::make('deskripsi')
-                    ->searchable(),
+                    ->label('Periode')
+                    ->sortable(),
+
                 IconColumn::make('is_active')
+                    ->label('Aktif')
                     ->boolean(),
+
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->label('Dibuat')
+                    ->dateTime('d M Y')
+                    ->sortable(),
             ])
-            ->filters([
-                TrashedFilter::make(),
-            ])
-            ->recordActions([
-                ViewAction::make(),
+            ->defaultSort('created_at', 'desc')
+            ->actions([
                 EditAction::make(),
             ])
-            ->toolbarActions([
+            ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
                 ]),
             ]);
     }

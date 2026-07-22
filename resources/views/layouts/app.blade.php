@@ -10,7 +10,7 @@
         {{ $website?->school_name ?? config('app.name') }}
     </title>
     {{-- SEO --}}
-    <meta  name="description" content="{{ $website?->meta_description ?? 'Website resmi Perguruan Modern' }}">
+    <meta  name="description" content="{{ $website?->meta_description ?? 'Website resmi Perguruan Amaliah' }}">
     {{-- Favicon --}}
     @if(!empty($website?->favicon))
         <link rel="icon" type="image/png" href="{{ Storage::url($website->favicon) }}">

@@ -12,7 +12,7 @@
         </h1>
 
         <p class="mt-5 text-lg text-slate-300">
-            Informasi kegiatan dan agenda Perguruan Modern.
+            Informasi kegiatan dan agenda Perguruan Amaliah.
         </p>
 
     </div>

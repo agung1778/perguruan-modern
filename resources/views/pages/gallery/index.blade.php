@@ -9,7 +9,7 @@
             Galeri Perguruan
         </h1>
         <p class="mt-5 text-slate-300 text-lg">
-            Dokumentasi kegiatan, prestasi, dan aktivitas Perguruan Modern.
+            Dokumentasi kegiatan, prestasi, dan aktivitas Perguruan Amaliah.
         </p>
     </div>
 </section>

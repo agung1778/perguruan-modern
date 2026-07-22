@@ -73,7 +73,8 @@ class HomeController extends Controller
                 |--------------------------------------------------------------------------
                 */
                 $organizations = FoundationOrganization::query()
-                    ->orderBy('position')
+                    ->active()
+                    ->ordered()
                     ->get();
                 /*
                 |--------------------------------------------------------------------------

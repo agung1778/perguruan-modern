@@ -2,46 +2,37 @@
 
 namespace App\Models;
 
-
-use Illuminate\Database\Eloquent\Model;
-
-use Illuminate\Database\Eloquent\SoftDeletes;
-
 use App\Models\Concerns\HasUuid;
-
-
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FoundationOrganization extends Model
 {
+    use HasUuid, SoftDeletes;
 
+    protected $fillable = [
+        'name',
+        'photo',
+        'position',
+        'order',
+        'is_active',
+    ];
 
-use HasUuid,SoftDeletes;
+    protected $casts = [
+        'order' => 'integer',
+        'is_active' => 'boolean',
+    ];
 
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('order');
+    }
 
-
-protected $fillable=[
-
-'name',
-
-'photo',
-
-'position',
-
-'order',
-
-'is_active'
-
-];
-public function scopeOrdered($query)
-{
-    return $query
-
-        ->orderBy('order');
-}
-
-public function scopeActive($query)
-{
-    return $query->where('is_active', true);
-}
-
+    public function scopeActive($query)
+    {
+        return $query->where(
+            'is_active',
+            true
+        );
+    }
 }

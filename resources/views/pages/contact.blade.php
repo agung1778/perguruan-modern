@@ -16,7 +16,7 @@
         </h1>
 
         <p class="mt-6 text-lg text-slate-300 max-w-2xl mx-auto">
-            Jangan ragu menghubungi Perguruan Modern apabila membutuhkan
+            Jangan ragu menghubungi Perguruan Amaliah apabila membutuhkan
             informasi mengenai sekolah, pendaftaran, ataupun kerja sama.
         </p>
 

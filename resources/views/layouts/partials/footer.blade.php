@@ -13,12 +13,12 @@
                     @endif
                 </a>
                 <h3 class="mt-5 text-xl font-bold">
-                    {{ $website?->school_name ?? 'Perguruan Modern' }}
+                    {{ $website?->school_name ?? 'Perguruan Amaliah' }}
                 </h3>
                 <p class="mt-5 text-slate-400 leading-7">
                     {{ Str::limit(
                         $website?->about ?? 
-                        'Website resmi perguruan modern.',
+                        'Website resmi perguruan Amaliah.',
                         180
                     ) }}
                 </p>
@@ -53,6 +53,11 @@
                     <li>
                         <a href="{{ route('gallery.index') }}" class="hover:text-yellow-400 transition">
                             Galeri
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('ppdb.index') }}" class="text-slate-400 hover:text-white transition">
+                            PPDB
                         </a>
                     </li>
                 </ul>
@@ -126,7 +131,7 @@
         <div class="border-t border-slate-800 mt-16 pt-8 flex flex-col md:flex-row justify-between gap-4 text-sm text-slate-500">
             <p>
                 © {{ date('Y') }}
-                {{ $website?->school_name ?? 'Perguruan Modern' }}
+                {{ $website?->school_name ?? 'Perguruan Amaliah' }}
                 . All Rights Reserved.
             </p>
             <p>

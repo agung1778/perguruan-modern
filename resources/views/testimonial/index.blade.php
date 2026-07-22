@@ -15,7 +15,7 @@
 
             <p class="mt-6 max-w-3xl mx-auto text-lg text-slate-300">
                 Berbagai pengalaman dan kesan dari siswa, alumni, orang tua, maupun
-                masyarakat terhadap Perguruan Modern.
+                masyarakat terhadap Perguruan Amaliah.
             </p>
         </div>
     </section>

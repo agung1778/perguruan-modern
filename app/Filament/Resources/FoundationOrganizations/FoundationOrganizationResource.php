@@ -2,9 +2,6 @@
 
 namespace App\Filament\Resources\FoundationOrganizations;
 
-use App\Filament\Resources\FoundationOrganizations\Pages\CreateFoundationOrganization;
-use App\Filament\Resources\FoundationOrganizations\Pages\EditFoundationOrganization;
-use App\Filament\Resources\FoundationOrganizations\Pages\ListFoundationOrganizations;
 use App\Filament\Resources\FoundationOrganizations\Schemas\FoundationOrganizationForm;
 use App\Filament\Resources\FoundationOrganizations\Tables\FoundationOrganizationsTable;
 use App\Models\FoundationOrganization;
@@ -43,9 +40,9 @@ class FoundationOrganizationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => ListFoundationOrganizations::route('/'),
-            'create' => CreateFoundationOrganization::route('/create'),
-            'edit'   => EditFoundationOrganization::route('/{record}/edit'),
+            'index' => Pages\ListFoundationOrganizations::route('/'),
+            'create' => Pages\CreateFoundationOrganization::route('/create'),
+            'edit' => Pages\EditFoundationOrganization::route('/{record}/edit'),
         ];
     }
 }
