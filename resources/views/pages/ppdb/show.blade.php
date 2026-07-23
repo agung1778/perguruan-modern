@@ -5,34 +5,28 @@
 {{-- =========================================================
     HERO
 ========================================================= --}}
-<section class="relative overflow-hidden bg-blue-950 py-24">
+<section class="relative overflow-hidden bg-emerald-950 py-20 sm:py-24 lg:py-28">
 
-    <div class="absolute inset-0 bg-gradient-to-br from-blue-950 via-blue-900 to-slate-950"></div>
+    {{-- Background Gradient --}}
+    <div class="absolute inset-0 bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-950"></div>
 
-    <div class="relative mx-auto max-w-5xl px-6 text-white">
+    {{-- Decorative Circle --}}
+    <div class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl"></div>
 
-        <a
-            href="{{ route('ppdb.index') }}"
-            class="inline-flex items-center gap-2 text-sm font-semibold text-blue-200 transition hover:text-yellow-400"
-        >
-            ← Kembali ke PPDB
-        </a>
+    <div class="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
 
-        <div class="mt-8">
+        <span class="inline-flex items-center rounded-full bg-white/10 px-5 py-2 text-xs font-bold uppercase tracking-widest text-emerald-300 ring-1 ring-white/10 sm:text-sm">
+            Penerimaan Peserta Didik Baru
+        </span>
 
-            <span class="text-sm font-semibold uppercase tracking-wider text-yellow-400">
-                {{ $ppdb->educationUnit?->name }}
-            </span>
+        <h1 class="mx-auto mt-6 max-w-4xl text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+            PPDB Perguruan Amaliah
+        </h1>
 
-            <h1 class="mt-4 text-4xl font-bold md:text-5xl">
-                {{ $ppdb->title }}
-            </h1>
-
-            <p class="mt-5 text-lg text-slate-300">
-                Tahun Ajaran {{ $ppdb->academic_year }}
-            </p>
-
-        </div>
+        <p class="mx-auto mt-6 max-w-2xl text-base leading-7 text-emerald-100/80 sm:text-lg sm:leading-8">
+            Temukan informasi penerimaan peserta didik baru
+            dari seluruh unit pendidikan Perguruan Amaliah.
+        </p>
 
     </div>
 
@@ -40,252 +34,337 @@
 
 
 {{-- =========================================================
-    MAIN CONTENT
+    CONTENT
 ========================================================= --}}
-<section class="bg-slate-50 py-20">
+<section class="bg-slate-50 py-16 sm:py-20 lg:py-24">
 
-    <div class="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-3">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
 
-        {{-- Main --}}
-        <article class="lg:col-span-2">
+        {{-- =====================================================
+            FILTER
+        ====================================================== --}}
+        <div class="mb-10 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200 sm:mb-12 sm:rounded-3xl sm:p-6">
 
-            <div class="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-200 md:p-10">
+            <form
+                action="{{ route('ppdb.index') }}"
+                method="GET"
+                class="flex flex-col gap-5 lg:flex-row lg:items-end"
+            >
 
+                <div class="w-full flex-1">
 
-                {{-- Status --}}
-                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-8">
-
-                    <div>
-
-                        <p class="text-sm font-medium text-slate-500">
-                            Status Pendaftaran
-                        </p>
-
-                        <div class="mt-2">
-
-                            @if($ppdb->status === 'open')
-
-                                <span class="inline-flex rounded-full bg-emerald-100 px-4 py-2 text-sm font-bold text-emerald-700">
-                                    ● Pendaftaran Dibuka
-                                </span>
-
-                            @elseif($ppdb->status === 'upcoming')
-
-                                <span class="inline-flex rounded-full bg-yellow-100 px-4 py-2 text-sm font-bold text-yellow-700">
-                                    ● Akan Dibuka
-                                </span>
-
-                            @else
-
-                                <span class="inline-flex rounded-full bg-red-100 px-4 py-2 text-sm font-bold text-red-700">
-                                    ● Pendaftaran Ditutup
-                                </span>
-
-                            @endif
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                {{-- Description --}}
-                @if($ppdb->description)
-
-                    <div class="mt-10">
-
-                        <h2 class="text-2xl font-bold text-slate-900">
-                            Informasi PPDB
-                        </h2>
-
-                        <div class="prose prose-slate mt-6 max-w-none">
-                            {!! $ppdb->description !!}
-                        </div>
-
-                    </div>
-
-                @endif
-
-
-                {{-- Requirements --}}
-                @if($ppdb->requirements)
-
-                    <div class="mt-12 border-t border-slate-100 pt-10">
-
-                        <h2 class="text-2xl font-bold text-slate-900">
-                            Persyaratan Pendaftaran
-                        </h2>
-
-                        <div class="prose prose-slate mt-6 max-w-none">
-                            {!! $ppdb->requirements !!}
-                        </div>
-
-                    </div>
-
-                @endif
-
-
-                {{-- Schedule --}}
-                @if($ppdb->schedule)
-
-                    <div class="mt-12 border-t border-slate-100 pt-10">
-
-                        <h2 class="text-2xl font-bold text-slate-900">
-                            Jadwal Pendaftaran
-                        </h2>
-
-                        <div class="prose prose-slate mt-6 max-w-none">
-                            {!! $ppdb->schedule !!}
-                        </div>
-
-                    </div>
-
-                @endif
-
-            </div>
-
-        </article>
-
-
-        {{-- Sidebar --}}
-        <aside class="space-y-6">
-
-
-            {{-- Registration --}}
-            <div class="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
-
-                <h3 class="text-xl font-bold text-slate-900">
-                    Pendaftaran
-                </h3>
-
-
-                @if($ppdb->registration_start || $ppdb->registration_end)
-
-                    <div class="mt-6 space-y-5">
-
-                        @if($ppdb->registration_start)
-
-                            <div>
-
-                                <p class="text-sm text-slate-500">
-                                    Mulai Pendaftaran
-                                </p>
-
-                                <p class="mt-1 font-bold text-slate-900">
-                                    {{ $ppdb->registration_start->translatedFormat('d F Y') }}
-                                </p>
-
-                            </div>
-
-                        @endif
-
-
-                        @if($ppdb->registration_end)
-
-                            <div>
-
-                                <p class="text-sm text-slate-500">
-                                    Batas Pendaftaran
-                                </p>
-
-                                <p class="mt-1 font-bold text-slate-900">
-                                    {{ $ppdb->registration_end->translatedFormat('d F Y') }}
-                                </p>
-
-                            </div>
-
-                        @endif
-
-                    </div>
-
-                @endif
-
-
-                @if($ppdb->status === 'open' && $ppdb->registration_url)
-
-                    <a
-                        href="{{ $ppdb->registration_url }}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="mt-8 block w-full rounded-xl bg-yellow-500 px-6 py-4 text-center font-bold text-slate-950 transition hover:bg-yellow-400"
+                    <label
+                        for="unit"
+                        class="mb-2 block text-sm font-semibold text-slate-700"
                     >
-                        Daftar Sekarang
-                    </a>
+                        Pilih Unit Pendidikan
+                    </label>
 
-                @elseif($ppdb->status === 'upcoming')
+                    <select
+                        name="unit"
+                        id="unit"
+                        class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm transition focus:border-emerald-600 focus:ring-emerald-600"
+                    >
 
-                    <div class="mt-8 rounded-xl bg-yellow-50 p-4 text-center text-sm font-semibold text-yellow-700">
-                        Pendaftaran belum dibuka.
-                    </div>
+                        <option value="">
+                            Semua Unit Pendidikan
+                        </option>
 
-                @else
+                        @foreach($units as $unit)
 
-                    <div class="mt-8 rounded-xl bg-slate-100 p-4 text-center text-sm font-semibold text-slate-500">
-                        Pendaftaran telah ditutup.
-                    </div>
-
-                @endif
-
-            </div>
-
-
-            {{-- Contact --}}
-            @if($ppdb->contact)
-
-                <div class="rounded-3xl bg-blue-950 p-8 text-white">
-
-                    <h3 class="text-xl font-bold">
-                        Informasi Kontak
-                    </h3>
-
-                    <div class="mt-5 whitespace-pre-line text-sm leading-7 text-blue-100">
-                        {{ $ppdb->contact }}
-                    </div>
-
-                </div>
-
-            @endif
-
-
-            {{-- Related PPDB --}}
-            @if($relatedPpdbs->count())
-
-                <div class="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
-
-                    <h3 class="text-xl font-bold text-slate-900">
-                        PPDB Lainnya
-                    </h3>
-
-                    <div class="mt-6 space-y-5">
-
-                        @foreach($relatedPpdbs as $item)
-
-                            <a
-                                href="{{ route('ppdb.show', $item) }}"
-                                class="group block border-b border-slate-100 pb-5 last:border-0 last:pb-0"
+                            <option
+                                value="{{ $unit->id }}"
+                                @selected(request('unit') == $unit->id)
                             >
-
-                                <p class="font-semibold text-slate-800 transition group-hover:text-blue-900">
-                                    {{ $item->title }}
-                                </p>
-
-                                <p class="mt-1 text-sm text-slate-500">
-                                    {{ $item->academic_year }}
-                                </p>
-
-                            </a>
+                                {{ $unit->name }}
+                            </option>
 
                         @endforeach
 
-                    </div>
+                    </select>
 
                 </div>
 
-            @endif
 
-        </aside>
+                <div class="flex w-full flex-col gap-3 sm:flex-row lg:w-auto">
+
+                    <button
+                        type="submit"
+                        class="w-full rounded-xl bg-emerald-700 px-7 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 sm:w-auto"
+                    >
+                        Filter
+                    </button>
+
+                    @if(request()->filled('unit'))
+
+                        <a
+                            href="{{ route('ppdb.index') }}"
+                            class="w-full rounded-xl border border-slate-300 px-7 py-3 text-center text-sm font-bold text-slate-700 transition hover:bg-slate-100 sm:w-auto"
+                        >
+                            Reset
+                        </a>
+
+                    @endif
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        {{-- =====================================================
+            PPDB CARDS
+        ====================================================== --}}
+        @if($ppdbs->count())
+
+            <div class="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+                @foreach($ppdbs as $ppdb)
+
+                    <article
+                        class="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 transition duration-300 hover:-translate-y-1 hover:shadow-xl sm:rounded-3xl"
+                    >
+
+                        {{-- Header --}}
+                        <div class="relative bg-gradient-to-br from-emerald-950 via-emerald-900 to-emerald-800 p-6 text-white sm:p-8">
+
+                            <div class="flex items-start justify-between gap-4">
+
+                                <div class="min-w-0">
+
+                                    <span class="text-xs font-semibold uppercase tracking-wide text-emerald-300">
+                                        {{ $ppdb->educationUnit?->name ?? 'Perguruan Amaliah' }}
+                                    </span>
+
+                                    <h2 class="mt-3 text-xl font-bold leading-tight sm:text-2xl">
+                                        {{ $ppdb->title }}
+                                    </h2>
+
+                                </div>
+
+
+                                @if($ppdb->status === 'open')
+
+                                    <span class="shrink-0 rounded-full bg-emerald-400/20 px-3 py-1 text-xs font-bold text-emerald-200 ring-1 ring-emerald-300/20">
+                                        Dibuka
+                                    </span>
+
+                                @elseif($ppdb->status === 'upcoming')
+
+                                    <span class="shrink-0 rounded-full bg-amber-400/20 px-3 py-1 text-xs font-bold text-amber-200 ring-1 ring-amber-300/20">
+                                        Akan Dibuka
+                                    </span>
+
+                                @else
+
+                                    <span class="shrink-0 rounded-full bg-red-400/20 px-3 py-1 text-xs font-bold text-red-200 ring-1 ring-red-300/20">
+                                        Ditutup
+                                    </span>
+
+                                @endif
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- Body --}}
+                        <div class="flex flex-1 flex-col p-6 sm:p-8">
+
+                            <div class="space-y-5">
+
+                                {{-- Tahun Ajaran --}}
+                                <div class="flex items-start gap-4">
+
+                                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+                                        <svg
+                                            class="h-5 w-5"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                            />
+                                        </svg>
+                                    </div>
+
+                                    <div>
+
+                                        <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">
+                                            Tahun Ajaran
+                                        </p>
+
+                                        <p class="mt-1 font-semibold text-slate-800">
+                                            {{ $ppdb->academic_year }}
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+
+                                {{-- Periode --}}
+                                @if($ppdb->registration_start || $ppdb->registration_end)
+
+                                    <div class="flex items-start gap-4">
+
+                                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+                                            <svg
+                                                class="h-5 w-5"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                                />
+                                            </svg>
+                                        </div>
+
+                                        <div>
+
+                                            <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">
+                                                Periode Pendaftaran
+                                            </p>
+
+                                            <p class="mt-1 text-sm font-semibold leading-6 text-slate-800">
+
+                                                @if($ppdb->registration_start)
+
+                                                    {{ $ppdb->registration_start->translatedFormat('d F Y') }}
+
+                                                @endif
+
+                                                @if($ppdb->registration_start && $ppdb->registration_end)
+
+                                                    <span class="mx-1 text-slate-400">
+                                                        —
+                                                    </span>
+
+                                                @endif
+
+                                                @if($ppdb->registration_end)
+
+                                                    {{ $ppdb->registration_end->translatedFormat('d F Y') }}
+
+                                                @endif
+
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                @endif
+
+                            </div>
+
+
+                            {{-- Description --}}
+                            @if($ppdb->description)
+
+                                <div class="mt-6 border-t border-slate-100 pt-6">
+
+                                    <p class="line-clamp-3 text-sm leading-7 text-slate-600">
+                                        {{ strip_tags($ppdb->description) }}
+                                    </p>
+
+                                </div>
+
+                            @endif
+
+
+                            {{-- Actions --}}
+                            <div class="mt-auto flex flex-col gap-3 pt-8 sm:flex-row">
+
+                                <a
+                                    href="{{ route('ppdb.show', $ppdb) }}"
+                                    class="flex-1 rounded-xl bg-emerald-700 px-5 py-3 text-center text-sm font-bold text-white transition hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2"
+                                >
+                                    Lihat Detail
+                                </a>
+
+                                @if($ppdb->status === 'open' && $ppdb->registration_url)
+
+                                    <a
+                                        href="{{ $ppdb->registration_url }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="flex-1 rounded-xl bg-amber-500 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                                    >
+                                        Daftar Sekarang
+                                    </a>
+
+                                @endif
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                @endforeach
+
+            </div>
+
+
+            {{-- Pagination --}}
+            <div class="mt-12 sm:mt-14">
+                {{ $ppdbs->links() }}
+            </div>
+
+
+        @else
+
+            {{-- Empty State --}}
+            <div class="rounded-2xl bg-white px-6 py-16 text-center shadow-sm ring-1 ring-slate-200 sm:rounded-3xl sm:py-20">
+
+                <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+
+                    <svg
+                        class="h-10 w-10"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="1.5"
+                            d="M12 14l9-5-9-5-9 5 9 5z"
+                        />
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="1.5"
+                            d="M5 12v5c3 2 9 2 14 0v-5"
+                        />
+                    </svg>
+
+                </div>
+
+                <h2 class="mt-6 text-xl font-bold text-slate-900 sm:text-2xl">
+                    Belum Ada Informasi PPDB
+                </h2>
+
+                <p class="mx-auto mt-3 max-w-lg text-sm leading-7 text-slate-500 sm:text-base">
+                    Informasi penerimaan peserta didik baru
+                    belum tersedia untuk saat ini.
+                </p>
+
+            </div>
+
+        @endif
 
     </div>
 

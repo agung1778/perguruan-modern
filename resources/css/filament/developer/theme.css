@@ -1,34 +1,838 @@
 @import '../../../../vendor/filament/filament/resources/css/theme.css';
 
 
+/* =========================================================
+   FILAMENT ADMIN THEME
+========================================================= */
+
+:root {
+    --amaliah-green-900: #064e3b;
+    --amaliah-green-800: #065f46;
+    --amaliah-green-700: #047857;
+    --amaliah-green-600: #059669;
+    --amaliah-green-500: #10b981;
+    --amaliah-green-100: #d1fae5;
+    --amaliah-green-50: #ecfdf5;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
 .fi-sidebar {
+    background:
+        linear-gradient(
+            180deg,
+            #064e3b 0%,
+            #022c22 100%
+        );
+}
+
+.fi-sidebar-item-label {
+    color: white;
+}
+
+.fi-sidebar-item-icon {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.fi-sidebar-item-active {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.fi-sidebar-item-active .fi-sidebar-item-label,
+.fi-sidebar-item-active .fi-sidebar-item-icon {
+    color: white;
+}
+
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.fi-topbar {
+    background: white;
+}
+
+
+/* =========================================================
+   BRAND LOGO
+========================================================= */
+
+.fi-brand-logo {
+    height: 45px;
+    width: auto;
+}
+
+
+/* =========================================================
+   LOGIN PAGE
+========================================================= */
+
+.amaliah-login-page {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100vw;
+
+    height: 100vh;
+
+    display: grid;
+
+    grid-template-columns: 1fr 520px;
+
+    background: #f8faf9;
+
+    overflow: hidden;
+
+    z-index: 9999;
+}
+
+
+/* =========================================================
+   LEFT VISUAL
+========================================================= */
+
+.amaliah-login-visual {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 100vh;
+
+    overflow: hidden;
+
+    background: #064e3b;
+}
+
+
+.amaliah-login-background {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center;
+
+}
+
+
+.amaliah-login-overlay {
+
+    position: absolute;
+
+    inset: 0;
 
     background:
-    linear-gradient(
-        180deg,
-        #172554,
-        #020617
-    );
+        linear-gradient(
+            90deg,
+            rgba(2, 44, 34, 0.90) 0%,
+            rgba(2, 44, 34, 0.65) 45%,
+            rgba(2, 44, 34, 0.15) 100%
+        );
 
 }
 
 
-.fi-sidebar-item-label{
+.amaliah-login-visual-content {
 
-    color:white;
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 2;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    padding: 64px;
+
+    color: white;
 
 }
 
 
-.fi-topbar{
+.amaliah-visual-brand {
 
-    background:white;
+    display: flex;
+
+    align-items: center;
 
 }
 
 
-.fi-brand-logo{
+.amaliah-visual-brand img {
 
-    height:45px;
+    max-width: 180px;
+
+    max-height: 80px;
+
+    object-fit: contain;
+
+    filter: brightness(0) invert(1);
+
+}
+
+
+.amaliah-visual-text {
+
+    max-width: 560px;
+
+    padding-bottom: 20px;
+
+}
+
+
+.amaliah-visual-label {
+
+    display: inline-block;
+
+    margin-bottom: 16px;
+
+    padding: 8px 14px;
+
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    font-size: 0.75rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.15em;
+
+}
+
+
+.amaliah-visual-text h2 {
+
+    margin: 0;
+
+    font-size: clamp(2.5rem, 4vw, 4.5rem);
+
+    line-height: 1.05;
+
+    font-weight: 800;
+
+    letter-spacing: -0.04em;
+
+}
+
+
+.amaliah-visual-text p {
+
+    max-width: 500px;
+
+    margin-top: 24px;
+
+    font-size: 1rem;
+
+    line-height: 1.8;
+
+    color: rgba(255, 255, 255, 0.78);
+
+}
+
+
+/* =========================================================
+   RIGHT PANEL
+========================================================= */
+
+.amaliah-login-panel {
+
+    width: 520px;
+
+    height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 40px;
+
+    background: #f8faf9;
+
+    overflow-y: auto;
+
+}
+
+
+.amaliah-login-card {
+
+    width: 100%;
+
+    max-width: 420px;
+
+    padding: 42px;
+
+    background: white;
+
+    border-radius: 24px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 20px 50px rgba(6, 78, 59, 0.08);
+
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.amaliah-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 42px;
+
+}
+
+
+.amaliah-brand-logo {
+
+    width: 58px;
+
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 15px;
+
+    background: #ecfdf5;
+
+}
+
+
+.amaliah-brand-logo img {
+
+    width: 44px;
+
+    height: 44px;
+
+    object-fit: contain;
+
+}
+
+
+.amaliah-brand-placeholder {
+
+    width: 44px;
+
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #059669;
+
+    color: white;
+
+}
+
+
+.amaliah-brand-placeholder svg {
+
+    width: 25px;
+
+    height: 25px;
+
+}
+
+
+.amaliah-brand-name {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+
+    color: #064e3b;
+
+    font-size: 1rem;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    letter-spacing: 0.02em;
+
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.amaliah-login-heading {
+
+    margin-bottom: 30px;
+
+}
+
+
+.amaliah-login-heading h1 {
+
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 2rem;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    letter-spacing: -0.035em;
+
+}
+
+
+.amaliah-login-heading p {
+
+    margin-top: 10px;
+
+    color: #6b7280;
+
+    font-size: 0.95rem;
+
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.amaliah-login-form {
+
+    width: 100%;
+
+}
+
+
+/* =========================================================
+   FILAMENT LOGIN FORM
+========================================================= */
+
+.amaliah-login-form {
+    width: 100%;
+    color: #111827;
+}
+
+/* Label */
+.amaliah-login-form label,
+.amaliah-login-form .fi-fo-field-wrp-label {
+    color: #374151 !important;
+    font-weight: 600 !important;
+}
+
+/* Input wrapper */
+.amaliah-login-form .fi-input-wrp {
+    background: #ffffff !important;
+    border-color: #d1d5db !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+}
+
+/* Input */
+.amaliah-login-form input.fi-input,
+.amaliah-login-form input[type="email"],
+.amaliah-login-form input[type="password"],
+.amaliah-login-form input[type="text"] {
+    min-height: 48px !important;
+
+    background-color: #ffffff !important;
+
+    color: #111827 !important;
+
+    -webkit-text-fill-color: #111827 !important;
+
+    border-radius: 10px !important;
+}
+
+/* Placeholder */
+.amaliah-login-form input::placeholder {
+    color: #9ca3af !important;
+    opacity: 1 !important;
+}
+
+/* Saat input aktif */
+.amaliah-login-form .fi-input-wrp:focus-within {
+    border-color: #059669 !important;
+
+    box-shadow:
+        0 0 0 1px #059669 !important;
+}
+
+/* Checkbox */
+.amaliah-login-form input[type="checkbox"] {
+    accent-color: #059669;
+}
+
+/* Teks Remember Me */
+.amaliah-login-form .fi-checkbox-label {
+    color: #4b5563 !important;
+}
+
+/* Link Forgot Password */
+.amaliah-login-form a {
+    color: #059669 !important;
+    font-weight: 600;
+}
+
+.amaliah-login-form a:hover {
+    color: #047857 !important;
+}
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.amaliah-login-form button[type="submit"],
+.amaliah-login-form .fi-btn[type="submit"] {
+    display: inline-flex !important;
+
+    width: 100% !important;
+
+    min-height: 50px !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 12px 20px !important;
+
+    margin-top: 10px !important;
+
+    background-color: #059669 !important;
+
+    color: #ffffff !important;
+
+    border: none !important;
+
+    border-radius: 10px !important;
+
+    font-size: 15px !important;
+
+    font-weight: 700 !important;
+
+    cursor: pointer !important;
+
+    opacity: 1 !important;
+
+    visibility: visible !important;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+.amaliah-login-form button[type="submit"]:hover,
+.amaliah-login-form .fi-btn[type="submit"]:hover {
+    background-color: #047857 !important;
+
+    box-shadow:
+        0 10px 20px rgba(5, 150, 105, 0.2) !important;
+}
+
+.amaliah-login-form button[type="submit"]:active,
+.amaliah-login-form .fi-btn[type="submit"]:active {
+    transform: translateY(1px);
+}
+
+/* Text di dalam tombol */
+.amaliah-login-form button[type="submit"] span,
+.amaliah-login-form .fi-btn[type="submit"] span {
+    color: #ffffff !important;
+}
+
+/* Icon tombol */
+.amaliah-login-form button[type="submit"] svg,
+.amaliah-login-form .fi-btn[type="submit"] svg {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   SECURITY NOTICE
+========================================================= */
+
+.amaliah-security-notice {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin-top: 30px;
+
+    padding-top: 24px;
+
+    border-top: 1px solid #e5e7eb;
+
+}
+
+
+.amaliah-security-icon {
+
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background: #ecfdf5;
+
+    color: #059669;
+
+}
+
+
+.amaliah-security-icon svg {
+
+    width: 20px;
+
+    height: 20px;
+
+}
+
+
+.amaliah-security-content strong {
+
+    display: block;
+
+    color: #374151;
+
+    font-size: 0.85rem;
+
+    font-weight: 700;
+
+}
+
+
+.amaliah-security-content p {
+
+    margin-top: 4px;
+
+    color: #6b7280;
+
+    font-size: 0.78rem;
+
+    line-height: 1.6;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.amaliah-login-footer {
+
+    margin-top: 28px;
+
+    text-align: center;
+
+}
+
+
+.amaliah-login-footer span {
+
+    color: #9ca3af;
+
+    font-size: 0.75rem;
+
+}
+
+
+/* =========================================================
+   HIDE FILAMENT DEFAULT SIMPLE PAGE WRAPPER
+========================================================= */
+
+.fi-simple-layout {
+
+    width: 100vw !important;
+
+    min-width: 100vw !important;
+
+    max-width: none !important;
+
+    min-height: 100vh !important;
+
+    padding: 0 !important;
+
+    margin: 0 !important;
+
+    background: transparent !important;
+
+}
+
+
+.fi-simple-main {
+
+    width: 100vw !important;
+
+    max-width: none !important;
+
+    min-height: 100vh !important;
+
+    padding: 0 !important;
+
+    margin: 0 !important;
+
+}
+
+
+.fi-simple-page {
+
+    width: 100vw !important;
+
+    max-width: none !important;
+
+    min-height: 100vh !important;
+
+    padding: 0 !important;
+
+    margin: 0 !important;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .amaliah-login-page {
+
+        grid-template-columns: 1fr 460px;
+
+    }
+
+    .amaliah-login-panel {
+
+        width: 460px;
+
+        padding: 30px;
+
+    }
+
+    .amaliah-login-card {
+
+        padding: 36px;
+
+    }
+
+}
+
+
+@media (max-width: 900px) {
+
+    .amaliah-login-page {
+
+        display: block;
+
+        overflow-y: auto;
+
+    }
+
+    .amaliah-login-visual {
+
+        display: none;
+
+    }
+
+    .amaliah-login-panel {
+
+        width: 100%;
+
+        min-height: 100vh;
+
+        height: auto;
+
+        padding: 30px 20px;
+
+    }
+
+    .amaliah-login-card {
+
+        max-width: 440px;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .amaliah-login-panel {
+
+        padding: 20px 14px;
+
+    }
+
+    .amaliah-login-card {
+
+        padding: 28px 22px;
+
+        border-radius: 18px;
+
+    }
+
+    .amaliah-brand {
+
+        margin-bottom: 32px;
+
+    }
+
+    .amaliah-login-heading h1 {
+
+        font-size: 1.7rem;
+
+    }
 
 }

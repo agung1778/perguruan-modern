@@ -1,96 +1,381 @@
-<section class="py-24 bg-slate-50">
-    <div class="max-w-7xl mx-auto px-6">
+
+<section class="relative overflow-hidden bg-slate-50 py-24 sm:py-28">
+
+    
+    <div class="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-emerald-100/50 blur-3xl"></div>
+
+    <div class="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-green-100/40 blur-3xl"></div>
+
+
+    <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
+
+
         
-        <div class="text-center">
-            <span class="text-yellow-600 font-semibold uppercase tracking-wider">
+        <div class="mx-auto max-w-3xl text-center">
+
+            
+            <div class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold uppercase tracking-wider text-emerald-700">
+
+                <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+
                 Unit Pendidikan
-            </span>
-            <h2 class="text-4xl md:text-5xl font-bold mt-3 text-slate-900">
+
+            </div>
+
+
+            
+            <h2 class="mt-5 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
+
                 Pilih Jenjang Pendidikan
+
             </h2>
-            <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
-                Kenali unit pendidikan kami dari tingkat TK hingga Kampus.
+
+
+            
+            <div class="mt-6 flex items-center justify-center gap-2">
+
+                <span class="h-1 w-14 rounded-full bg-emerald-600"></span>
+
+                <span class="h-1 w-5 rounded-full bg-emerald-300"></span>
+
+            </div>
+
+
+            
+            <p class="mx-auto mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
+
+                Kenali unit pendidikan kami dari tingkat TK hingga
+                jenjang pendidikan lainnya.
+
             </p>
+
         </div>
+
+
+        
         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(isset($units) && $units->count()): ?>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mt-16">
+
+            <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+
                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $units; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $unit): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300">
+
+                    
+                    <article
+                        class="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-emerald-200 hover:shadow-xl hover:shadow-emerald-900/10"
+                    >
+
                         
-                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($unit->photo): ?>
-                            <img src="<?php echo e(asset('storage/'.$unit->photo)); ?>" alt="<?php echo e($unit->name); ?>" class="h-56 w-full object-cover">
-                        <?php else: ?>
-                            <div class="h-56 bg-slate-200 flex items-center justify-center">
-                                <span class="text-slate-500">
-                                    Foto Belum Tersedia
-                                </span>
-                            </div>
-                        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-                        <div class="p-8 relative">
-                            
-                            <div class="flex justify-center -mt-20">
-                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($unit->logo): ?>
-                                    <img src="<?php echo e(asset('storage/'.$unit->logo)); ?>" alt="<?php echo e($unit->name); ?>" class="h-24 w-24 rounded-full object-cover bg-white p-2 shadow-xl border-4 border-white">
-                                <?php else: ?>
-                                    <div class="h-24 w-24 rounded-full bg-blue-900 flex items-center justify-center text-white text-3xl font-bold shadow-xl">
-                                        <?php echo e(strtoupper(substr($unit->short_name ?? $unit->name,0,1))); ?>
+                        <div class="relative h-60 overflow-hidden">
+
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(filled($unit->photo)): ?>
+
+                                <img
+                                    src="<?php echo e(Storage::url($unit->photo)); ?>"
+                                    alt="<?php echo e($unit->name); ?>"
+                                    loading="lazy"
+                                    class="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                                >
+
+                                
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
+
+                            <?php else: ?>
+
+                                <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-emerald-50 to-slate-100">
+
+                                    <div class="text-center">
+
+                                        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-emerald-600 shadow-sm">
+
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke-width="1.7"
+                                                stroke="currentColor"
+                                                class="h-8 w-8"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M3 21h18M5.25 21V9.75L12 5l6.75 4.75V21M9 21v-5.25h6V21"
+                                                />
+                                            </svg>
+
+                                        </div>
+
+                                        <span class="mt-3 block text-sm font-medium text-slate-500">
+                                            Foto Belum Tersedia
+                                        </span>
 
                                     </div>
+
+                                </div>
+
+                            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+                        </div>
+
+
+                        
+                        <div class="relative px-7 pb-7 sm:px-8 sm:pb-8">
+
+
+                            
+                            <div class="-mt-14 flex justify-center">
+
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(filled($unit->logo)): ?>
+
+                                    <div class="relative">
+
+                                        <div class="absolute -inset-1 rounded-2xl bg-emerald-200/60 blur-sm"></div>
+
+                                        <img
+                                            src="<?php echo e(Storage::url($unit->logo)); ?>"
+                                            alt="<?php echo e($unit->name); ?>"
+                                            loading="lazy"
+                                            class="relative h-24 w-24 rounded-2xl border-4 border-white bg-white object-contain p-2 shadow-xl"
+                                        >
+
+                                    </div>
+
+                                <?php else: ?>
+
+                                    <div class="relative flex h-24 w-24 items-center justify-center rounded-2xl border-4 border-white bg-gradient-to-br from-emerald-600 to-emerald-800 text-3xl font-bold text-white shadow-xl">
+
+                                        <?php echo e(strtoupper(mb_substr($unit->short_name ?? $unit->name, 0, 1))); ?>
+
+
+                                    </div>
+
                                 <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
                             </div>
-                            <div class="text-center mt-6">
-                                <h3 class="text-2xl font-bold text-slate-900">
+
+
+                            
+                            <div class="mt-6 text-center">
+
+                                <h3 class="text-2xl font-bold tracking-tight text-slate-900">
+
                                     <?php echo e($unit->name); ?>
 
+
                                 </h3>
-                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($unit->short_name): ?>
-                                    <span class="text-sm text-blue-900 font-semibold">
+
+
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(filled($unit->short_name)): ?>
+
+                                    <span class="mt-2 inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-700">
+
                                         <?php echo e($unit->short_name); ?>
 
+
                                     </span>
+
                                 <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-                                <p class="mt-3 text-slate-500 leading-7">
-                                    <?php echo e(Str::limit($unit->description,90)); ?>
 
-                                </p>
+
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(filled($unit->description)): ?>
+
+                                    <p class="mt-4 min-h-[56px] text-sm leading-7 text-slate-500">
+
+                                        <?php echo e(Str::limit(strip_tags($unit->description), 100)); ?>
+
+
+                                    </p>
+
+                                <?php else: ?>
+
+                                    <p class="mt-4 min-h-[56px] text-sm leading-7 text-slate-400">
+
+                                        Informasi unit pendidikan belum tersedia.
+
+                                    </p>
+
+                                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
                             </div>
+
+
                             
-                            <div class="grid grid-cols-2 gap-4 mt-8">
-                                <div class="rounded-xl bg-blue-50 p-5 text-center">
-                                    <h4 class="text-3xl font-bold text-blue-900">
-                                        <?php echo e($unit->students_count ?? 0); ?>
+                            <div class="mt-8 grid grid-cols-2 gap-3">
+
+
+                                
+                                <div class="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-5 text-center transition group-hover:bg-emerald-50">
+
+                                    <div class="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.7"
+                                            stroke="currentColor"
+                                            class="h-5 w-5"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M4.5 7.5 12 3l7.5 4.5L12 12 4.5 7.5Z"
+                                            />
+
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M7.5 9.3V15c0 .8 2 2.5 4.5 2.5s4.5-1.7 4.5-2.5V9.3"
+                                            />
+
+                                        </svg>
+
+                                    </div>
+
+                                    <h4 class="mt-3 text-2xl font-extrabold text-emerald-700">
+
+                                        <?php echo e(number_format($unit->students_count ?? 0)); ?>
+
 
                                     </h4>
-                                    <p class="text-sm text-slate-600">
+
+                                    <p class="mt-1 text-xs font-medium text-slate-500">
+
                                         Siswa
+
                                     </p>
+
                                 </div>
-                                <div class="rounded-xl bg-yellow-50 p-5 text-center">
-                                    <h4 class="text-3xl font-bold text-yellow-600">
-                                        <?php echo e($unit->teachers_count ?? 0); ?>
+
+
+                                
+                                <div class="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-5 text-center transition group-hover:bg-emerald-50">
+
+                                    <div class="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.7"
+                                            stroke="currentColor"
+                                            class="h-5 w-5"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.34 9.34 0 0 0 4.121-.952M15 19.128v-.003c0-1.14-.67-2.2-1.712-2.7a6.75 6.75 0 0 0-5.576 0C6.67 16.925 6 17.985 6 19.125v.003m9 0a9.38 9.38 0 0 1-2.625.372 9.34 9.34 0 0 1-4.121-.952M12 13.5a4.125 4.125 0 1 0 0-8.25 4.125 4.125 0 0 0 0 8.25Z"
+                                            />
+                                        </svg>
+
+                                    </div>
+
+                                    <h4 class="mt-3 text-2xl font-extrabold text-emerald-700">
+
+                                        <?php echo e(number_format($unit->teachers_count ?? 0)); ?>
+
 
                                     </h4>
-                                    <p class="text-sm text-slate-600">
+
+                                    <p class="mt-1 text-xs font-medium text-slate-500">
+
                                         Guru
+
                                     </p>
+
                                 </div>
+
                             </div>
+
+
                             
-                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($unit->website): ?>
-                                <div class="mt-8">
-                                    <a href="<?php echo e($unit->website); ?>"target="_blank" class="w-full inline-flex justify-center items-center rounded-xl bg-blue-900 hover:bg-yellow-500 hover:text-slate-900 text-white py-4 transition font-semibold">
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(filled($unit->website)): ?>
+
+                                <div class="mt-7">
+
+                                    <a
+                                        href="<?php echo e($unit->website); ?>"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-700 px-6 py-3.5 font-semibold text-white shadow-sm transition-all duration-300 hover:bg-emerald-800 hover:shadow-lg hover:shadow-emerald-900/20"
+                                    >
+
                                         Kunjungi Website
+
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="2"
+                                            stroke="currentColor"
+                                            class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M13.5 4.5 19 10m0 0-5.5 5.5M19 10H5"
+                                            />
+                                        </svg>
+
                                     </a>
+
                                 </div>
+
                             <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
                         </div>
-                    </div>
+
+                    </article>
+
                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+
             </div>
+
+
         <?php else: ?>
-            <div class="text-center mt-16 text-slate-500">
-                Belum ada unit pendidikan.
+
+
+            
+            <div class="mt-16 rounded-3xl border border-slate-200 bg-white px-6 py-16 text-center shadow-sm">
+
+                <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.7"
+                        stroke="currentColor"
+                        class="h-8 w-8"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3 21h18M5.25 21V9.75L12 5l6.75 4.75V21M9 21v-5.25h6V21"
+                        />
+                    </svg>
+
+                </div>
+
+
+                <h3 class="mt-5 text-xl font-bold text-slate-900">
+
+                    Belum Ada Unit Pendidikan
+
+                </h3>
+
+
+                <p class="mx-auto mt-2 max-w-lg text-sm leading-7 text-slate-500">
+
+                    Informasi unit pendidikan akan ditampilkan setelah
+                    ditambahkan melalui dashboard admin.
+
+                </p>
+
             </div>
+
         <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
     </div>
-</section><?php /**PATH C:\Users\PC PPLG 01\perguruan-modern\resources\views/components/sections/units.blade.php ENDPATH**/ ?>
+
+</section>
+<?php /**PATH C:\Users\PC PPLG 01\perguruan-modern\resources\views/components/sections/units.blade.php ENDPATH**/ ?>

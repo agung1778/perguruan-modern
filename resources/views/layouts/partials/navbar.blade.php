@@ -1,85 +1,396 @@
-<header x-data="{ open:false }" class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
-<div class="max-w-7xl mx-auto">
-    {{-- TOP NAV --}}
-    <div class="flex items-center justify-between h-20 px-6">
-        {{-- BRAND --}}
-        <a href="{{ route('home') }}" class="flex items-center gap-4">
-            @if($website?->logo)
-                <img src="{{ Storage::url($website->logo) }}" class="h-14 w-14 object-contain" alt="{{ $website->school_name }}">
-            @else
-                <div class="h-14 w-14 rounded-full bg-blue-900 flex items-center justify-center text-white font-bold">
-                    PM
-                </div>
-            @endif
-            <div>
-                <h1 class="font-bold text-lg text-blue-900">
+<header
+    x-data="{ open: false }"
+    class="sticky top-0 z-50 border-b border-emerald-100/80 bg-white/95 shadow-sm backdrop-blur-xl"
+>
+
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+    {{-- =========================================================
+        MAIN NAVBAR
+    ========================================================= --}}
+    <div class="flex h-20 items-center justify-between">
+
+        {{-- =====================================================
+            BRAND
+        ====================================================== --}}
+        <a
+            href="{{ route('home') }}"
+            class="group flex min-w-0 items-center gap-3"
+        >
+
+            {{-- Logo --}}
+            <div class="relative flex h-12 w-12 shrink-0 items-center justify-center sm:h-14 sm:w-14">
+
+                @if($website?->logo)
+
+                    <img
+                        src="{{ Storage::url($website->logo) }}"
+                        alt="{{ $website->school_name }}"
+                        class="h-full w-full object-contain transition duration-300 group-hover:scale-105"
+                    >
+
+                @else
+
+                    <div class="flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-600 to-green-800 text-lg font-bold text-white shadow-lg shadow-emerald-900/20">
+                        PA
+                    </div>
+
+                @endif
+
+            </div>
+
+
+            {{-- Brand Text --}}
+            <div class="min-w-0">
+
+                <h1 class="max-w-[180px] truncate text-sm font-extrabold tracking-tight text-emerald-950 sm:max-w-xs sm:text-lg">
                     {{ $website?->school_name ?? 'Perguruan Amaliah' }}
                 </h1>
-                <p class="text-xs text-slate-500">
-                    Website Resmi
-                </p>
+
+                <div class="mt-0.5 flex items-center gap-2">
+
+                    <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+
+                    <p class="text-[10px] font-medium uppercase tracking-wider text-slate-500 sm:text-xs">
+                        Website Resmi
+                    </p>
+
+                </div>
+
             </div>
+
         </a>
-        {{-- DESKTOP MENU --}}
-        <nav class="hidden lg:flex items-center gap-8">
-            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'text-blue-900 font-semibold' : 'hover:text-blue-900' }}">
+
+
+        {{-- =====================================================
+            DESKTOP NAVIGATION
+        ====================================================== --}}
+        <nav
+            class="hidden items-center gap-1 lg:flex"
+            aria-label="Navigasi utama"
+        >
+
+            {{-- Beranda --}}
+            <a
+                href="{{ route('home') }}"
+                class="group relative rounded-xl px-4 py-3 text-sm font-semibold transition duration-200
+                {{ request()->routeIs('home')
+                    ? 'bg-emerald-50 text-emerald-700'
+                    : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
+                }}"
+            >
                 Beranda
+
+                @if(request()->routeIs('home'))
+                    <span class="absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-emerald-600"></span>
+                @endif
             </a>
-            <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'text-blue-900 font-semibold' : 'hover:text-blue-900' }}">
+
+
+            {{-- Tentang --}}
+            <a
+                href="{{ route('about') }}"
+                class="group relative rounded-xl px-4 py-3 text-sm font-semibold transition duration-200
+                {{ request()->routeIs('about')
+                    ? 'bg-emerald-50 text-emerald-700'
+                    : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
+                }}"
+            >
                 Tentang
+
+                @if(request()->routeIs('about'))
+                    <span class="absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-emerald-600"></span>
+                @endif
             </a>
-            <a href="{{ route('units.index') }}" class="{{ request()->routeIs('units.*') ? 'text-blue-900 font-semibold' : 'hover:text-blue-900' }}">
+
+
+            {{-- Unit Pendidikan --}}
+            <a
+                href="{{ route('units.index') }}"
+                class="group relative rounded-xl px-4 py-3 text-sm font-semibold transition duration-200
+                {{ request()->routeIs('units.*')
+                    ? 'bg-emerald-50 text-emerald-700'
+                    : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
+                }}"
+            >
                 Unit Pendidikan
+
+                @if(request()->routeIs('units.*'))
+                    <span class="absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-emerald-600"></span>
+                @endif
             </a>
-            <a href="{{ route('news.index') }}" class="{{ request()->routeIs('news.*') ? 'text-blue-900 font-semibold'  : 'hover:text-blue-900' }}">
+
+
+            {{-- Berita --}}
+            <a
+                href="{{ route('news.index') }}"
+                class="group relative rounded-xl px-4 py-3 text-sm font-semibold transition duration-200
+                {{ request()->routeIs('news.*')
+                    ? 'bg-emerald-50 text-emerald-700'
+                    : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
+                }}"
+            >
                 Berita
+
+                @if(request()->routeIs('news.*'))
+                    <span class="absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-emerald-600"></span>
+                @endif
             </a>
-            <a href="{{ route('agenda.index') }}" class="{{ request()->routeIs('agenda.*') ? 'text-blue-900 font-semibold' : 'hover:text-blue-900' }}">
+
+
+            {{-- Agenda --}}
+            <a
+                href="{{ route('agenda.index') }}"
+                class="group relative rounded-xl px-4 py-3 text-sm font-semibold transition duration-200
+                {{ request()->routeIs('agenda.*')
+                    ? 'bg-emerald-50 text-emerald-700'
+                    : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
+                }}"
+            >
                 Agenda
+
+                @if(request()->routeIs('agenda.*'))
+                    <span class="absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-emerald-600"></span>
+                @endif
             </a>
-            <a href="{{ route('gallery.index') }}" class="{{ request()->routeIs('gallery.*') ? 'text-blue-900 font-semibold' : 'hover:text-blue-900' }}">
+
+
+            {{-- Galeri --}}
+            <a
+                href="{{ route('gallery.index') }}"
+                class="group relative rounded-xl px-4 py-3 text-sm font-semibold transition duration-200
+                {{ request()->routeIs('gallery.*')
+                    ? 'bg-emerald-50 text-emerald-700'
+                    : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
+                }}"
+            >
                 Galeri
+
+                @if(request()->routeIs('gallery.*'))
+                    <span class="absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-emerald-600"></span>
+                @endif
             </a>
-            <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-blue-900 font-semibold'  : 'hover:text-blue-900' }}">
+
+
+            {{-- Kontak --}}
+            <a
+                href="{{ route('contact') }}"
+                class="group relative rounded-xl px-4 py-3 text-sm font-semibold transition duration-200
+                {{ request()->routeIs('contact')
+                    ? 'bg-emerald-50 text-emerald-700'
+                    : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
+                }}"
+            >
                 Kontak
+
+                @if(request()->routeIs('contact'))
+                    <span class="absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-emerald-600"></span>
+                @endif
             </a>
-            <a href="{{ route('ppdb.index') }}" class="{{ request()->routeIs('contact') ? 'text-blue-900 font-semibold'  : 'hover:text-blue-900' }}">
-                PPDB
+
+
+            {{-- Divider --}}
+            <div class="mx-2 h-7 w-px bg-slate-200"></div>
+
+
+            {{-- PPDB CTA --}}
+            <a
+                href="{{ route('ppdb.index') }}"
+                class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-green-700 px-5 py-3 text-sm font-bold text-white shadow-md shadow-emerald-900/20 transition duration-300 hover:-translate-y-0.5 hover:from-emerald-700 hover:to-green-800 hover:shadow-lg"
+            >
+                <span>
+                    PPDB
+                </span>
+
+                <span class="text-base transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                </span>
             </a>
+
         </nav>
-        {{-- MOBILE BUTTON --}}
-        <button class="lg:hidden text-2xl" @click="open=!open">
-            ☰
+
+
+        {{-- =====================================================
+            MOBILE MENU BUTTON
+        ====================================================== --}}
+        <button
+            type="button"
+            class="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-100 bg-emerald-50 text-emerald-700 transition hover:bg-emerald-100 lg:hidden"
+            @click="open = !open"
+            :aria-expanded="open.toString()"
+            aria-label="Buka menu navigasi"
+        >
+
+            {{-- Hamburger --}}
+            <svg
+                x-show="!open"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                class="h-6 w-6"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+            </svg>
+
+
+            {{-- Close --}}
+            <svg
+                x-show="open"
+                x-cloak
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                class="h-6 w-6"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18 18 6M6 6l12 12"
+                />
+            </svg>
+
         </button>
+
     </div>
+
 </div>
-{{-- MOBILE MENU --}}
-    <div x-show="open" x-transition @click.outside="open=false" class="lg:hidden border-t bg-white">
-        <div class="flex flex-col p-6 gap-5">
-            <a href="{{ route('home') }}">
-                Beranda
-            </a>
-            <a href="{{ route('about') }}">
-                Tentang
-            </a>
-            <a href="{{ route('units.index') }}">
-                Unit Pendidikan
-            </a>
-            <a href="{{ route('news.index') }}">
-                Berita
-            </a>
-            <a href="{{ route('agenda.index') }}">
-                Agenda
-            </a>
-            <a href="{{ route('gallery.index') }}">
-                Galeri
-            </a>
-            <a href="{{ route('contact') }}">
-                Kontak
-            </a>
-            <a href="{{ route('ppdb.index') }}">
-                PPDB
-            </a>
-        </div>
-    </div>
+
+
+{{-- =========================================================
+    MOBILE NAVIGATION
+========================================================= --}}
+<div
+    x-show="open"
+    x-cloak
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0 -translate-y-3"
+    x-transition:enter-end="opacity-100 translate-y-0"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100 translate-y-0"
+    x-transition:leave-end="opacity-0 -translate-y-3"
+    class="border-t border-emerald-100 bg-white shadow-xl lg:hidden"
+>
+
+    <nav
+        class="mx-auto flex max-w-7xl flex-col gap-1.5 px-4 py-5 sm:px-6"
+        aria-label="Navigasi mobile"
+    >
+
+        {{-- Beranda --}}
+        <a
+            href="{{ route('home') }}"
+            class="rounded-xl px-4 py-3.5 text-sm font-semibold transition
+            {{ request()->routeIs('home')
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-900/10'
+                : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
+            }}"
+        >
+            Beranda
+        </a>
+
+
+        {{-- Tentang --}}
+        <a
+            href="{{ route('about') }}"
+            class="rounded-xl px-4 py-3.5 text-sm font-semibold transition
+            {{ request()->routeIs('about')
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-900/10'
+                : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
+            }}"
+        >
+            Tentang
+        </a>
+
+
+        {{-- Unit Pendidikan --}}
+        <a
+            href="{{ route('units.index') }}"
+            class="rounded-xl px-4 py-3.5 text-sm font-semibold transition
+            {{ request()->routeIs('units.*')
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-900/10'
+                : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
+            }}"
+        >
+            Unit Pendidikan
+        </a>
+
+
+        {{-- Berita --}}
+        <a
+            href="{{ route('news.index') }}"
+            class="rounded-xl px-4 py-3.5 text-sm font-semibold transition
+            {{ request()->routeIs('news.*')
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-900/10'
+                : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
+            }}"
+        >
+            Berita
+        </a>
+
+
+        {{-- Agenda --}}
+        <a
+            href="{{ route('agenda.index') }}"
+            class="rounded-xl px-4 py-3.5 text-sm font-semibold transition
+            {{ request()->routeIs('agenda.*')
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-900/10'
+                : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
+            }}"
+        >
+            Agenda
+        </a>
+
+
+        {{-- Galeri --}}
+        <a
+            href="{{ route('gallery.index') }}"
+            class="rounded-xl px-4 py-3.5 text-sm font-semibold transition
+            {{ request()->routeIs('gallery.*')
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-900/10'
+                : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
+            }}"
+        >
+            Galeri
+        </a>
+
+
+        {{-- Kontak --}}
+        <a
+            href="{{ route('contact') }}"
+            class="rounded-xl px-4 py-3.5 text-sm font-semibold transition
+            {{ request()->routeIs('contact')
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-900/10'
+                : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
+            }}"
+        >
+            Kontak
+        </a>
+
+
+        {{-- PPDB --}}
+        <a
+            href="{{ route('ppdb.index') }}"
+            class="mt-3 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-green-700 px-4 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-900/20 transition hover:from-emerald-700 hover:to-green-800"
+        >
+            <span>
+                Pendaftaran PPDB
+            </span>
+
+            <span>
+                →
+            </span>
+        </a>
+
+    </nav>
+
+</div>
+
 </header>

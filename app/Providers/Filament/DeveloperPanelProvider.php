@@ -13,6 +13,7 @@ use Filament\Panel;
 use Filament\PanelProvider;
 
 use Filament\Support\Colors\Color;
+use Filament\Widgets\QuickActions;
 
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -55,12 +56,12 @@ class DeveloperPanelProvider extends PanelProvider
 
 
             ->brandName(
-                'Perguruan Amaliah Admin'
+                'SIP Yayasan Amaliah'
             )
 
 
             ->brandLogo(
-                asset('storage/logo/logo.png')
+                fn () => asset('storage/logo/logo.png')
             )
 
 
@@ -76,7 +77,7 @@ class DeveloperPanelProvider extends PanelProvider
             */
 
 
-            ->login()
+            ->login(\App\Filament\Pages\Auth\Login::class)
 
 
 
@@ -89,7 +90,7 @@ class DeveloperPanelProvider extends PanelProvider
 
             ->colors([
 
-                'primary'=>Color::Blue,
+                'primary'=>Color::Emerald,
 
             ])
 
@@ -193,7 +194,7 @@ class DeveloperPanelProvider extends PanelProvider
                 \App\Filament\Widgets\LatestNews::class,
 
 
-                \App\Filament\Widgets\QuickAction::class,
+                \App\Filament\Widgets\QuickActions::class,
 
 
             ])

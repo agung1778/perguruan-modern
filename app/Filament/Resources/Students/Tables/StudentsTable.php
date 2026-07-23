@@ -22,7 +22,7 @@ class StudentTable
                     ->disk('public')
                     ->circular()
                     ->defaultImageUrl(
-                        url('/images/default-avatar.png')
+                        asset('storage/student/image.png')
                     ),
 
                 TextColumn::make('name')

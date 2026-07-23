@@ -2,66 +2,295 @@
 
 @section('content')
 
-{{-- Hero --}}
-<section class="bg-gradient-to-r from-blue-950 to-slate-900 py-24">
-    <div class="max-w-7xl mx-auto px-6 text-center text-white">
-        <h1 class="text-5xl font-bold">
-            Galeri Perguruan
-        </h1>
-        <p class="mt-5 text-slate-300 text-lg">
-            Dokumentasi kegiatan, prestasi, dan aktivitas Perguruan Amaliah.
-        </p>
-    </div>
+{{-- =========================================================
+HERO
+========================================================= --}}
+
+<section class="relative overflow-hidden bg-slate-950 py-20 sm:py-24 lg:py-28">
+
+{{-- Background Gradient --}}
+<div class="absolute inset-0 bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-950"></div>
+
+{{-- Decorative Elements --}}
+<div class="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl"></div>
+
+<div class="pointer-events-none absolute -bottom-40 -left-32 h-96 w-96 rounded-full bg-teal-400/10 blur-3xl"></div>
+
+<div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.06),transparent_60%)]"></div>
+
+
+{{-- Hero Content --}}
+<div class="relative mx-auto max-w-7xl px-5 text-center sm:px-6 lg:px-8">
+
+    <span class="inline-flex items-center rounded-full border border-emerald-400/20 bg-emerald-400/10 px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-emerald-300 backdrop-blur-sm sm:text-sm">
+        Dokumentasi Perguruan
+    </span>
+
+    <h1 class="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+        Galeri Perguruan
+    </h1>
+
+    <p class="mx-auto mt-6 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
+        Jelajahi berbagai dokumentasi kegiatan, prestasi,
+        dan momen berharga dari keluarga besar Perguruan Amaliah.
+    </p>
+
+</div>
+
 </section>
 
-{{-- Gallery --}}
-<section class="bg-slate-50 py-24">
-    <div class="max-w-7xl mx-auto px-6">
-        @if($albums->count())
-            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                @foreach($albums as $album)
-                    @php
-                        $cover = $album->photos->first();
-                    @endphp
-                    <div class="overflow-hidden bg-white rounded-3xl shadow-lg hover:shadow-2xl transition duration-300">
-                        {{-- Cover --}}
+{{-- =========================================================
+GALLERY
+========================================================= --}}
+
+<section class="bg-slate-50 py-20 sm:py-24 lg:py-28">
+
+<div class="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+
+    {{-- Section Header --}}
+    <div class="mx-auto mb-14 max-w-3xl text-center">
+
+        <span class="text-sm font-bold uppercase tracking-[0.2em] text-emerald-700">
+            Dokumentasi
+        </span>
+
+        <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+            Momen dan Kegiatan Kami
+        </h2>
+
+        <p class="mt-4 text-base leading-7 text-slate-600 sm:text-lg">
+            Lihat berbagai dokumentasi kegiatan dan aktivitas
+            yang menjadi bagian dari perjalanan Perguruan Amaliah.
+        </p>
+
+    </div>
+
+
+    @if($albums->count())
+
+        {{-- Album Grid --}}
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+            @foreach($albums as $album)
+
+                @php
+                    $cover = $album->photos->first();
+                @endphp
+
+                {{-- Album Card --}}
+                <article
+                    class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-emerald-200 hover:shadow-xl"
+                >
+
+                    {{-- Cover --}}
+                    <a
+                        href="{{ route('gallery.show', $album) }}"
+                        class="relative block aspect-[4/3] overflow-hidden bg-slate-100"
+                    >
+
                         @if($cover && filled($cover->photo))
-                            <img src="{{ Storage::url($cover->photo) }}" alt="{{ $album->title }}" loading="lazy"class="w-full h-64 object-cover transition duration-500 hover:scale-105">
-                        @else
-                            <div class="flex items-center justify-center h-64 bg-slate-200 text-slate-500">
-                                Belum Ada Foto
+
+                            <img
+                                src="{{ Storage::url($cover->photo) }}"
+                                alt="{{ $album->title }}"
+                                loading="lazy"
+                                decoding="async"
+                                class="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-110"
+                            >
+
+                            {{-- Overlay --}}
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-70 transition duration-300 group-hover:opacity-90"></div>
+
+                            {{-- View Badge --}}
+                            <div class="absolute bottom-5 left-5">
+
+                                <span class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.8"
+                                        stroke="currentColor"
+                                        class="h-4 w-4"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M2.25 15.75 7.41 10.59a2.25 2.25 0 0 1 3.18 0l5.16 5.16m-1.5-1.5 1.41-1.41a2.25 2.25 0 0 1 3.18 0l2.16 2.16M3.75 6.75h.008v.008H3.75V6.75Z"
+                                        />
+                                    </svg>
+
+                                    Lihat Album
+                                </span>
+
                             </div>
+
+                        @else
+
+                            <div class="flex h-full items-center justify-center bg-gradient-to-br from-emerald-50 to-slate-100">
+
+                                <div class="text-center">
+
+                                    <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-emerald-600 shadow-sm">
+
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.5"
+                                            stroke="currentColor"
+                                            class="h-8 w-8"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.159 2.159m-7.5-12.75h.008v.008H13.5V3.75Z"
+                                            />
+                                        </svg>
+
+                                    </div>
+
+                                    <p class="mt-4 text-sm font-semibold text-slate-500">
+                                        Belum Ada Foto
+                                    </p>
+
+                                </div>
+
+                            </div>
+
                         @endif
 
-                        {{-- Content --}}
-                        <div class="p-6">
-                            <h2 class="text-2xl font-bold text-slate-800">
+                    </a>
+
+
+                    {{-- Content --}}
+                    <div class="flex flex-1 flex-col p-7">
+
+                        <div class="flex-1">
+
+                            <h2 class="text-xl font-bold leading-snug text-slate-900 transition duration-300 group-hover:text-emerald-700">
                                 {{ $album->title }}
                             </h2>
-                            <p class="mt-2 text-slate-500">
-                                {{ $album->photos->count() }} Foto
-                            </p>
-                            <a href="{{ route('gallery.show', $album) }}" class="inline-flex items-center mt-6 font-semibold text-blue-900 hover:text-yellow-500 transition">
-                                Lihat Galeri
-                                <span class="ml-2">→</span>
-                            </a>
+
+                            <div class="mt-4 flex items-center gap-2 text-sm text-slate-500">
+
+                                <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700">
+
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.7"
+                                        stroke="currentColor"
+                                        class="h-4 w-4"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.159 2.159m-7.5-12.75h.008v.008H13.5V3.75Z"
+                                        />
+                                    </svg>
+
+                                </span>
+
+                                <span class="font-medium">
+                                    {{ $album->photos->count() }} Foto Dokumentasi
+                                </span>
+
+                            </div>
+
                         </div>
+
+
+                        {{-- Button --}}
+                        <div class="mt-7 border-t border-slate-100 pt-6">
+
+                            <a
+                                href="{{ route('gallery.show', $album) }}"
+                                class="inline-flex items-center gap-2 text-sm font-bold text-emerald-700 transition hover:text-emerald-900"
+                            >
+
+                                Lihat Selengkapnya
+
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="2"
+                                    stroke="currentColor"
+                                    class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                                    />
+                                </svg>
+
+                            </a>
+
+                        </div>
+
                     </div>
-                @endforeach
-            </div>
-            <div class="flex justify-center mt-14">
+
+                </article>
+
+            @endforeach
+
+        </div>
+
+
+        {{-- Pagination --}}
+        @if($albums->hasPages())
+
+            <div class="mt-14 flex justify-center">
+
                 {{ $albums->links() }}
+
             </div>
-        @else
-            <div class="py-20 text-center">
-                <h2 class="text-2xl font-semibold text-slate-700">
-                    Belum ada album galeri.
-                </h2>
-                <p class="mt-3 text-slate-500">
-                    Album akan muncul setelah ditambahkan melalui dashboard admin.
-                </p>
-            </div>
+
         @endif
-    </div>
+
+
+    @else
+
+        {{-- Empty State --}}
+        <div class="mx-auto max-w-2xl rounded-3xl border border-slate-200 bg-white px-6 py-20 text-center shadow-sm">
+
+            <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="h-10 w-10"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.159 2.159m-7.5-12.75h.008v.008H13.5V3.75Z"
+                    />
+                </svg>
+
+            </div>
+
+            <h2 class="mt-6 text-2xl font-bold text-slate-900">
+                Belum Ada Album Galeri
+            </h2>
+
+            <p class="mx-auto mt-3 max-w-lg text-sm leading-7 text-slate-500 sm:text-base">
+                Album dokumentasi kegiatan akan muncul setelah
+                ditambahkan melalui dashboard administrator.
+            </p>
+
+        </div>
+
+    @endif
+
+</div>
+
 </section>
+
 @endsection

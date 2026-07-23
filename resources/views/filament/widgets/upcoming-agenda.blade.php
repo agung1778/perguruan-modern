@@ -1,52 +1,70 @@
-<x-filament::widget>
-
+<x-filament-widgets::widget>
     <x-filament::section>
-
         <x-slot name="heading">
-
             Agenda Mendatang
-
         </x-slot>
 
-        <div class="space-y-4">
+        @php
+            $agendas = $this->getAgendas();
+        @endphp
 
-            @foreach(
-                \App\Models\Agenda::orderBy('date')
-                ->take(5)
-                ->get()
-                as $agenda
-            )
+        @if ($agendas->isNotEmpty())
 
-                <div class="flex justify-between">
+            <div class="divide-y divide-gray-200 dark:divide-gray-700">
 
-                    <div>
+                @foreach ($agendas as $agenda)
 
-                        <p class="font-semibold">
+                    <div class="flex items-center justify-between gap-6 py-4 first:pt-0 last:pb-0">
 
-                            {{ $agenda->title }}
+                        {{-- Informasi Agenda --}}
+                        <div class="min-w-0">
 
-                        </p>
+                            <h3 class="font-semibold text-gray-950 dark:text-white truncate">
+                                {{ $agenda->title }}
+                            </h3>
 
-                        <small>
+                            @if ($agenda->location)
+                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                    📍 {{ $agenda->location }}
+                                </p>
+                            @endif
 
-                            {{ $agenda->location }}
+                        </div>
 
-                        </small>
+                        {{-- Tanggal --}}
+                        <div class="shrink-0 text-right">
+
+                            <p class="text-sm font-semibold text-primary-600 dark:text-primary-400">
+                                {{ $agenda->date->translatedFormat('d M Y') }}
+                            </p>
+
+                        </div>
 
                     </div>
 
-                    <div>
+                @endforeach
 
-                        {{ $agenda->date->format('d M') }}
+            </div>
 
-                    </div>
+        @else
 
+            <div class="py-8 text-center">
+
+                <div class="text-4xl mb-3">
+                    📅
                 </div>
 
-            @endforeach
+                <p class="text-sm font-medium text-gray-950 dark:text-white">
+                    Tidak ada agenda mendatang
+                </p>
 
-        </div>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                    Belum ada kegiatan yang dijadwalkan.
+                </p>
+
+            </div>
+
+        @endif
 
     </x-filament::section>
-
-</x-filament::widget>
+</x-filament-widgets::widget>

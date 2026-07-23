@@ -1,63 +1,224 @@
-<section class="py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-6">
+
+<section class="relative overflow-hidden bg-white py-24 sm:py-28">
+
+    
+    <div class="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-emerald-100/50 blur-3xl"></div>
+
+    <div class="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-green-100/40 blur-3xl"></div>
+
+
+    <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
+
+
         
-        <div class="text-center">
-            <span class="text-yellow-600 font-semibold uppercase tracking-wider">
+        <div class="mx-auto max-w-3xl text-center">
+
+            
+            <div class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold uppercase tracking-wider text-emerald-700">
+
+                <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+
                 Testimoni
-            </span>
-            <h2 class="text-4xl md:text-5xl font-bold mt-4 text-slate-900">
+
+            </div>
+
+
+            
+            <h2 class="mt-5 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
+
                 Apa Kata Mereka?
+
             </h2>
-            <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
+
+
+            
+            <div class="mt-6 flex items-center justify-center gap-2">
+
+                <span class="h-1 w-14 rounded-full bg-emerald-600"></span>
+
+                <span class="h-1 w-5 rounded-full bg-emerald-300"></span>
+
+            </div>
+
+
+            
+            <p class="mx-auto mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
+
                 Pengalaman dan kesan dari siswa, orang tua, dan masyarakat
-                terhadap Perguruan Amaliah.
+                terhadap <?php echo e($website?->school_name ?? 'Perguruan Amaliah'); ?>.
+
             </p>
+
         </div>
+
+
+        
         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(isset($testimonials) && $testimonials->count()): ?>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+
+            <div class="mt-16 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+
                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $testimonials; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $testimonial): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
-                    <div  class="bg-slate-50 rounded-3xl p-8 shadow-sm hover:shadow-xl transition duration-300">
+
+                    
+                    <article
+                        class="group relative flex flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-emerald-200 hover:shadow-xl hover:shadow-emerald-900/10 sm:p-8"
+                    >
+
                         
-                        <div class="flex items-center gap-4">
-                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(!empty($testimonial->photo)): ?>
-                                <img src="<?php echo e(asset('storage/'.$testimonial->photo)); ?>"  alt="<?php echo e($testimonial->name); ?>" class="w-16 h-16 rounded-full object-cover border-4 border-white shadow">
-                            <?php else: ?>
-                                <div class="w-16 h-16 rounded-full bg-blue-900 flex items-center justify-center text-white text-xl font-bold">
-                                    <?php echo e(strtoupper(substr($testimonial->name,0,1))); ?>
+                        <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-emerald-600 via-emerald-400 to-emerald-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
-                                </div>
-                            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-                            <div>
-                                <h3 class="font-bold text-lg text-slate-900">
-                                    <?php echo e($testimonial->name); ?>
 
-                                </h3>
-                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(isset($testimonial->position)): ?>
-                                    <p class="text-sm text-slate-500">
-                                        <?php echo e($testimonial->position); ?>
-
-                                    </p>
-                                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-                            </div>
-                        </div>
                         
-                        <div class="mt-6">
-                            <svg class="w-8 h-8 text-yellow-500 mb-3" fill="currentColor"viewBox="0 0 24 24">
+                        <div class="absolute right-7 top-7 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-500 transition-all duration-300 group-hover:bg-emerald-600 group-hover:text-white">
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                                class="h-6 w-6"
+                            >
                                 <path d="M7.17 6A5.17 5.17 0 0 0 2 11.17V18h7v-6H6.83A2.83 2.83 0 0 1 9.66 9V6H7.17zM17.17 6A5.17 5.17 0 0 0 12 11.17V18h7v-6h-2.17A2.83 2.83 0 0 1 19.66 9V6h-2.49z"/>
                             </svg>
-                            <p class="text-slate-600 leading-8 italic">
-                                "<?php echo e($testimonial->message); ?>"
-                            </p>
+
                         </div>
-                    </div>
+
+
+                        
+                        <div class="flex items-center gap-4 pr-14">
+
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(filled($testimonial->photo)): ?>
+
+                                <div class="relative shrink-0">
+
+                                    <div class="absolute -inset-1 rounded-full bg-emerald-200 opacity-70 transition-transform duration-300 group-hover:scale-110"></div>
+
+                                    <img
+                                        src="<?php echo e(Storage::url($testimonial->photo)); ?>"
+                                        alt="<?php echo e($testimonial->name); ?>"
+                                        loading="lazy"
+                                        class="relative h-16 w-16 rounded-full border-4 border-white object-cover shadow-md"
+                                    >
+
+                                </div>
+
+                            <?php else: ?>
+
+                                <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-4 border-white bg-gradient-to-br from-emerald-600 to-emerald-800 text-xl font-bold text-white shadow-md ring-2 ring-emerald-100">
+
+                                    <?php echo e(strtoupper(mb_substr($testimonial->name, 0, 1))); ?>
+
+
+                                </div>
+
+                            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+
+                            <div class="min-w-0">
+
+                                <h3 class="truncate text-lg font-bold text-slate-900">
+
+                                    <?php echo e($testimonial->name); ?>
+
+
+                                </h3>
+
+
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(filled($testimonial->position)): ?>
+
+                                    <p class="mt-1 text-sm font-medium text-emerald-600">
+
+                                        <?php echo e($testimonial->position); ?>
+
+
+                                    </p>
+
+                                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+                            </div>
+
+                        </div>
+
+
+                        
+                        <div class="my-6 h-px bg-slate-100"></div>
+
+
+                        
+                        <div class="flex-1">
+
+                            <p class="text-base leading-8 text-slate-600">
+
+                                <span class="font-serif text-2xl font-bold text-emerald-500">
+                                    “
+                                </span>
+
+                                <?php echo e($testimonial->message); ?>
+
+
+                                <span class="font-serif text-2xl font-bold text-emerald-500">
+                                    ”
+                                </span>
+
+                            </p>
+
+                        </div>
+
+
+                        
+                        <div class="mt-7 flex items-center gap-2">
+
+                            <span class="h-1 w-8 rounded-full bg-emerald-500 transition-all duration-300 group-hover:w-14"></span>
+
+                            <span class="h-1 w-2 rounded-full bg-emerald-200"></span>
+
+                        </div>
+
+                    </article>
+
                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+
             </div>
+
+
         <?php else: ?>
-            <div class="mt-16 text-center">
-                <div class="inline-flex items-center px-6 py-4 rounded-xl bg-slate-100 text-slate-500">
-                    Belum ada testimoni.
+
+
+            
+            <div class="mt-16 rounded-3xl border border-slate-200 bg-slate-50 px-6 py-16 text-center">
+
+                <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        class="h-8 w-8"
+                    >
+                        <path d="M7.17 6A5.17 5.17 0 0 0 2 11.17V18h7v-6H6.83A2.83 2.83 0 0 1 9.66 9V6H7.17zM17.17 6A5.17 5.17 0 0 0 12 11.17V18h7v-6h-2.17A2.83 2.83 0 0 1 19.66 9V6h-2.49z"/>
+                    </svg>
+
                 </div>
+
+
+                <h3 class="mt-5 text-xl font-bold text-slate-900">
+
+                    Belum Ada Testimoni
+
+                </h3>
+
+
+                <p class="mx-auto mt-2 max-w-lg text-sm leading-7 text-slate-500">
+
+                    Testimoni dari siswa, orang tua, dan masyarakat
+                    akan ditampilkan setelah ditambahkan melalui dashboard admin.
+
+                </p>
+
             </div>
+
         <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
     </div>
-</section><?php /**PATH C:\Users\PC PPLG 01\perguruan-modern\resources\views/components/sections/testimonial.blade.php ENDPATH**/ ?>
+
+</section>
+<?php /**PATH C:\Users\PC PPLG 01\perguruan-modern\resources\views/components/sections/testimonial.blade.php ENDPATH**/ ?>

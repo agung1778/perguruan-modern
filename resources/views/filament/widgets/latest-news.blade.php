@@ -1,47 +1,65 @@
-<x-filament::widget>
+<x-filament-widgets::widget>
 
-<x-filament::section>
+    <x-filament::section>
 
-<x-slot name="heading">
+        {{-- Header --}}
+        <x-slot name="heading">
+            Berita Terbaru
+        </x-slot>
 
-Berita Terbaru
 
-</x-slot>
+        {{-- Content --}}
+        <div class="divide-y divide-gray-100 dark:divide-gray-800">
 
-<div class="space-y-4">
+            @forelse($this->getLatestNews() as $news)
 
-@foreach(
+                <div class="flex items-center justify-between gap-4 py-4 first:pt-0 last:pb-0">
 
-\App\Models\NewsArticle::latest()
+                    {{-- News Information --}}
+                    <div class="min-w-0">
 
-->take(5)
+                        <h3 class="truncate text-sm font-semibold text-gray-950 dark:text-white">
+                            {{ $news->title }}
+                        </h3>
 
-->get()
+                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
 
-as $news
+                            {{ $news->created_at?->translatedFormat('d F Y') ?? '-' }}
 
-)
+                        </p>
 
-<div>
+                    </div>
 
-<p class="font-semibold">
 
-{{ $news->title }}
+                    {{-- Status / Arrow --}}
+                    <div class="shrink-0">
 
-</p>
+                        <x-heroicon-m-chevron-right
+                            class="h-5 w-5 text-gray-400"
+                        />
 
-<small>
+                    </div>
 
-{{ $news->created_at->format('d M Y') }}
+                </div>
 
-</small>
+            @empty
 
-</div>
+                <div class="py-8 text-center">
 
-@endforeach
+                    <x-heroicon-o-newspaper
+                        class="mx-auto h-10 w-10 text-gray-400"
+                    />
 
-</div>
+                    <p class="mt-3 text-sm text-gray-500">
+                        Belum ada berita.
+                    </p>
 
-</x-filament::section>
+                </div>
 
-</x-filament::widget>
+            @endforelse
+
+        </div>
+
+    </x-filament::section>
+
+</x-filament-widgets::widget>
