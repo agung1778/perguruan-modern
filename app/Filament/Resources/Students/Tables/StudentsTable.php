@@ -2,135 +2,205 @@
 
 namespace App\Filament\Resources\Students\Tables;
 
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
+use App\Exports\StudentsExport;
+use App\Exports\StudentsExportByIds;
+use Filament\Actions\BulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Maatwebsite\Excel\Facades\Excel;
 
-class StudentTable
+class StudentsTable
 {
-    public static function configure(Table $table): Table
-    {
+    public static function configure(
+        Table $table
+    ): Table {
         return $table
+
             ->columns([
 
                 ImageColumn::make('photo')
                     ->label('Foto')
                     ->disk('public')
-                    ->circular()
-                    ->defaultImageUrl(
-                        asset('storage/student/image.png')
-                    ),
+                    ->circular(),
 
                 TextColumn::make('name')
-                    ->label('Nama Siswa')
+                    ->label(
+                        'Nama Siswa'
+                    )
                     ->searchable()
-                    ->sortable()
-                    ->weight('bold'),
+                    ->sortable(),
+
+                TextColumn::make(
+                    'educationUnit.name'
+                )
+                    ->label(
+                        'Unit Pendidikan'
+                    )
+                    ->searchable()
+                    ->sortable(),
 
                 TextColumn::make('nisn')
                     ->label('NISN')
-                    ->searchable()
-                    ->toggleable(),
-
-                TextColumn::make('unit.name')
-                    ->label('Unit Pendidikan')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('batch')
-                    ->label('Angkatan')
-                    ->searchable()
+                    ->label(
+                        'Angkatan'
+                    )
                     ->sortable(),
 
-                TextColumn::make('class')
-                    ->label('Kelas')
-                    ->searchable()
+                TextColumn::make('major')
+                    ->label(
+                        'Jurusan'
+                    )
                     ->toggleable(),
 
-                TextColumn::make('major')
-                    ->label('Jurusan')
-                    ->searchable()
+                TextColumn::make('class')
+                    ->label(
+                        'Kelas'
+                    )
                     ->toggleable(),
 
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(
+                        'Status'
+                    )
                     ->badge()
-                    ->colors([
-                        'success' => 'aktif',
-                        'info' => 'lulus',
-                        'warning' => 'pindah',
-                        'danger' => 'tidak_aktif',
-                    ])
                     ->formatStateUsing(
-                        fn (?string $state): string => match ($state) {
-                            'aktif' => 'Aktif',
-                            'lulus' => 'Lulus',
-                            'pindah' => 'Pindah',
-                            'tidak_aktif' => 'Tidak Aktif',
-                            default => ucfirst((string) $state),
+                        fn ($state) => match (
+                            $state
+                        ) {
+                            'active' =>
+                                'Aktif',
+
+                            'graduated' =>
+                                'Lulus',
+
+                            'inactive' =>
+                                'Tidak Aktif',
+
+                            'transferred' =>
+                                'Pindah',
+
+                            'dropped_out' =>
+                                'Keluar',
+
+                            default =>
+                                ucfirst(
+                                    $state ?? '-'
+                                ),
                         }
                     ),
 
-                TextColumn::make('created_at')
-                    ->label('Ditambahkan')
-                    ->dateTime('d M Y')
+                TextColumn::make(
+                    'created_at'
+                )
+                    ->label(
+                        'Ditambahkan'
+                    )
+                    ->dateTime(
+                        'd M Y H:i'
+                    )
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(
+                        isToggledHiddenByDefault: true
+                    ),
 
             ])
 
             ->filters([
 
-                SelectFilter::make('education_unit_id')
-                    ->label('Unit Pendidikan')
+                SelectFilter::make(
+                    'education_unit_id'
+                )
+                    ->label(
+                        'Unit Pendidikan'
+                    )
                     ->relationship(
-                        name: 'unit',
-                        titleAttribute: 'name'
+                        'educationUnit',
+                        'name'
                     )
                     ->searchable()
                     ->preload(),
 
-                SelectFilter::make('batch')
-                    ->label('Angkatan')
-                    ->options(
-                        fn () => \App\Models\Student::query()
-                            ->whereNotNull('batch')
-                            ->distinct()
-                            ->orderByDesc('batch')
-                            ->pluck('batch', 'batch')
-                            ->toArray()
+                SelectFilter::make(
+                    'status'
+                )
+                    ->label(
+                        'Status'
+                    )
+                    ->options([
+                        'active' =>
+                            'Aktif',
+
+                        'graduated' =>
+                            'Lulus',
+
+                        'inactive' =>
+                            'Tidak Aktif',
+
+                        'transferred' =>
+                            'Pindah',
+
+                        'dropped_out' =>
+                            'Keluar',
+                    ]),
+
+                SelectFilter::make(
+                    'gender'
+                )
+                    ->label(
+                        'Jenis Kelamin'
+                    )
+                    ->options([
+                        'L' =>
+                            'Laki-laki',
+
+                        'P' =>
+                            'Perempuan',
+                    ]),
+
+            ])
+
+            ->actions([
+
+                EditAction::make(),
+
+            ])
+
+            ->bulkActions([
+
+                BulkAction::make(
+                    'export'
+                )
+                    ->label(
+                        'Export Excel'
+                    )
+                    ->icon(
+                        'heroicon-o-arrow-down-tray'
+                    )
+                    ->action(
+                        function (
+                            $records
+                        ) {
+
+                            $ids =
+                                $records
+                                    ->pluck('id')
+                                    ->toArray();
+
+                            return Excel::download(
+                                new StudentsExportByIds(
+                                    $ids
+                                ),
+                                'data-siswa.xlsx'
+                            );
+                        }
                     ),
 
-                SelectFilter::make('status')
-                    ->label('Status')
-                    ->options([
-                        'aktif' => 'Aktif',
-                        'lulus' => 'Lulus',
-                        'pindah' => 'Pindah',
-                        'tidak_aktif' => 'Tidak Aktif',
-                    ]),
-
-                SelectFilter::make('gender')
-                    ->label('Jenis Kelamin')
-                    ->options([
-                        'L' => 'Laki-laki',
-                        'P' => 'Perempuan',
-                    ]),
-
-            ])
-
-            ->recordActions([
-                EditAction::make(),
-            ])
-
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
             ])
 
             ->defaultSort(

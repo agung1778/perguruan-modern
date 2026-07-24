@@ -2,163 +2,232 @@
 
 namespace App\Filament\Resources\Students\Schemas;
 
-use App\Models\EducationUnit;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Schema;
 
 class StudentForm
 {
-    public static function configure(Schema $schema): Schema
-    {
+    public static function configure(
+        Schema $schema
+    ): Schema {
         return $schema
             ->components([
 
-                Section::make('Informasi Utama')
+                /*
+                |--------------------------------------------------------------------------
+                | IDENTITAS
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make('Identitas Siswa')
                     ->description(
-                        'Informasi identitas dan unit pendidikan siswa.'
+                        'Informasi dasar peserta didik.'
+                    )
+                    ->icon(
+                        'heroicon-o-user'
                     )
                     ->schema([
 
-                        Grid::make(2)
-                            ->schema([
+                        TextInput::make('name')
+                            ->label('Nama Lengkap')
+                            ->required()
+                            ->maxLength(255),
 
-                                TextInput::make('name')
-                                    ->label('Nama Lengkap')
-                                    ->required()
-                                    ->maxLength(255),
+                        TextInput::make('nisn')
+                            ->label('NISN')
+                            ->maxLength(20)
+                            ->unique(
+                                ignoreRecord: true
+                            ),
 
-                                Select::make('education_unit_id')
-                                    ->label('Unit Pendidikan')
-                                    ->relationship(
-                                        name: 'unit',
-                                        titleAttribute: 'name'
-                                    )
-                                    ->searchable()
-                                    ->preload()
-                                    ->required(),
-
-                                TextInput::make('nisn')
-                                    ->label('NISN')
-                                    ->maxLength(50)
-                                    ->unique(
-                                        ignoreRecord: true
-                                    ),
-
-                                Select::make('gender')
-                                    ->label('Jenis Kelamin')
-                                    ->options([
-                                        'L' => 'Laki-laki',
-                                        'P' => 'Perempuan',
-                                    ])
-                                    ->native(false),
-
-                                TextInput::make('batch')
-                                    ->label('Angkatan')
-                                    ->placeholder('Contoh: 2026')
-                                    ->numeric()
-                                    ->maxLength(4),
-
-                                TextInput::make('class')
-                                    ->label('Kelas')
-                                    ->placeholder('Contoh: XII PPLG 1')
-                                    ->maxLength(100),
-
-                                TextInput::make('major')
-                                    ->label('Jurusan / Program Studi')
-                                    ->maxLength(255),
-
-                                Select::make('status')
-                                    ->label('Status Siswa')
-                                    ->options([
-                                        'aktif' => 'Aktif',
-                                        'lulus' => 'Lulus',
-                                        'pindah' => 'Pindah',
-                                        'tidak_aktif' => 'Tidak Aktif',
-                                    ])
-                                    ->default('aktif')
-                                    ->required()
-                                    ->native(false),
-
-                            ]),
-
-                    ])
-                    ->columnSpanFull(),
-
-                Section::make('Data Kelahiran')
-                    ->schema([
-
-                        Grid::make(2)
-                            ->schema([
-
-                                TextInput::make('birth_place')
-                                    ->label('Tempat Lahir')
-                                    ->maxLength(255),
-
-                                DatePicker::make('birth_date')
-                                    ->label('Tanggal Lahir')
-                                    ->native(false)
-                                    ->displayFormat('d F Y'),
-
-                            ]),
-
-                    ])
-                    ->columnSpanFull(),
-
-                Section::make('Informasi Pendidikan')
-                    ->schema([
-
-                        Grid::make(2)
-                            ->schema([
-
-                                TextInput::make('entry_year')
-                                    ->label('Tahun Masuk')
-                                    ->numeric()
-                                    ->minValue(1900)
-                                    ->maxValue(2100),
-
-                                TextInput::make('graduation_year')
-                                    ->label('Tahun Lulus')
-                                    ->numeric()
-                                    ->minValue(1900)
-                                    ->maxValue(2100),
-
-                            ]),
-
-                    ])
-                    ->columnSpanFull(),
-
-                Section::make('Foto Siswa')
-                    ->schema([
+                        Select::make(
+                            'education_unit_id'
+                        )
+                            ->label(
+                                'Unit Pendidikan'
+                            )
+                            ->relationship(
+                                'educationUnit',
+                                'name'
+                            )
+                            ->searchable()
+                            ->preload()
+                            ->required(),
 
                         FileUpload::make('photo')
-                            ->label('Foto')
+                            ->label(
+                                'Foto Siswa'
+                            )
                             ->image()
                             ->disk('public')
-                            ->directory('students')
+                            ->directory(
+                                'students'
+                            )
                             ->visibility('public')
                             ->imageEditor()
-                            ->maxSize(2048)
-                            ->columnSpanFull(),
+                            ->maxSize(2048),
 
                     ])
-                    ->columnSpanFull(),
+                    ->columns(2),
 
-                Section::make('Keterangan')
+                /*
+                |--------------------------------------------------------------------------
+                | DATA PRIBADI
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make('Data Pribadi')
+                    ->icon(
+                        'heroicon-o-identification'
+                    )
                     ->schema([
 
-                        Textarea::make('description')
-                            ->label('Keterangan Tambahan')
+                        Select::make('gender')
+                            ->label(
+                                'Jenis Kelamin'
+                            )
+                            ->options([
+                                'L' => 'Laki-laki',
+                                'P' => 'Perempuan',
+                            ])
+                            ->required(),
+
+                        TextInput::make(
+                            'birth_place'
+                        )
+                            ->label(
+                                'Tempat Lahir'
+                            )
+                            ->maxLength(100),
+
+                        DatePicker::make(
+                            'birth_date'
+                        )
+                            ->label(
+                                'Tanggal Lahir'
+                            )
+                            ->native(false)
+                            ->displayFormat(
+                                'd F Y'
+                            ),
+
+                    ])
+                    ->columns(3),
+
+                /*
+                |--------------------------------------------------------------------------
+                | DATA PENDIDIKAN
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make(
+                    'Data Pendidikan'
+                )
+                    ->icon(
+                        'heroicon-o-academic-cap'
+                    )
+                    ->schema([
+
+                        TextInput::make('batch')
+                            ->label(
+                                'Angkatan'
+                            )
+                            ->numeric()
+                            ->maxLength(4),
+
+                        TextInput::make('major')
+                            ->label(
+                                'Jurusan'
+                            )
+                            ->maxLength(255),
+
+                        TextInput::make('class')
+                            ->label(
+                                'Kelas'
+                            )
+                            ->maxLength(50),
+
+                        TextInput::make(
+                            'entry_year'
+                        )
+                            ->label(
+                                'Tahun Masuk'
+                            )
+                            ->numeric()
+                            ->minValue(2000)
+                            ->maxValue(
+                                now()->year + 10
+                            ),
+
+                        TextInput::make(
+                            'graduation_year'
+                        )
+                            ->label(
+                                'Tahun Lulus'
+                            )
+                            ->numeric()
+                            ->minValue(2000)
+                            ->maxValue(
+                                now()->year + 10
+                            ),
+
+                        Select::make('status')
+                            ->label(
+                                'Status Siswa'
+                            )
+                            ->options([
+                                'active' =>
+                                    'Aktif',
+
+                                'graduated' =>
+                                    'Lulus',
+
+                                'inactive' =>
+                                    'Tidak Aktif',
+
+                                'transferred' =>
+                                    'Pindah',
+
+                                'dropped_out' =>
+                                    'Keluar',
+                            ])
+                            ->default(
+                                'active'
+                            )
+                            ->required(),
+
+                    ])
+                    ->columns(3),
+
+                /*
+                |--------------------------------------------------------------------------
+                | KETERANGAN
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make(
+                    'Keterangan'
+                )
+                    ->icon(
+                        'heroicon-o-document-text'
+                    )
+                    ->schema([
+
+                        Textarea::make(
+                            'description'
+                        )
+                            ->label(
+                                'Keterangan'
+                            )
                             ->rows(5)
                             ->columnSpanFull(),
 
-                    ])
-                    ->columnSpanFull(),
+                    ]),
 
             ]);
     }

@@ -35,18 +35,7 @@ class Student extends Model
     ];
 
     /**
-     * Relasi ke unit pendidikan.
-     */
-    public function unit(): BelongsTo
-    {
-        return $this->belongsTo(
-            EducationUnit::class,
-            'education_unit_id'
-        );
-    }
-
-    /**
-     * Alias relasi unit pendidikan.
+     * Relasi ke Unit Pendidikan.
      */
     public function educationUnit(): BelongsTo
     {
@@ -54,29 +43,5 @@ class Student extends Model
             EducationUnit::class,
             'education_unit_id'
         );
-    }
-
-    /**
-     * Siswa aktif.
-     */
-    public function scopeActive($query)
-    {
-        return $query->where('status', 'active');
-    }
-
-    /**
-     * Filter berdasarkan status.
-     */
-    public function scopeStatus($query, string $status)
-    {
-        return $query->where('status', $status);
-    }
-
-    /**
-     * Filter berdasarkan angkatan.
-     */
-    public function scopeBatch($query, string $batch)
-    {
-        return $query->where('batch', $batch);
     }
 }
