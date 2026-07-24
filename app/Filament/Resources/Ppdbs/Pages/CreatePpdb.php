@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Filament\Resources\PPDBs\Pages;
+namespace App\Filament\Resources\Ppdbs\Pages;
 
-use App\Filament\Resources\PPDBs\PPDBResource;
+use App\Filament\Resources\Ppdbs\PpdbResource;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreatePPDB extends CreateRecord
+class CreatePpdb extends CreateRecord
 {
-    protected static string $resource = PPDBResource::class;
+    protected static string $resource = PpdbResource::class;
 }

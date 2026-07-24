@@ -2,13 +2,11 @@
 
 namespace App\Filament\Resources\HomepageBanners\Tables;
 
-use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class HomepageBannersTable
@@ -16,39 +14,51 @@ class HomepageBannersTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('sort_order', 'asc')
+
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
+
+                ImageColumn::make('image')
+                    ->label('Banner')
+                    ->disk('public')
+                    ->height(70)
+                    ->width(120)
+                    ->extraImgAttributes([
+                        'class' => 'object-cover rounded-lg',
+                    ]),
+
                 TextColumn::make('title')
-                    ->searchable(),
-                ImageColumn::make('image'),
+                    ->label('Judul')
+                    ->searchable()
+                    ->sortable()
+                    ->limit(50),
+
                 TextColumn::make('button_text')
-                    ->searchable(),
-                TextColumn::make('button_link')
-                    ->searchable(),
-                IconColumn::make('is_active')
-                    ->boolean(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->label('Tombol')
+                    ->placeholder('-'),
+
+                TextColumn::make('sort_order')
+                    ->label('Urutan')
+                    ->sortable(),
+
+                ToggleColumn::make('is_active')
+                    ->label('Aktif'),
+
                 TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->label('Diperbarui')
+                    ->dateTime('d M Y H:i')
+                    ->sortable(),
+
             ])
-            ->filters([
-                //
-            ])
-            ->recordActions([
-                ViewAction::make(),
+
+            ->actions([
                 EditAction::make(),
             ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
-            ]);
+
+            ->bulkActions([
+                DeleteBulkAction::make(),
+            ])
+
+            ->defaultPaginationPageOption(10);
     }
 }

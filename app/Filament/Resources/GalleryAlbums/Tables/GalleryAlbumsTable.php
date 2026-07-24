@@ -5,7 +5,8 @@ namespace App\Filament\Resources\GalleryAlbums\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -15,28 +16,96 @@ class GalleryAlbumsTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
+                /*
+                |--------------------------------------------------------------------------
+                | JUDUL
+                |--------------------------------------------------------------------------
+                */
+
                 TextColumn::make('title')
-                    ->searchable(),
+                    ->label('Judul Album')
+                    ->searchable()
+                    ->sortable()
+                    ->weight('bold')
+                    ->description(
+                        fn ($record) => $record->description
+                            ? str($record->description)->limit(60)
+                            : null
+                    ),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | SLUG
+                |--------------------------------------------------------------------------
+                */
+
+                TextColumn::make('slug')
+                    ->label('Slug')
+                    ->searchable()
+                    ->toggleable(
+                        isToggledHiddenByDefault: true
+                    ),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | JUMLAH FOTO
+                |--------------------------------------------------------------------------
+                */
+
+                TextColumn::make('photos_count')
+                    ->label('Jumlah Foto')
+                    ->counts('photos')
+                    ->badge()
+                    ->color('success'),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | STATUS
+                |--------------------------------------------------------------------------
+                */
+
+                IconColumn::make('is_active')
+                    ->label('Status')
+                    ->boolean(),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | TANGGAL
+                |--------------------------------------------------------------------------
+                */
+
                 TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('Dibuat')
+                    ->dateTime('d M Y')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(
+                        isToggledHiddenByDefault: true
+                    ),
+
                 TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Diperbarui')
+                    ->dateTime('d M Y H:i')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(
+                        isToggledHiddenByDefault: true
+                    ),
+
             ])
-            ->filters([
-                //
-            ])
-            ->recordActions([
-                ViewAction::make(),
+
+            ->defaultSort(
+                'created_at',
+                'desc'
+            )
+
+            ->actions([
                 EditAction::make(),
             ])
-            ->toolbarActions([
+
+            ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),

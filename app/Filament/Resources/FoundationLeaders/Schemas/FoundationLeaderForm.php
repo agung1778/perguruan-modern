@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\FoundationLeaders\Schemas;
 
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
@@ -15,66 +15,119 @@ class FoundationLeaderForm
     {
         return $schema
             ->components([
-                Section::make('Informasi Kepala Yayasan')
-                    ->description('Kelola informasi pimpinan yayasan yang ditampilkan pada website.')
-                    ->icon('heroicon-o-user-circle')
+
+                /*
+                |--------------------------------------------------------------------------
+                | IDENTITAS PIMPINAN
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make('Identitas Pimpinan')
+                    ->description(
+                        'Informasi dasar mengenai pimpinan atau pengurus perguruan.'
+                    )
+                    ->icon('heroicon-o-user')
                     ->schema([
+
                         TextInput::make('name')
                             ->label('Nama Lengkap')
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->placeholder('Masukkan nama lengkap'),
 
                         TextInput::make('position')
                             ->label('Jabatan')
                             ->required()
-                            ->default('Ketua Yayasan')
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->placeholder(
+                                'Contoh: Ketua Yayasan'
+                            ),
 
                         TextInput::make('period')
                             ->label('Periode Jabatan')
-                            ->maxLength(100)
-                            ->placeholder('Contoh: 2025 - 2030'),
+                            ->maxLength(255)
+                            ->placeholder(
+                                'Contoh: 2025 - 2030'
+                            ),
+
+                        Toggle::make('is_active')
+                            ->label('Status Aktif')
+                            ->helperText(
+                                'Aktifkan jika pimpinan ini ingin ditampilkan pada website.'
+                            )
+                            ->default(true)
+                            ->inline(false),
+
+                    ])
+                    ->columns(2),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | FOTO
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make('Foto Pimpinan')
+                    ->description(
+                        'Upload foto resmi pimpinan perguruan.'
+                    )
+                    ->icon('heroicon-o-camera')
+                    ->schema([
 
                         FileUpload::make('photo')
                             ->label('Foto')
                             ->image()
                             ->disk('public')
-                            ->directory('foundation/leaders')
+                            ->directory('foundation-leaders')
                             ->visibility('public')
                             ->imageEditor()
-                            ->maxSize(5120),
-
-                        RichEditor::make('deskripsi')
-                            ->label('Deskripsi / Biodata')
-                            ->toolbarButtons([
-                                'bold',
-                                'italic',
-                                'underline',
-                                'bulletList',
-                                'orderedList',
-                                'link',
+                            ->imagePreviewHeight('250')
+                            ->maxSize(5120)
+                            ->acceptedFileTypes([
+                                'image/jpeg',
+                                'image/png',
+                                'image/webp',
                             ])
+                            ->helperText(
+                                'Format JPG, PNG, atau WEBP. Maksimal 5 MB.'
+                            )
                             ->columnSpanFull(),
 
-                        RichEditor::make('message')
-                            ->label('Pesan Kepala Yayasan')
-                            ->toolbarButtons([
-                                'bold',
-                                'italic',
-                                'underline',
-                                'bulletList',
-                                'orderedList',
-                                'link',
-                            ])
+                    ]),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | DESKRIPSI
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make('Profil Pimpinan')
+                    ->description(
+                        'Informasi singkat mengenai profil pimpinan.'
+                    )
+                    ->icon('heroicon-o-document-text')
+                    ->schema([
+
+                        Textarea::make('description')
+                            ->label('Deskripsi')
+                            ->rows(6)
+                            ->placeholder(
+                                'Tuliskan profil singkat pimpinan...'
+                            )
                             ->columnSpanFull(),
 
-                        Toggle::make('is_active')
-                            ->label('Tampilkan di Website')
-                            ->default(true)
-                            ->inline(false),
-                    ])
-                    ->columns(2)
-                    ->columnSpanFull(),
+                        Textarea::make('message')
+                            ->label('Pesan / Sambutan')
+                            ->rows(8)
+                            ->placeholder(
+                                'Tuliskan pesan atau sambutan pimpinan...'
+                            )
+                            ->columnSpanFull(),
+
+                    ]),
+
             ]);
     }
 }

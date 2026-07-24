@@ -7,5 +7,11 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateFoundationLeader extends CreateRecord
 {
-    protected static string $resource = FoundationLeaderResource::class;
+    protected static string $resource =
+        FoundationLeaderResource::class;
+
+    protected function getCreatedNotificationTitle(): ?string
+    {
+        return 'Data pimpinan berhasil ditambahkan.';
+    }
 }

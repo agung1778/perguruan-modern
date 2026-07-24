@@ -8,12 +8,14 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListNewsArticles extends ListRecords
 {
-    protected static string $resource = NewsArticleResource::class;
+    protected static string $resource =
+        NewsArticleResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->label('Tambah Berita'),
         ];
     }
 }

@@ -8,12 +8,14 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListGalleryAlbums extends ListRecords
 {
-    protected static string $resource = GalleryAlbumResource::class;
+    protected static string $resource =
+        GalleryAlbumResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->label('Tambah Album'),
         ];
     }
 }

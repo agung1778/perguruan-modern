@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Concerns\HasUuid;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GalleryPhoto extends Model
 {
@@ -12,6 +13,12 @@ class GalleryPhoto extends Model
     protected $fillable = [
         'gallery_album_id',
         'photo',
+        'caption',
+        'order',
+    ];
+
+    protected $casts = [
+        'order' => 'integer',
     ];
 
     public function album()
@@ -20,5 +27,10 @@ class GalleryPhoto extends Model
             GalleryAlbum::class,
             'gallery_album_id'
         );
+    }
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('order');
     }
 }

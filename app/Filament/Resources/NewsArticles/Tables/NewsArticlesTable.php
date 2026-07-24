@@ -5,11 +5,9 @@ namespace App\Filament\Resources\NewsArticles\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ForceDeleteBulkAction;
-use Filament\Actions\RestoreBulkAction;
-use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class NewsArticlesTable
@@ -18,40 +16,90 @@ class NewsArticlesTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
-                TextColumn::make('news_category_id')
-                    ->searchable(),
+
+                ImageColumn::make('image')
+                    ->label('Gambar')
+                    ->disk('public')
+                    ->square()
+                    ->size(70),
+
                 TextColumn::make('title')
-                    ->searchable(),
-                TextColumn::make('thumbnail')
-                    ->searchable(),
+                    ->label('Judul')
+                    ->searchable()
+                    ->sortable()
+                    ->limit(50)
+                    ->weight('bold'),
+
+                TextColumn::make('category.name')
+                    ->label('Kategori')
+                    ->searchable()
+                    ->sortable()
+                    ->badge()
+                    ->placeholder('-'),
+
+                TextColumn::make('status')
+                    ->label('Status')
+                    ->badge()
+                    ->formatStateUsing(
+                        fn (string $state): string => match ($state) {
+                            'published' => 'Diterbitkan',
+                            'draft' => 'Draft',
+                            default => ucfirst($state),
+                        }
+                    )
+                    ->color(
+                        fn (string $state): string => match ($state) {
+                            'published' => 'success',
+                            'draft' => 'gray',
+                            default => 'gray',
+                        }
+                    ),
+
+                TextColumn::make('published_at')
+                    ->label('Tanggal Publikasi')
+                    ->dateTime('d M Y H:i')
+                    ->sortable()
+                    ->placeholder('-'),
+
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->label('Dibuat')
+                    ->dateTime('d M Y H:i')
+                    ->sortable(),
+
             ])
+
             ->filters([
-                TrashedFilter::make(),
+
+                SelectFilter::make('status')
+                    ->label('Status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'published' => 'Diterbitkan',
+                    ]),
+
+                SelectFilter::make('news_category_id')
+                    ->label('Kategori')
+                    ->relationship(
+                        name: 'category',
+                        titleAttribute: 'name'
+                    )
+                    ->searchable()
+                    ->preload(),
+
             ])
-            ->recordActions([
-                ViewAction::make(),
+
+            ->defaultSort(
+                'created_at',
+                'desc'
+            )
+
+            ->actions([
                 EditAction::make(),
             ])
-            ->toolbarActions([
+
+            ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
                 ]),
             ]);
     }

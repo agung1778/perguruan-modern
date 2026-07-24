@@ -3,30 +3,31 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
-use App\Models\Concerns\HasUuid;
-
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class HomepageBanner extends Model
 {
-    use HasUuid;
+    use HasUuids;
 
-    protected $fillable=[
-    'title',
-    'description',
-    'image',
-    'button_text',
-    'button_link',
-    'is_active'
+    protected $table = 'homepage_banners';
+
+    protected $fillable = [
+        'title',
+        'description',
+        'image',
+        'button_text',
+        'button_link',
+        'is_active',
+        'sort_order',
     ];
 
-    protected static function booted()
+    protected $casts = [
+        'is_active' => 'boolean',
+        'sort_order' => 'integer',
+    ];
+
+    public function getRouteKeyName(): string
     {
-        static::saved(function () {
-            cache()->forget('homepage');
-        });
-        static::deleted(function () {
-            cache()->forget('homepage');
-        });
+        return 'id';
     }
 }

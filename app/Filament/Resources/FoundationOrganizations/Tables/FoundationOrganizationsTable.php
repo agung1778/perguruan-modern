@@ -6,8 +6,8 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class FoundationOrganizationsTable
@@ -16,34 +16,88 @@ class FoundationOrganizationsTable
     {
         return $table
             ->columns([
+
+                /*
+                |--------------------------------------------------------------------------
+                | FOTO
+                |--------------------------------------------------------------------------
+                */
+
                 ImageColumn::make('photo')
                     ->label('Foto')
                     ->disk('public')
-                    ->circular(),
+                    ->circular()
+                    ->size(55),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | NAMA
+                |--------------------------------------------------------------------------
+                */
 
                 TextColumn::make('name')
                     ->label('Nama')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->weight('bold'),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | JABATAN
+                |--------------------------------------------------------------------------
+                */
 
                 TextColumn::make('position')
                     ->label('Jabatan')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | URUTAN
+                |--------------------------------------------------------------------------
+                */
 
                 TextColumn::make('order')
                     ->label('Urutan')
-                    ->sortable(),
+                    ->sortable()
+                    ->alignCenter(),
 
-                ToggleColumn::make('is_active')
-                    ->label('Aktif'),
 
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime('d M Y')
-                    ->sortable(),
+                /*
+                |--------------------------------------------------------------------------
+                | STATUS
+                |--------------------------------------------------------------------------
+                */
+
+                IconColumn::make('is_active')
+                    ->label('Status')
+                    ->boolean(),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | UPDATED
+                |--------------------------------------------------------------------------
+                */
+
+                TextColumn::make('updated_at')
+                    ->label('Terakhir Diperbarui')
+                    ->dateTime('d M Y H:i')
+                    ->sortable()
+                    ->toggleable(
+                        isToggledHiddenByDefault: true
+                    ),
+
             ])
 
-            ->defaultSort('order', 'asc')
+            ->defaultSort(
+                'order',
+                'asc'
+            )
 
             ->actions([
                 EditAction::make(),

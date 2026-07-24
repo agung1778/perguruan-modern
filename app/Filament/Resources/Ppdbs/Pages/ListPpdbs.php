@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\PPDBs\Pages;
+namespace App\Filament\Resources\Ppdbs\Pages;
 
-use App\Filament\Resources\PPDBs\PPDBResource;
+use App\Filament\Resources\Ppdbs\PpdbResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
-class ListPPDBs extends ListRecords
+class ListPpdbs extends ListRecords
 {
-    protected static string $resource = PPDBResource::class;
+    protected static string $resource = PpdbResource::class;
 
     protected function getHeaderActions(): array
     {

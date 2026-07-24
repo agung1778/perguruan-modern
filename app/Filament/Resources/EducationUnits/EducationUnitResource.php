@@ -17,7 +17,7 @@ class EducationUnitResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-academic-cap';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Pendidikan';
+    protected static string|UnitEnum|null $navigationGroup = 'Data Pendidikan';
 
     protected static ?string $navigationLabel = 'Unit Pendidikan';
 

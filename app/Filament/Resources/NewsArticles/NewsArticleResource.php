@@ -2,9 +2,6 @@
 
 namespace App\Filament\Resources\NewsArticles;
 
-use App\Filament\Resources\NewsArticles\Pages\CreateNewsArticle;
-use App\Filament\Resources\NewsArticles\Pages\EditNewsArticle;
-use App\Filament\Resources\NewsArticles\Pages\ListNewsArticles;
 use App\Filament\Resources\NewsArticles\Schemas\NewsArticleForm;
 use App\Filament\Resources\NewsArticles\Tables\NewsArticlesTable;
 use App\Models\NewsArticle;
@@ -18,50 +15,39 @@ class NewsArticleResource extends Resource
 {
     protected static ?string $model = NewsArticle::class;
 
+    protected static string|BackedEnum|null $navigationIcon =
+        'heroicon-o-newspaper';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-newspaper';
+    protected static string|UnitEnum|null $navigationGroup =
+        'Konten Website';
 
+    protected static ?string $navigationLabel =
+        'Berita';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Berita';
+    protected static ?string $modelLabel =
+        'Berita';
 
+    protected static ?string $pluralModelLabel =
+        'Berita';
 
-    protected static ?string $navigationLabel = 'Artikel Berita';
-
-
-    protected static ?string $modelLabel = 'Artikel Berita';
-
-
-    protected static ?string $pluralModelLabel = 'Artikel Berita';
-
-
-    protected static ?int $navigationSort = 1;
-
-
+    protected static ?int $navigationSort = 2;
 
     public static function form(Schema $schema): Schema
     {
         return NewsArticleForm::configure($schema);
     }
 
-
-
     public static function table(Table $table): Table
     {
         return NewsArticlesTable::configure($table);
     }
 
-
-
     public static function getPages(): array
     {
         return [
-
-            'index' => ListNewsArticles::route('/'),
-
-            'create' => CreateNewsArticle::route('/create'),
-
-            'edit' => EditNewsArticle::route('/{record}/edit'),
-
+            'index' => Pages\ListNewsArticles::route('/'),
+            'create' => Pages\CreateNewsArticle::route('/create'),
+            'edit' => Pages\EditNewsArticle::route('/{record}/edit'),
         ];
     }
 }

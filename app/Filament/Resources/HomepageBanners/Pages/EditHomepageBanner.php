@@ -4,7 +4,6 @@ namespace App\Filament\Resources\HomepageBanners\Pages;
 
 use App\Filament\Resources\HomepageBanners\HomepageBannerResource;
 use Filament\Actions\DeleteAction;
-use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditHomepageBanner extends EditRecord
@@ -14,7 +13,6 @@ class EditHomepageBanner extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
             DeleteAction::make(),
         ];
     }

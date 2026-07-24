@@ -2,9 +2,6 @@
 
 namespace App\Filament\Resources\Agendas;
 
-use App\Filament\Resources\Agendas\Pages\CreateAgenda;
-use App\Filament\Resources\Agendas\Pages\EditAgenda;
-use App\Filament\Resources\Agendas\Pages\ListAgendas;
 use App\Filament\Resources\Agendas\Schemas\AgendaForm;
 use App\Filament\Resources\Agendas\Tables\AgendasTable;
 use App\Models\Agenda;
@@ -17,12 +14,18 @@ use UnitEnum;
 class AgendaResource extends Resource
 {
     protected static ?string $model = Agenda::class;
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar-days';
-    protected static string|UnitEnum|null $navigationGroup = 'Website';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Konten Website';
+
     protected static ?string $navigationLabel = 'Agenda';
+
     protected static ?string $modelLabel = 'Agenda';
+
     protected static ?string $pluralModelLabel = 'Agenda';
-    protected static ?int $navigationSort = 1;
+
+    protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema
     {
@@ -37,9 +40,9 @@ class AgendaResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => ListAgendas::route('/'),
-            'create' => CreateAgenda::route('/create'),
-            'edit'   => EditAgenda::route('/{record}/edit'),
+            'index' => Pages\ListAgendas::route('/'),
+            'create' => Pages\CreateAgenda::route('/create'),
+            'edit' => Pages\EditAgenda::route('/{record}/edit'),
         ];
     }
 }

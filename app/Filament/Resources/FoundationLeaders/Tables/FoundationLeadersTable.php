@@ -16,37 +16,91 @@ class FoundationLeadersTable
     {
         return $table
             ->columns([
+
+                /*
+                |--------------------------------------------------------------------------
+                | FOTO
+                |--------------------------------------------------------------------------
+                */
+
                 ImageColumn::make('photo')
                     ->label('Foto')
                     ->disk('public')
-                    ->circular(),
+                    ->circular()
+                    ->size(55),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | NAMA
+                |--------------------------------------------------------------------------
+                */
 
                 TextColumn::make('name')
                     ->label('Nama')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->weight('bold'),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | JABATAN
+                |--------------------------------------------------------------------------
+                */
 
                 TextColumn::make('position')
                     ->label('Jabatan')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | PERIODE
+                |--------------------------------------------------------------------------
+                */
 
                 TextColumn::make('period')
                     ->label('Periode')
+                    ->placeholder('-')
                     ->sortable(),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | STATUS
+                |--------------------------------------------------------------------------
+                */
 
                 IconColumn::make('is_active')
-                    ->label('Aktif')
+                    ->label('Status')
                     ->boolean(),
 
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime('d M Y')
-                    ->sortable(),
+
+                /*
+                |--------------------------------------------------------------------------
+                | UPDATED
+                |--------------------------------------------------------------------------
+                */
+
+                TextColumn::make('updated_at')
+                    ->label('Terakhir Diperbarui')
+                    ->dateTime('d M Y H:i')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
             ])
-            ->defaultSort('created_at', 'desc')
+
+            ->defaultSort(
+                'created_at',
+                'desc'
+            )
+
             ->actions([
                 EditAction::make(),
             ])
+
             ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),

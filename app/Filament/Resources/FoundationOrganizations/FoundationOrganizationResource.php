@@ -15,17 +15,22 @@ class FoundationOrganizationResource extends Resource
 {
     protected static ?string $model = FoundationOrganization::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-building-office-2';
+    protected static string|BackedEnum|null $navigationIcon =
+        'heroicon-o-building-office-2';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Yayasan';
+    protected static string|UnitEnum|null $navigationGroup =
+        'Perguruan';
 
-    protected static ?string $navigationLabel = 'Struktur Organisasi';
+    protected static ?string $navigationLabel =
+        'Struktur Organisasi';
 
-    protected static ?string $modelLabel = 'Struktur Organisasi';
+    protected static ?string $modelLabel =
+        'Struktur Organisasi';
 
-    protected static ?string $pluralModelLabel = 'Struktur Organisasi';
+    protected static ?string $pluralModelLabel =
+        'Struktur Organisasi';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema
     {

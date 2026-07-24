@@ -2,33 +2,26 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Concerns\HasUuid;
-
 
 class WebsiteSetting extends Model
 {
-
-    use HasUuid;
-
+    use HasUuids;
 
     protected $fillable = [
-
         'school_name',
-
         'logo',
         'favicon',
 
         'about',
         'history',
-
         'vision',
         'mission',
 
         'address',
         'phone',
         'email',
-
         'google_maps',
 
         'facebook',
@@ -36,7 +29,5 @@ class WebsiteSetting extends Model
         'youtube',
 
         'meta_description',
-
     ];
-
 }

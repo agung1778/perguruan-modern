@@ -4,12 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Cache;
 
-/*
-|--------------------------------------------------------------------------
-| Models
-|--------------------------------------------------------------------------
-*/
-
 use App\Models\WebsiteSetting;
 use App\Models\HomepageBanner;
 use App\Models\About;
@@ -25,122 +19,77 @@ use App\Models\Testimonial;
 
 class HomeController extends Controller
 {
-    /**
-     * Homepage
-     */
     public function __invoke()
     {
         $data = Cache::remember(
-            'homepage',
+            'homepage.data',
             now()->addHours(6),
             function () {
-                /*
-                |--------------------------------------------------------------------------
-                | Website Information
-                |--------------------------------------------------------------------------
-                */
+
                 $website = WebsiteSetting::first();
-                /*
-                |--------------------------------------------------------------------------
-                | Hero Banner
-                |--------------------------------------------------------------------------
-                */
+
                 $banners = HomepageBanner::query()
                     ->where('is_active', true)
                     ->latest()
                     ->get();
-                                    /*
-                |--------------------------------------------------------------------------
-                | About
-                |--------------------------------------------------------------------------
-                */
+
                 $about = About::first();
-                /*
-                |--------------------------------------------------------------------------
-                | Education Units
-                |--------------------------------------------------------------------------
-                */
+
                 $units = EducationUnit::query()
+                    ->where('is_active', true)
                     ->withCount([
                         'students',
-                        'teachers'
+                        'teachers',
                     ])
                     ->latest()
                     ->get();
-                /*
-                |--------------------------------------------------------------------------
-                | Foundation Organization
-                |--------------------------------------------------------------------------
-                */
+
                 $organizations = FoundationOrganization::query()
                     ->active()
                     ->ordered()
                     ->get();
-                /*
-                |--------------------------------------------------------------------------
-                | Foundation Leader
-                |--------------------------------------------------------------------------
-                */
+
                 $leader = FoundationLeader::query()
                     ->latest()
                     ->first();
-                /*
-                |--------------------------------------------------------------------------
-                | Latest News
-                |--------------------------------------------------------------------------
-                */
+
                 $news = NewsArticle::query()
-                    ->where('status','published')
-                    ->latest()
+                    ->published()
+                    ->latest('published_at')
                     ->take(6)
                     ->get();
-                /*
-                |--------------------------------------------------------------------------
-                | Upcoming Agenda
-                |--------------------------------------------------------------------------
-                */
+
                 $agendas = Agenda::query()
-                    ->whereDate(
-                        'date',
-                        '>=',
-                        now()
-                    )
+                    ->whereDate('date', '>=', now())
                     ->orderBy('date')
                     ->take(5)
                     ->get();
-                /*
-                |--------------------------------------------------------------------------
-                | Gallery
-                |--------------------------------------------------------------------------
-                */
+
                 $gallery = GalleryAlbum::query()
                     ->with('photos')
                     ->latest()
                     ->take(6)
                     ->get();
-                /*
-                |--------------------------------------------------------------------------
-                | Testimonials
-                |--------------------------------------------------------------------------
-                */
+
                 $testimonials = Testimonial::query()
                     ->latest()
                     ->take(6)
                     ->get();
-                /*
-                |--------------------------------------------------------------------------
-                | Statistics
-                |--------------------------------------------------------------------------
-                */
+
                 $stats = [
                     'students' => Student::count(),
                     'teachers' => Teacher::count(),
                     'units' => EducationUnit::count(),
-                    'news' => NewsArticle::count(),
+                    'news' => NewsArticle::where(
+                        'status',
+                        'published'
+                    )->count(),
                 ];
+
                 return compact(
                     'website',
                     'banners',
+                    'about',
                     'units',
                     'organizations',
                     'leader',
@@ -153,9 +102,6 @@ class HomeController extends Controller
             }
         );
 
-        return view(
-            'pages.home',
-            $data
-        );
+        return view('pages.home', $data);
     }
 }

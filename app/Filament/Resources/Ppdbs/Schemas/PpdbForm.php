@@ -8,7 +8,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\RichEditor;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class PpdbForm
@@ -17,88 +17,217 @@ class PpdbForm
     {
         return $schema
             ->components([
-                Select::make('education_unit_id')
-                    ->label('Unit Pendidikan')
-                    ->options(
-                        EducationUnit::query()
-                            ->orderBy('name')
-                            ->pluck('name', 'id')
-                            ->toArray()
+
+                /*
+                |--------------------------------------------------------------------------
+                | INFORMASI UTAMA
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make('Informasi PPDB')
+                    ->description(
+                        'Informasi utama mengenai penerimaan peserta didik baru.'
                     )
-                    ->searchable()
-                    ->preload()
-                    ->required(),
+                    ->icon('heroicon-o-academic-cap')
+                    ->schema([
 
-                TextInput::make('title')
-                    ->label('Judul PPDB')
-                    ->placeholder('PPDB SMK Amaliah Tahun 2026/2027')
-                    ->required()
-                    ->maxLength(255),
+                        Select::make('education_unit_id')
+                            ->label('Unit Pendidikan')
+                            ->options(
+                                EducationUnit::query()
+                                    ->orderBy('name')
+                                    ->pluck(
+                                        'name',
+                                        'id'
+                                    )
+                            )
+                            ->searchable()
+                            ->preload()
+                            ->required(),
 
-                TextInput::make('academic_year')
-                    ->label('Tahun Ajaran')
-                    ->placeholder('2026/2027')
-                    ->required()
-                    ->maxLength(20),
+                        TextInput::make('academic_year')
+                            ->label('Tahun Ajaran')
+                            ->placeholder('2026/2027')
+                            ->required()
+                            ->maxLength(20),
 
-                Select::make('status')
-                    ->label('Status PPDB')
-                    ->options([
-                        'upcoming' => 'Akan Dibuka',
-                        'open' => 'Dibuka',
-                        'closed' => 'Ditutup',
+                        TextInput::make('title')
+                            ->label('Judul PPDB')
+                            ->placeholder(
+                                'Penerimaan Peserta Didik Baru'
+                            )
+                            ->required()
+                            ->maxLength(255)
+                            ->columnSpanFull(),
+
+                        Textarea::make('description')
+                            ->label('Deskripsi')
+                            ->rows(6)
+                            ->columnSpanFull(),
+
                     ])
-                    ->default('upcoming')
-                    ->required(),
+                    ->columns(2),
 
-                Toggle::make('is_published')
-                    ->label('Publikasikan')
-                    ->default(false)
-                    ->helperText(
-                        'Aktifkan agar informasi PPDB tampil di halaman publik.'
-                    ),
 
-                DatePicker::make('registration_start')
-                    ->label('Tanggal Mulai Pendaftaran')
-                    ->native(false)
-                    ->displayFormat('d F Y'),
+                /*
+                |--------------------------------------------------------------------------
+                | PERIODE PENDAFTARAN
+                |--------------------------------------------------------------------------
+                */
 
-                DatePicker::make('registration_end')
-                    ->label('Tanggal Berakhir Pendaftaran')
-                    ->native(false)
-                    ->displayFormat('d F Y'),
-
-                TextInput::make('registration_fee')
-                    ->label('Biaya Pendaftaran')
-                    ->numeric()
-                    ->prefix('Rp')
-                    ->nullable(),
-
-                TextInput::make('registration_url')
-                    ->label('Link Pendaftaran')
-                    ->url()
-                    ->placeholder('https://...')
-                    ->maxLength(255),
-
-                Textarea::make('contact')
-                    ->label('Kontak PPDB')
-                    ->rows(3)
-                    ->placeholder(
-                        "WhatsApp: 08xxxxxxxxxx\nEmail: ppdb@example.com"
+                Section::make('Periode Pendaftaran')
+                    ->description(
+                        'Tentukan periode pendaftaran peserta didik baru.'
                     )
-                    ->columnSpanFull(),
+                    ->icon('heroicon-o-calendar-days')
+                    ->schema([
 
-                RichEditor::make('description')
-                    ->label('Deskripsi PPDB')
-                    ->columnSpanFull(),
+                        DatePicker::make('registration_start')
+                            ->label('Tanggal Mulai')
+                            ->native(false)
+                            ->displayFormat('d F Y'),
 
-                RichEditor::make('requirements')
-                    ->label('Persyaratan Pendaftaran')
-                    ->columnSpanFull(),
+                        DatePicker::make('registration_end')
+                            ->label('Tanggal Berakhir')
+                            ->native(false)
+                            ->displayFormat('d F Y')
+                            ->afterOrEqual(
+                                'registration_start'
+                            ),
 
-                RichEditor::make('schedule')
-                    ->label('Jadwal Pendaftaran')
-                    ->columnSpanFull(),
+                        TextInput::make('registration_fee')
+                            ->label('Biaya Pendaftaran')
+                            ->numeric()
+                            ->prefix('Rp')
+                            ->minValue(0),
+
+                    ])
+                    ->columns(3),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | JADWAL & PERSYARATAN
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make('Detail Pendaftaran')
+                    ->description(
+                        'Atur jadwal, persyaratan, dan informasi pendaftaran.'
+                    )
+                    ->icon('heroicon-o-clipboard-document-list')
+                    ->schema([
+
+                        Textarea::make('schedule')
+                            ->label('Jadwal Pendaftaran')
+                            ->placeholder(
+                                "Contoh:\n1. Pendaftaran: 1 Desember 2026 - 1 Januari 2027\n2. Seleksi: 5 Januari 2027\n3. Pengumuman: 10 Januari 2027"
+                            )
+                            ->rows(7)
+                            ->columnSpanFull(),
+
+                        Textarea::make('requirements')
+                            ->label('Persyaratan')
+                            ->placeholder(
+                                "Contoh:\n- Fotokopi Kartu Keluarga\n- Fotokopi Akta Kelahiran\n- Pas Foto"
+                            )
+                            ->rows(8)
+                            ->columnSpanFull(),
+
+                    ]),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | PENDAFTARAN ONLINE
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make('Pendaftaran Online')
+                    ->description(
+                        'Masukkan link pendaftaran online jika tersedia.'
+                    )
+                    ->icon('heroicon-o-globe-alt')
+                    ->schema([
+
+                        TextInput::make('registration_url')
+                            ->label('URL Pendaftaran')
+                            ->url()
+                            ->placeholder(
+                                'https://example.com/ppdb'
+                            )
+                            ->maxLength(500),
+
+                        TextInput::make('registration_link')
+                            ->label('Link Alternatif')
+                            ->url()
+                            ->placeholder(
+                                'https://example.com'
+                            )
+                            ->maxLength(500),
+
+                    ])
+                    ->columns(2),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | KONTAK
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make('Informasi Kontak')
+                    ->description(
+                        'Informasi yang dapat dihubungi calon peserta didik.'
+                    )
+                    ->icon('heroicon-o-phone')
+                    ->schema([
+
+                        TextInput::make('contact')
+                            ->label('Kontak PPDB')
+                            ->placeholder(
+                                '0812xxxxxxx / WhatsApp'
+                            )
+                            ->maxLength(255)
+                            ->columnSpanFull(),
+
+                    ]),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | STATUS
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make('Status Publikasi')
+                    ->description(
+                        'Atur status dan visibilitas PPDB pada website.'
+                    )
+                    ->icon('heroicon-o-eye')
+                    ->schema([
+
+                        Select::make('status')
+                            ->label('Status')
+                            ->options([
+                                'upcoming' => 'Draft',
+                                'open' => 'Dipublikasikan',
+                                'closed' => 'Ditutup',
+                            ])
+                            ->default('draft')
+                            ->required(),
+
+                        Toggle::make('is_active')
+                            ->label('Aktif')
+                            ->default(true),
+
+                        Toggle::make('is_published')
+                            ->label('Tampilkan di Website')
+                            ->default(false),
+
+                    ])
+                    ->columns(3),
+
             ]);
     }
 }

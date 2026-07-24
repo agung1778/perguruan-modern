@@ -7,6 +7,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class EducationUnitsTable
@@ -14,46 +15,117 @@ class EducationUnitsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function ($query) {
+                return $query->withCount([
+                    'students',
+                    'teachers',
+                ]);
+            })
+
+            ->defaultSort('name', 'asc')
+
             ->columns([
+
+                /*
+                |--------------------------------------------------------------------------
+                | LOGO
+                |--------------------------------------------------------------------------
+                */
                 ImageColumn::make('logo')
                     ->label('Logo')
                     ->disk('public')
-                    ->circular(),
+                    ->circular()
+                    ->size(50),
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | NAMA UNIT
+                |--------------------------------------------------------------------------
+                */
                 TextColumn::make('name')
                     ->label('Nama Unit')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->weight('bold')
+                    ->description(
+                        fn ($record) => $record->short_name
+                            ?: 'Tidak ada nama singkat'
+                    ),
 
-                TextColumn::make('short_name')
-                    ->label('Singkatan')
-                    ->searchable(),
 
+                /*
+                |--------------------------------------------------------------------------
+                | JUMLAH SISWA
+                |--------------------------------------------------------------------------
+                */
                 TextColumn::make('students_count')
                     ->label('Siswa')
-                    ->counts('students')
-                    ->sortable(),
+                    ->numeric()
+                    ->sortable()
+                    ->badge()
+                    ->color('success'),
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | JUMLAH GURU
+                |--------------------------------------------------------------------------
+                */
                 TextColumn::make('teachers_count')
                     ->label('Guru')
-                    ->counts('teachers')
-                    ->sortable(),
+                    ->numeric()
+                    ->sortable()
+                    ->badge()
+                    ->color('info'),
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | WEBSITE
+                |--------------------------------------------------------------------------
+                */
                 TextColumn::make('website')
                     ->label('Website')
+                    ->url(
+                        fn ($record) => $record->website
+                    )
+                    ->openUrlInNewTab()
                     ->limit(30)
-                    ->url(fn ($record) => $record->website, true),
+                    ->placeholder('Tidak tersedia')
+                    ->toggleable(),
 
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime('d M Y')
+
+                /*
+                |--------------------------------------------------------------------------
+                | STATUS
+                |--------------------------------------------------------------------------
+                */
+                ToggleColumn::make('is_active')
+                    ->label('Aktif')
                     ->sortable(),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | TERAKHIR DIPERBARUI
+                |--------------------------------------------------------------------------
+                */
+                TextColumn::make('updated_at')
+                    ->label('Diperbarui')
+                    ->dateTime('d M Y H:i')
+                    ->sortable()
+                    ->toggleable(
+                        isToggledHiddenByDefault: true
+                    ),
+
             ])
-            ->defaultSort('created_at', 'desc')
-            ->actions([
+
+            ->recordActions([
                 EditAction::make(),
             ])
-            ->bulkActions([
+
+            ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),

@@ -8,13 +8,14 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListFoundationLeaders extends ListRecords
 {
-    protected static string $resource = FoundationLeaderResource::class;
+    protected static string $resource =
+        FoundationLeaderResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
             CreateAction::make()
-                ->label('Tambah Kepala Yayasan'),
+                ->label('Tambah Pimpinan'),
         ];
     }
 }

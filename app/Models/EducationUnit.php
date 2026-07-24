@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasUuid;
-use App\Models\Ppdb;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,34 +18,42 @@ class EducationUnit extends Model
         'logo',
         'photo',
         'website',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 
     /**
-     * Relasi ke siswa.
+     * Relasi ke data siswa.
      */
     public function students(): HasMany
     {
-        return $this->hasMany(
-            Student::class,
-            'education_unit_id'
-        );
+        return $this->hasMany(Student::class);
     }
 
     /**
-     * Relasi ke guru dan karyawan.
+     * Relasi ke data guru.
      */
     public function teachers(): HasMany
     {
-        return $this->hasMany(
-            Teacher::class,
-            'education_unit_id'
-        );
+        return $this->hasMany(Teacher::class);
     }
-    public function ppdbs()
+
+    /**
+     * Relasi ke data PPDB.
+     */
+    public function ppdbs(): HasMany
     {
-        return $this->hasMany(
-            Ppdb::class,
-            'education_unit_id'
-        );
+        return $this->hasMany(Ppdb::class);
+    }
+
+    /**
+     * Scope unit aktif.
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
     }
 }

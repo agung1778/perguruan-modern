@@ -7,5 +7,6 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateGalleryPhoto extends CreateRecord
 {
-    protected static string $resource = GalleryPhotoResource::class;
+    protected static string $resource =
+        GalleryPhotoResource::class;
 }

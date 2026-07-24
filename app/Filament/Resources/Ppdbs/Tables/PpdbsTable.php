@@ -2,14 +2,14 @@
 
 namespace App\Filament\Resources\Ppdbs\Tables;
 
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Actions\RestoreAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
 class PpdbsTable
@@ -17,30 +17,36 @@ class PpdbsTable
     public static function configure(Table $table): Table
     {
         return $table
+
             ->columns([
+
+                TextColumn::make(
+                    'educationUnit.name'
+                )
+                    ->label('Unit Pendidikan')
+                    ->searchable()
+                    ->sortable(),
+
                 TextColumn::make('title')
                     ->label('Judul PPDB')
                     ->searchable()
                     ->sortable()
-                    ->weight('bold')
-                    ->limit(40),
-
-                TextColumn::make('educationUnit.name')
-                    ->label('Unit Pendidikan')
-                    ->searchable()
-                    ->sortable()
-                    ->badge(),
+                    ->wrap(),
 
                 TextColumn::make('academic_year')
                     ->label('Tahun Ajaran')
                     ->sortable(),
 
-                TextColumn::make('registration_start')
+                TextColumn::make(
+                    'registration_start'
+                )
                     ->label('Mulai')
                     ->date('d M Y')
                     ->sortable(),
 
-                TextColumn::make('registration_end')
+                TextColumn::make(
+                    'registration_end'
+                )
                     ->label('Berakhir')
                     ->date('d M Y')
                     ->sortable(),
@@ -48,36 +54,32 @@ class PpdbsTable
                 TextColumn::make('status')
                     ->label('Status')
                     ->badge()
-                    ->formatStateUsing(
-                        fn (string $state): string => match ($state) {
-                            'upcoming' => 'Akan Dibuka',
-                            'open' => 'Dibuka',
-                            'closed' => 'Ditutup',
-                            default => ucfirst($state),
-                        }
-                    )
-                    ->color(
-                        fn (string $state): string => match ($state) {
-                            'upcoming' => 'warning',
-                            'open' => 'success',
-                            'closed' => 'danger',
-                            default => 'gray',
-                        }
-                    ),
+                    ->colors([
+                        'gray' => 'draft',
+                        'success' => 'published',
+                        'danger' => 'closed',
+                    ]),
+
+                IconColumn::make('is_active')
+                    ->label('Aktif')
+                    ->boolean(),
 
                 IconColumn::make('is_published')
                     ->label('Publik')
                     ->boolean(),
 
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
+                TextColumn::make('updated_at')
+                    ->label('Diperbarui')
                     ->dateTime('d M Y H:i')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable(),
+
             ])
 
             ->filters([
-                SelectFilter::make('education_unit_id')
+
+                SelectFilter::make(
+                    'education_unit_id'
+                )
                     ->label('Unit Pendidikan')
                     ->relationship(
                         'educationUnit',
@@ -89,24 +91,25 @@ class PpdbsTable
                 SelectFilter::make('status')
                     ->label('Status')
                     ->options([
-                        'upcoming' => 'Akan Dibuka',
-                        'open' => 'Dibuka',
+                        'draft' => 'Draft',
+                        'published' => 'Dipublikasikan',
                         'closed' => 'Ditutup',
                     ]),
 
-                TernaryFilter::make('is_published')
-                    ->label('Publikasi'),
+                TrashedFilter::make(),
+
             ])
 
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
-            ])
 
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                EditAction::make(),
+
+                DeleteAction::make(),
+
+                RestoreAction::make(),
+
+                ForceDeleteAction::make(),
+
             ])
 
             ->defaultSort(

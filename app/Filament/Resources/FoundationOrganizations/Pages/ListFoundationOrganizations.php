@@ -8,13 +8,14 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListFoundationOrganizations extends ListRecords
 {
-    protected static string $resource = FoundationOrganizationResource::class;
+    protected static string $resource =
+        FoundationOrganizationResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
             CreateAction::make()
-                ->label('Tambah Struktur Organisasi'),
+                ->label('Tambah Anggota Organisasi'),
         ];
     }
 }

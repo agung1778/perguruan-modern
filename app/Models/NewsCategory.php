@@ -2,28 +2,38 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Concerns\HasUuid;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class NewsCategory extends Model
 {
-    use HasUuid;
+    use HasUuid, SoftDeletes;
 
-    protected $fillable=[
-    'name'
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'is_active',
     ];
 
-    public function newsArticles()
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    public function articles()
     {
         return $this->hasMany(
             NewsArticle::class,
-            'category_id'
+            'news_category_id'
         );
     }
-    public function category()
+
+    public function scopeActive($query)
     {
-        return $this->belongsTo(
-            NewsCategory::class,
-            'category_id'
+        return $query->where(
+            'is_active',
+            true
         );
     }
 }

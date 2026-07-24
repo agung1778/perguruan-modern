@@ -15,17 +15,22 @@ class FoundationLeaderResource extends Resource
 {
     protected static ?string $model = FoundationLeader::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user-circle';
+    protected static string|BackedEnum|null $navigationIcon =
+        'heroicon-o-user-group';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Yayasan';
+    protected static string|UnitEnum|null $navigationGroup =
+        'Perguruan';
 
-    protected static ?string $navigationLabel = 'Kepala Yayasan';
+    protected static ?string $navigationLabel =
+        'Pimpinan Perguruan';
 
-    protected static ?string $modelLabel = 'Kepala Yayasan';
+    protected static ?string $modelLabel =
+        'Pimpinan Perguruan';
 
-    protected static ?string $pluralModelLabel = 'Kepala Yayasan';
+    protected static ?string $pluralModelLabel =
+        'Pimpinan Perguruan';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     public static function form(Schema $schema): Schema
     {
