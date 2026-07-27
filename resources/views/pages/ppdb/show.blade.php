@@ -350,24 +350,17 @@
                             d="M5 12v5c3 2 9 2 14 0v-5"
                         />
                     </svg>
-
                 </div>
-
                 <h2 class="mt-6 text-xl font-bold text-slate-900 sm:text-2xl">
                     Belum Ada Informasi PPDB
                 </h2>
-
                 <p class="mx-auto mt-3 max-w-lg text-sm leading-7 text-slate-500 sm:text-base">
                     Informasi penerimaan peserta didik baru
                     belum tersedia untuk saat ini.
                 </p>
-
             </div>
-
         @endif
-
     </div>
-
 </section>
 
 @endsection
