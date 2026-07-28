@@ -2,23 +2,21 @@
 
 namespace App\Filament\Resources\Students\Tables;
 
-use App\Exports\StudentsExport;
-use App\Exports\StudentsExportByIds;
-use Filament\Actions\BulkAction;
+use App\Filament\Exports\StudentExporter;
+use App\Filament\Imports\StudentImporter;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ExportAction;
+use Filament\Actions\ImportAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Maatwebsite\Excel\Facades\Excel;
 
 class StudentsTable
 {
-    public static function configure(
-        Table $table
-    ): Table {
+    public static function configure(Table $table): Table
+    {
         return $table
-
             ->columns([
 
                 ImageColumn::make('photo')
@@ -27,18 +25,12 @@ class StudentsTable
                     ->circular(),
 
                 TextColumn::make('name')
-                    ->label(
-                        'Nama Siswa'
-                    )
+                    ->label('Nama Siswa')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make(
-                    'educationUnit.name'
-                )
-                    ->label(
-                        'Unit Pendidikan'
-                    )
+                TextColumn::make('educationUnit.name')
+                    ->label('Unit Pendidikan')
                     ->searchable()
                     ->sortable(),
 
@@ -46,122 +38,55 @@ class StudentsTable
                     ->label('NISN')
                     ->searchable(),
 
+                TextColumn::make('gender')
+                    ->label('Jenis Kelamin'),
+
                 TextColumn::make('batch')
-                    ->label(
-                        'Angkatan'
-                    )
+                    ->label('Angkatan')
                     ->sortable(),
 
-                TextColumn::make('major')
-                    ->label(
-                        'Jurusan'
-                    )
-                    ->toggleable(),
-
                 TextColumn::make('class')
-                    ->label(
-                        'Kelas'
-                    )
-                    ->toggleable(),
+                    ->label('Kelas')
+                    ->sortable(),
 
                 TextColumn::make('status')
-                    ->label(
-                        'Status'
-                    )
+                    ->label('Status')
                     ->badge()
-                    ->formatStateUsing(
-                        fn ($state) => match (
-                            $state
-                        ) {
-                            'active' =>
-                                'Aktif',
+                    ->color(fn (string $state): string => match ($state) {
+                        'Aktif' => 'success',
+                        'Lulus' => 'info',
+                        'Pindah' => 'warning',
+                        'Tidak Aktif' => 'danger',
+                        default => 'gray',
+                    }),
 
-                            'graduated' =>
-                                'Lulus',
-
-                            'inactive' =>
-                                'Tidak Aktif',
-
-                            'transferred' =>
-                                'Pindah',
-
-                            'dropped_out' =>
-                                'Keluar',
-
-                            default =>
-                                ucfirst(
-                                    $state ?? '-'
-                                ),
-                        }
-                    ),
-
-                TextColumn::make(
-                    'created_at'
-                )
-                    ->label(
-                        'Ditambahkan'
-                    )
-                    ->dateTime(
-                        'd M Y H:i'
-                    )
-                    ->sortable()
-                    ->toggleable(
-                        isToggledHiddenByDefault: true
-                    ),
+                TextColumn::make('created_at')
+                    ->label('Ditambahkan')
+                    ->dateTime('d M Y')
+                    ->sortable(),
 
             ])
 
-            ->filters([
+            ->defaultSort(
+                'created_at',
+                'desc'
+            )
 
-                SelectFilter::make(
-                    'education_unit_id'
-                )
-                    ->label(
-                        'Unit Pendidikan'
-                    )
-                    ->relationship(
-                        'educationUnit',
-                        'name'
-                    )
-                    ->searchable()
-                    ->preload(),
+            ->headerActions([
 
-                SelectFilter::make(
-                    'status'
-                )
-                    ->label(
-                        'Status'
-                    )
-                    ->options([
-                        'active' =>
-                            'Aktif',
+                ImportAction::make()
+                    ->label('Import Excel')
+                    ->icon('heroicon-o-arrow-up-tray')
+                    ->importer(
+                        StudentImporter::class
+                    ),
 
-                        'graduated' =>
-                            'Lulus',
-
-                        'inactive' =>
-                            'Tidak Aktif',
-
-                        'transferred' =>
-                            'Pindah',
-
-                        'dropped_out' =>
-                            'Keluar',
-                    ]),
-
-                SelectFilter::make(
-                    'gender'
-                )
-                    ->label(
-                        'Jenis Kelamin'
-                    )
-                    ->options([
-                        'L' =>
-                            'Laki-laki',
-
-                        'P' =>
-                            'Perempuan',
-                    ]),
+                ExportAction::make()
+                    ->label('Export Excel')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->exporter(
+                        StudentExporter::class
+                    ),
 
             ])
 
@@ -169,43 +94,17 @@ class StudentsTable
 
                 EditAction::make(),
 
-            ])
-
-            ->bulkActions([
-
-                BulkAction::make(
-                    'export'
-                )
-                    ->label(
-                        'Export Excel'
-                    )
-                    ->icon(
-                        'heroicon-o-arrow-down-tray'
-                    )
-                    ->action(
-                        function (
-                            $records
-                        ) {
-
-                            $ids =
-                                $records
-                                    ->pluck('id')
-                                    ->toArray();
-
-                            return Excel::download(
-                                new StudentsExportByIds(
-                                    $ids
-                                ),
-                                'data-siswa.xlsx'
-                            );
-                        }
-                    ),
+                DeleteAction::make(),
 
             ])
 
-            ->defaultSort(
-                'created_at',
-                'desc'
-            );
+            ->defaultPaginationPageOption(10)
+
+            ->paginated([
+                10,
+                25,
+                50,
+                100,
+            ]);
     }
 }

@@ -24,13 +24,30 @@ class NewsController extends Controller
 
     public function show(NewsArticle $news)
     {
-        abort_if(
-            $news->status !== 'published',
+        // Hanya berita published yang bisa dibuka
+        abort_unless(
+            $news->status === 'published',
             404
         );
+
+        // Ambil berita terbaru
+        $latest = NewsArticle::query()
+            ->where('status', 'published')
+            ->where(
+                $news->getKeyName(),
+                '!=',
+                $news->getKey()
+            )
+            ->latest()
+            ->take(5)
+            ->get();
+
         return view(
             'pages.news.show',
-            compact('news')
+            compact(
+                'news',
+                'latest'
+            )
         );
     }
 }

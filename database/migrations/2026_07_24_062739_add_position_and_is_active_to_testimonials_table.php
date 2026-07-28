@@ -9,23 +9,32 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('testimonials', function (Blueprint $table) {
-            $table->string('position')
-                ->nullable()
-                ->after('name');
 
-            $table->boolean('is_active')
-                ->default(true)
-                ->after('content');
+            if (! Schema::hasColumn('testimonials', 'position')) {
+                $table->string('position')->nullable()->after('name');
+            }
+
+            if (! Schema::hasColumn('testimonials', 'is_active')) {
+                $table->boolean('is_active')
+                    ->default(true)
+                    ->after('position');
+            }
+
         });
     }
 
     public function down(): void
     {
         Schema::table('testimonials', function (Blueprint $table) {
-            $table->dropColumn([
-                'position',
-                'is_active',
-            ]);
+
+            if (Schema::hasColumn('testimonials', 'is_active')) {
+                $table->dropColumn('is_active');
+            }
+
+            if (Schema::hasColumn('testimonials', 'position')) {
+                $table->dropColumn('position');
+            }
+
         });
     }
 };

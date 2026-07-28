@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -26,22 +28,6 @@ class EducationUnit extends Model
     ];
 
     /**
-     * Relasi ke data siswa.
-     */
-    public function students(): HasMany
-    {
-        return $this->hasMany(Student::class);
-    }
-
-    /**
-     * Relasi ke data guru.
-     */
-    public function teachers(): HasMany
-    {
-        return $this->hasMany(Teacher::class);
-    }
-
-    /**
      * Relasi ke data PPDB.
      */
     public function ppdbs(): HasMany
@@ -54,6 +40,22 @@ class EducationUnit extends Model
      */
     public function scopeActive($query)
     {
-        return $query->where('is_active', true);
+        return EducationUnit::query()
+            ->withCount([
+                'students',
+                'teachers',
+            ])
+            ->orderBy('name')
+            ->get();
+    }
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'education_unit_id');
+    }
+
+    public function teachers()
+    {
+        return $this->hasMany(Teacher::class, 'education_unit_id');
     }
 }

@@ -3,13 +3,11 @@
 namespace App\Filament\Resources\Teachers\Schemas;
 
 use App\Models\EducationUnit;
-
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -19,9 +17,20 @@ class TeacherForm
     {
         return $schema
             ->components([
-                Section::make('Identitas Guru')
+
+                /*
+                |--------------------------------------------------------------------------
+                | DATA UTAMA
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make('Data Guru')
+                    ->description(
+                        'Informasi utama mengenai tenaga pendidik.'
+                    )
                     ->icon('heroicon-o-user')
                     ->schema([
+
                         Select::make('education_unit_id')
                             ->label('Unit Pendidikan')
                             ->relationship(
@@ -37,6 +46,78 @@ class TeacherForm
                             ->required()
                             ->maxLength(255),
 
+                        TextInput::make('nip')
+                            ->label('NIP / NIK')
+                            ->maxLength(100),
+
+                        Select::make('gender')
+                            ->label('Jenis Kelamin')
+                            ->options([
+                                'L' => 'Laki-laki',
+                                'P' => 'Perempuan',
+                            ])
+                            ->native(false),
+
+                        Select::make('status')
+                            ->label('Status Kepegawaian')
+                            ->options([
+                                'Tetap' => 'Guru Tetap',
+                                'Tidak Tetap' => 'Guru Tidak Tetap',
+                                'Honorer' => 'Guru Honorer',
+                                'Kontrak' => 'Guru Kontrak',
+                            ])
+                            ->searchable()
+                            ->native(false),
+
+                        TextInput::make('position')
+                            ->label('Jabatan')
+                            ->maxLength(255),
+
+                        TextInput::make('education')
+                            ->label('Pendidikan Terakhir')
+                            ->placeholder('Contoh: S1 Pendidikan'),
+
+                    ])
+                    ->columns(2),
+
+                /*
+                |--------------------------------------------------------------------------
+                | DATA KELAHIRAN
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make('Data Kelahiran')
+                    ->description(
+                        'Informasi tempat dan tanggal lahir guru.'
+                    )
+                    ->icon('heroicon-o-calendar-days')
+                    ->schema([
+
+                        TextInput::make('birth_place')
+                            ->label('Tempat Lahir')
+                            ->maxLength(255),
+
+                        DatePicker::make('birth_date')
+                            ->label('Tanggal Lahir')
+                            ->native(false)
+                            ->displayFormat('d/m/Y'),
+
+                    ])
+                    ->columns(2),
+
+                /*
+                |--------------------------------------------------------------------------
+                | FOTO
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make('Foto Guru')
+                    ->description(
+                        'Upload foto profil tenaga pendidik.'
+                    )
+                    ->icon('heroicon-o-camera')
+                    ->schema([
+
                         FileUpload::make('photo')
                             ->label('Foto')
                             ->image()
@@ -44,67 +125,28 @@ class TeacherForm
                             ->directory('teachers')
                             ->visibility('public')
                             ->imageEditor()
-                            ->maxSize(5120),
+                            ->maxSize(5120)
+                            ->columnSpanFull(),
 
-                        Select::make('gender')
-                            ->label('Jenis Kelamin')
-                            ->options([
-                                'L' => 'Laki-laki',
-                                'P' => 'Perempuan',
-                            ]),
+                    ]),
 
-                        TextInput::make('nip')
-                            ->label('NIP')
-                            ->maxLength(255),
+                /*
+                |--------------------------------------------------------------------------
+                | DESKRIPSI
+                |--------------------------------------------------------------------------
+                */
 
-                        TextInput::make('nuptk')
-                            ->label('NUPTK')
-                            ->maxLength(255),
-
-                        TextInput::make('birth_place')
-                            ->label('Tempat Lahir')
-                            ->maxLength(255),
-
-                        DatePicker::make('birth_date')
-                            ->label('Tanggal Lahir'),
-                    ])
-                    ->columns(2),
-
-                Section::make('Informasi Kepegawaian')
-                    ->icon('heroicon-o-briefcase')
+                Section::make('Informasi Tambahan')
+                    ->icon('heroicon-o-information-circle')
                     ->schema([
-                        TextInput::make('position')
-                            ->label('Jabatan')
-                            ->maxLength(255),
 
-                        Select::make('status')
-                            ->label('Status Kepegawaian')
-                            ->options([
-                                'Tetap' => 'Guru Tetap',
-                                'Honorer' => 'Guru Honorer',
-                                'Kontrak' => 'Guru Kontrak',
-                                'Tidak Aktif' => 'Tidak Aktif',
-                            ])
-                            ->searchable(),
-
-                        TextInput::make('education')
-                            ->label('Pendidikan Terakhir')
-                            ->maxLength(255),
-
-                        TextInput::make('major')
-                            ->label('Bidang Studi / Keahlian')
-                            ->maxLength(255),
-                    ])
-                    ->columns(2),
-
-                Section::make('Keterangan')
-                    ->icon('heroicon-o-document-text')
-                    ->schema([
                         Textarea::make('description')
-                            ->label('Keterangan')
+                            ->label('Deskripsi / Profil Singkat')
                             ->rows(5)
                             ->columnSpanFull(),
+
                     ]),
+
             ]);
     }
 }

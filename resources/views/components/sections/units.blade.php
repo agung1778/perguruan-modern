@@ -58,261 +58,376 @@
         </div>
 
 
+{{-- =========================================================
+    EDUCATION UNITS SLIDER
+========================================================= --}}
+@if(isset($units) && $units->count())
+
+    <div
+        x-data="{
+            active: 0,
+            total: {{ $units->count() }},
+            perPage: 3,
+            interval: null,
+            touchStartX: 0,
+            touchEndX: 0,
+
+            init() {
+                this.updatePerPage()
+
+                window.addEventListener('resize', () => {
+                    this.updatePerPage()
+                })
+
+                if (this.total > this.perPage) {
+                    this.startAutoSlide()
+                }
+            },
+
+            updatePerPage() {
+                if (window.innerWidth < 768) {
+                    this.perPage = 1
+                } else if (window.innerWidth < 1024) {
+                    this.perPage = 2
+                } else {
+                    this.perPage = 3
+                }
+
+                const maxIndex = Math.max(
+                    0,
+                    this.total - this.perPage
+                )
+
+                if (this.active > maxIndex) {
+                    this.active = maxIndex
+                }
+            },
+
+            get maxIndex() {
+                return Math.max(
+                    0,
+                    this.total - this.perPage
+                )
+            },
+
+            get canSlide() {
+                return this.total > this.perPage
+            },
+
+            startAutoSlide() {
+                this.stopAutoSlide()
+
+                if (!this.canSlide) {
+                    return
+                }
+
+                this.interval = setInterval(() => {
+                    this.next()
+                }, 5000)
+            },
+
+            stopAutoSlide() {
+                if (this.interval) {
+                    clearInterval(this.interval)
+                    this.interval = null
+                }
+            },
+
+            restartAutoSlide() {
+                this.stopAutoSlide()
+
+                if (this.canSlide) {
+                    this.startAutoSlide()
+                }
+            },
+
+            next() {
+                if (!this.canSlide) {
+                    return
+                }
+
+                if (this.active >= this.maxIndex) {
+                    this.active = 0
+                } else {
+                    this.active++
+                }
+            },
+
+            previous() {
+                if (!this.canSlide) {
+                    return
+                }
+
+                if (this.active <= 0) {
+                    this.active = this.maxIndex
+                } else {
+                    this.active--
+                }
+            },
+
+            goTo(index) {
+                this.active = index
+                this.restartAutoSlide()
+            },
+
+            handleTouchStart(event) {
+                this.touchStartX = event.changedTouches[0].screenX
+            },
+
+            handleTouchEnd(event) {
+                this.touchEndX = event.changedTouches[0].screenX
+
+                const distance =
+                    this.touchStartX - this.touchEndX
+
+                if (Math.abs(distance) < 50) {
+                    return
+                }
+
+                if (distance > 0) {
+                    this.next()
+                } else {
+                    this.previous()
+                }
+
+                this.restartAutoSlide()
+            }
+        }"
+        class="relative mt-16"
+        @mouseenter="stopAutoSlide()"
+        @mouseleave="restartAutoSlide()"
+        @touchstart="handleTouchStart($event)"
+        @touchend="handleTouchEnd($event)"
+    >
+
+
         {{-- =====================================================
-            EDUCATION UNITS
+            SLIDER VIEWPORT
         ====================================================== --}}
-        @if(isset($units) && $units->count())
+        <div class="relative overflow-hidden">
 
-            <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 
-                @foreach($units as $unit)
+            {{-- =================================================
+                SLIDER TRACK
+            ================================================== --}}
+            <div
+                class="flex transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+                :style="`
+                    transform: translateX(
+                        -${active * (100 / perPage)}%
+                    );
+                `"
+            >
+
+                @foreach($units as $index => $unit)
 
                     {{-- =================================================
                         UNIT CARD
                     ================================================== --}}
-                    <article
-                        class="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-emerald-200 hover:shadow-xl hover:shadow-emerald-900/10"
+                    <div
+                        class="w-full shrink-0 px-3 md:w-1/2 lg:w-1/3"
                     >
 
-                        {{-- =================================================
-                            SCHOOL PHOTO
-                        ================================================== --}}
-                        <div class="relative h-60 overflow-hidden">
+                        <article
+                            class="group relative h-full overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-emerald-200 hover:shadow-xl hover:shadow-emerald-900/10"
+                        >
 
-                            @if(filled($unit->photo))
+                            {{-- =================================================
+                                SCHOOL PHOTO
+                            ================================================== --}}
+                            <div class="relative h-56 overflow-hidden">
 
-                                <img
-                                    src="{{ Storage::url($unit->photo) }}"
-                                    alt="{{ $unit->name }}"
-                                    loading="lazy"
-                                    class="h-full w-full object-cover transition duration-700 group-hover:scale-110"
-                                >
+                                @if(filled($unit->photo))
 
-                                {{-- Image Overlay --}}
-                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
+                                    <img
+                                        src="{{ Storage::url($unit->photo) }}"
+                                        alt="{{ $unit->name }}"
+                                        loading="{{ $index < 3 ? 'eager' : 'lazy' }}"
+                                        class="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-110"
+                                    >
 
-                            @else
+                                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
 
-                                <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-emerald-50 to-slate-100">
+                                @else
 
-                                    <div class="text-center">
+                                    <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-emerald-50 to-slate-100">
 
-                                        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-emerald-600 shadow-sm">
+                                        <div class="text-center">
 
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke-width="1.7"
-                                                stroke="currentColor"
-                                                class="h-8 w-8"
-                                            >
-                                                <path
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    d="M3 21h18M5.25 21V9.75L12 5l6.75 4.75V21M9 21v-5.25h6V21"
-                                                />
-                                            </svg>
+                                            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-emerald-600 shadow-sm">
+
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke-width="1.7"
+                                                    stroke="currentColor"
+                                                    class="h-8 w-8"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        d="M3 21h18M5.25 21V9.75L12 5l6.75 4.75V21M9 21v-5.25h6V21"
+                                                    />
+                                                </svg>
+
+                                            </div>
+
+                                            <span class="mt-3 block text-sm text-slate-500">
+                                                Foto Belum Tersedia
+                                            </span>
 
                                         </div>
 
-                                        <span class="mt-3 block text-sm font-medium text-slate-500">
-                                            Foto Belum Tersedia
+                                    </div>
+
+                                @endif
+
+
+                                {{-- =================================================
+                                    UNIT NAME
+                                ================================================== --}}
+                                <div class="absolute bottom-0 left-0 right-0 p-6">
+
+                                    <h3 class="text-xl font-extrabold leading-tight text-white">
+
+                                        {{ $unit->name }}
+
+                                    </h3>
+
+                                    @if(filled($unit->short_name))
+
+                                        <span class="mt-2 inline-flex rounded-full bg-emerald-600 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+
+                                            {{ $unit->short_name }}
+
                                         </span>
 
-                                    </div>
+                                    @endif
 
                                 </div>
 
-                            @endif
-
-                        </div>
-
-
-                        {{-- =================================================
-                            CARD CONTENT
-                        ================================================== --}}
-                        <div class="relative px-7 pb-7 sm:px-8 sm:pb-8">
+                            </div>
 
 
                             {{-- =================================================
-                                LOGO
+                                CARD CONTENT
                             ================================================== --}}
-                            <div class="-mt-14 flex justify-center">
+                            <div class="p-6">
 
-                                @if(filled($unit->logo))
 
-                                    <div class="relative">
+                                {{-- =================================================
+                                    LOGO
+                                ================================================== --}}
+                                <div class="flex items-center gap-4">
 
-                                        <div class="absolute -inset-1 rounded-2xl bg-emerald-200/60 blur-sm"></div>
+                                    @if(filled($unit->logo))
 
                                         <img
                                             src="{{ Storage::url($unit->logo) }}"
                                             alt="{{ $unit->name }}"
                                             loading="lazy"
-                                            class="relative h-24 w-24 rounded-2xl border-4 border-white bg-white object-contain p-2 shadow-xl"
+                                            class="h-20 w-20 shrink-0 rounded-2xl border-4 border-white bg-white object-contain p-2 shadow-lg ring-1 ring-slate-100"
                                         >
 
-                                    </div>
+                                    @else
 
-                                @else
+                                        <div class="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-800 text-2xl font-bold text-white shadow-lg">
 
-                                    <div class="relative flex h-24 w-24 items-center justify-center rounded-2xl border-4 border-white bg-gradient-to-br from-emerald-600 to-emerald-800 text-3xl font-bold text-white shadow-xl">
+                                            {{ strtoupper(mb_substr($unit->short_name ?? $unit->name, 0, 1)) }}
 
-                                        {{ strtoupper(mb_substr($unit->short_name ?? $unit->name, 0, 1)) }}
+                                        </div>
 
-                                    </div>
-
-                                @endif
-
-                            </div>
+                                    @endif
 
 
-                            {{-- =================================================
-                                UNIT INFORMATION
-                            ================================================== --}}
-                            <div class="mt-6 text-center">
+                                    {{-- Description --}}
+                                    <div class="min-w-0">
 
-                                <h3 class="text-2xl font-bold tracking-tight text-slate-900">
+                                        @if(filled($unit->description))
 
-                                    {{ $unit->name }}
+                                            <p class="line-clamp-3 text-sm leading-6 text-slate-500">
 
-                                </h3>
+                                                {{ Str::limit(
+                                                    strip_tags($unit->description),
+                                                    110
+                                                ) }}
 
+                                            </p>
 
-                                @if(filled($unit->short_name))
+                                        @else
 
-                                    <span class="mt-2 inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-700">
+                                            <p class="text-sm leading-6 text-slate-400">
 
-                                        {{ $unit->short_name }}
+                                                Informasi unit pendidikan belum tersedia.
 
-                                    </span>
+                                            </p>
 
-                                @endif
-
-
-                                @if(filled($unit->description))
-
-                                    <p class="mt-4 min-h-[56px] text-sm leading-7 text-slate-500">
-
-                                        {{ Str::limit(strip_tags($unit->description), 100) }}
-
-                                    </p>
-
-                                @else
-
-                                    <p class="mt-4 min-h-[56px] text-sm leading-7 text-slate-400">
-
-                                        Informasi unit pendidikan belum tersedia.
-
-                                    </p>
-
-                                @endif
-
-                            </div>
-
-
-                            {{-- =================================================
-                                STATISTICS
-                            ================================================== --}}
-                            <div class="mt-8 grid grid-cols-2 gap-3">
-
-
-                                {{-- Students --}}
-                                <div class="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-5 text-center transition group-hover:bg-emerald-50">
-
-                                    <div class="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
-
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="1.7"
-                                            stroke="currentColor"
-                                            class="h-5 w-5"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M4.5 7.5 12 3l7.5 4.5L12 12 4.5 7.5Z"
-                                            />
-
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M7.5 9.3V15c0 .8 2 2.5 4.5 2.5s4.5-1.7 4.5-2.5V9.3"
-                                            />
-
-                                        </svg>
+                                        @endif
 
                                     </div>
-
-                                    <h4 class="mt-3 text-2xl font-extrabold text-emerald-700">
-
-                                        {{ number_format($unit->students_count ?? 0) }}
-
-                                    </h4>
-
-                                    <p class="mt-1 text-xs font-medium text-slate-500">
-
-                                        Siswa
-
-                                    </p>
 
                                 </div>
 
 
-                                {{-- Teachers --}}
-                                <div class="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-5 text-center transition group-hover:bg-emerald-50">
+                                {{-- =================================================
+                                    STATISTICS
+                                ================================================== --}}
+                                <div class="mt-6 grid grid-cols-2 gap-3">
 
-                                    <div class="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
 
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="1.7"
-                                            stroke="currentColor"
-                                            class="h-5 w-5"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.34 9.34 0 0 0 4.121-.952M15 19.128v-.003c0-1.14-.67-2.2-1.712-2.7a6.75 6.75 0 0 0-5.576 0C6.67 16.925 6 17.985 6 19.125v.003m9 0a9.38 9.38 0 0 1-2.625.372 9.34 9.34 0 0 1-4.121-.952M12 13.5a4.125 4.125 0 1 0 0-8.25 4.125 4.125 0 0 0 0 8.25Z"
-                                            />
-                                        </svg>
+                                    {{-- Students --}}
+                                    <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4 text-center">
+
+                                        <p class="text-2xl font-extrabold text-emerald-700">
+
+                                            {{ number_format(
+                                                $unit->students_count ?? 0
+                                            ) }}
+
+                                        </p>
+
+                                        <p class="mt-1 text-xs font-medium text-slate-500">
+
+                                            Siswa
+
+                                        </p>
 
                                     </div>
 
-                                    <h4 class="mt-3 text-2xl font-extrabold text-emerald-700">
 
-                                        {{ number_format($unit->teachers_count ?? 0) }}
+                                    {{-- Teachers --}}
+                                    <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4 text-center">
 
-                                    </h4>
+                                        <p class="text-2xl font-extrabold text-emerald-700">
 
-                                    <p class="mt-1 text-xs font-medium text-slate-500">
+                                            {{ number_format(
+                                                $unit->teachers_count ?? 0
+                                            ) }}
 
-                                        Guru
+                                        </p>
 
-                                    </p>
+                                        <p class="mt-1 text-xs font-medium text-slate-500">
+
+                                            Guru
+
+                                        </p>
+
+                                    </div>
 
                                 </div>
 
-                            </div>
 
-
-                            {{-- =================================================
-                                WEBSITE BUTTON
-                            ================================================== --}}
-                            @if(filled($unit->website))
-
-                                <div class="mt-7">
+                                {{-- =================================================
+                                    WEBSITE BUTTON
+                                ================================================== --}}
+                                @if(filled($unit->website))
 
                                     <a
                                         href="{{ $unit->website }}"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-700 px-6 py-3.5 font-semibold text-white shadow-sm transition-all duration-300 hover:bg-emerald-800 hover:shadow-lg hover:shadow-emerald-900/20"
+                                        class="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white transition-all duration-300 hover:bg-emerald-800 hover:shadow-lg hover:shadow-emerald-900/20"
                                     >
 
                                         Kunjungi Website
@@ -323,7 +438,7 @@
                                             viewBox="0 0 24 24"
                                             stroke-width="2"
                                             stroke="currentColor"
-                                            class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                                            class="h-4 w-4"
                                         >
                                             <path
                                                 stroke-linecap="round"
@@ -334,60 +449,122 @@
 
                                     </a>
 
-                                </div>
+                                @endif
 
-                            @endif
+                            </div>
 
-                        </div>
+                        </article>
 
-                    </article>
+                    </div>
 
                 @endforeach
 
             </div>
 
 
-        @else
-
-
             {{-- =====================================================
-                EMPTY STATE
+                NAVIGATION BUTTONS
             ====================================================== --}}
-            <div class="mt-16 rounded-3xl border border-slate-200 bg-white px-6 py-16 text-center shadow-sm">
+            @if($units->count() > 3)
 
-                <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+                {{-- Previous --}}
+                <button
+                    type="button"
+                    @click="previous(); restartAutoSlide()"
+                    aria-label="Unit sebelumnya"
+                    class="group absolute left-2 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-slate-700 shadow-xl backdrop-blur transition-all duration-300 hover:scale-110 hover:bg-emerald-600 hover:text-white md:left-0"
+                >
 
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        stroke-width="1.7"
+                        stroke-width="2"
                         stroke="currentColor"
-                        class="h-8 w-8"
+                        class="h-5 w-5 transition-transform duration-300 group-hover:-translate-x-1"
                     >
                         <path
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            d="M3 21h18M5.25 21V9.75L12 5l6.75 4.75V21M9 21v-5.25h6V21"
+                            d="M15.5 19.5 8 12l7.5-7.5"
                         />
                     </svg>
 
-                </div>
+                </button>
 
 
-                <h3 class="mt-5 text-xl font-bold text-slate-900">
+                {{-- Next --}}
+                <button
+                    type="button"
+                    @click="next(); restartAutoSlide()"
+                    aria-label="Unit berikutnya"
+                    class="group absolute right-2 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-slate-700 shadow-xl backdrop-blur transition-all duration-300 hover:scale-110 hover:bg-emerald-600 hover:text-white md:right-0"
+                >
 
-                    Belum Ada Unit Pendidikan
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m8.5 4.5 7.5 7.5"
+                        />
+                    </svg>
 
-                </h3>
+                </button>
+
+            @endif
+
+        </div>
 
 
-                <p class="mx-auto mt-2 max-w-lg text-sm leading-7 text-slate-500">
+        {{-- =====================================================
+            SLIDER INDICATORS
+        ====================================================== --}}
+        @if($units->count() > 3)
 
-                    Informasi unit pendidikan akan ditampilkan setelah
-                    ditambahkan melalui dashboard admin.
+            <div class="mt-8 flex justify-center gap-2">
 
-                </p>
+                @foreach($units as $index => $unit)
+
+                    @if($index <= $units->count() - 3)
+
+                        <button
+                            type="button"
+                            @click="goTo({{ $index }})"
+                            aria-label="Tampilkan unit mulai dari {{ $unit->name }}"
+                            :class="active === {{ $index }}
+                                ? 'w-10 bg-emerald-600'
+                                : 'w-2.5 bg-slate-300 hover:bg-emerald-300'"
+                            class="h-2.5 rounded-full transition-all duration-500"
+                        ></button>
+
+                    @endif
+
+                @endforeach
+
+            </div>
+
+        @endif
+
+
+        {{-- =====================================================
+            SLIDE INFO
+        ====================================================== --}}
+        @if($units->count() > 3)
+
+            <div class="mt-4 text-center">
+
+                <span class="text-sm text-slate-400">
+
+                    Geser untuk melihat unit pendidikan lainnya
+
+                </span>
 
             </div>
 
@@ -395,4 +572,48 @@
 
     </div>
 
-</section>
+
+@else
+
+    {{-- =====================================================
+        EMPTY STATE
+    ====================================================== --}}
+    <div class="mt-16 rounded-3xl border border-slate-200 bg-white px-6 py-16 text-center shadow-sm">
+
+        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.7"
+                stroke="currentColor"
+                class="h-8 w-8"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3 21h18M5.25 21V9.75L12 5l6.75 4.75V21M9 21v-5.25h6V21"
+                />
+            </svg>
+
+        </div>
+
+
+        <h3 class="mt-5 text-xl font-bold text-slate-900">
+
+            Belum Ada Unit Pendidikan
+
+        </h3>
+
+
+        <p class="mx-auto mt-2 max-w-lg text-sm leading-7 text-slate-500">
+
+            Informasi unit pendidikan akan ditampilkan setelah
+            ditambahkan melalui dashboard admin.
+
+        </p>
+
+    </div>
+
+@endif

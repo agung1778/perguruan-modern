@@ -8,12 +8,10 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-
 use Filament\Panel;
 use Filament\PanelProvider;
 
 use Filament\Support\Colors\Color;
-use Filament\Widgets\QuickActions;
 
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -26,18 +24,15 @@ use Illuminate\Session\Middleware\StartSession;
 
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-
 class DeveloperPanelProvider extends PanelProvider
 {
-
     public function panel(Panel $panel): Panel
     {
-
         return $panel
 
             /*
             |--------------------------------------------------------------------------
-            | Panel Identity
+            | Panel
             |--------------------------------------------------------------------------
             */
 
@@ -54,16 +49,13 @@ class DeveloperPanelProvider extends PanelProvider
             |--------------------------------------------------------------------------
             */
 
-
-            ->brandName(
-                'SIP Yayasan Amaliah'
-            )
-
+            ->brandName('SIP Yayasan Amaliah')
 
             ->brandLogo(
                 fn () => asset('storage/logo/logo.png')
             )
 
+            ->brandLogoHeight('3rem')
 
             ->favicon(
                 asset('storage/logo/favicon.png')
@@ -76,37 +68,31 @@ class DeveloperPanelProvider extends PanelProvider
             |--------------------------------------------------------------------------
             */
 
-
-            ->login(\App\Filament\Pages\Auth\Login::class)
-
+            ->login(
+                \App\Filament\Pages\Auth\Login::class
+            )
 
 
             /*
             |--------------------------------------------------------------------------
-            | Theme Color
+            | Colors
             |--------------------------------------------------------------------------
             */
 
-
             ->colors([
-
-                'primary'=>Color::Emerald,
-
+                'primary' => Color::Emerald,
             ])
 
 
-
             /*
             |--------------------------------------------------------------------------
-            | Custom Theme Filament 5
+            | Theme
             |--------------------------------------------------------------------------
             */
-
 
             ->viteTheme(
                 'resources/css/filament/developer/theme.css'
             )
-
 
 
             /*
@@ -115,17 +101,10 @@ class DeveloperPanelProvider extends PanelProvider
             |--------------------------------------------------------------------------
             */
 
-
             ->discoverResources(
-
-                in: app_path(
-                    'Filament/Resources'
-                ),
-
+                in: app_path('Filament/Resources'),
                 for: 'App\\Filament\\Resources'
-
             )
-
 
 
             /*
@@ -134,17 +113,10 @@ class DeveloperPanelProvider extends PanelProvider
             |--------------------------------------------------------------------------
             */
 
-
             ->discoverPages(
-
-                in: app_path(
-                    'Filament/Pages'
-                ),
-
+                in: app_path('Filament/Pages'),
                 for: 'App\\Filament\\Pages'
-
             )
-
 
 
             /*
@@ -153,17 +125,10 @@ class DeveloperPanelProvider extends PanelProvider
             |--------------------------------------------------------------------------
             */
 
-
             ->discoverWidgets(
-
-                in: app_path(
-                    'Filament/Widgets'
-                ),
-
+                in: app_path('Filament/Widgets'),
                 for: 'App\\Filament\\Widgets'
-
             )
-
 
 
             /*
@@ -172,33 +137,13 @@ class DeveloperPanelProvider extends PanelProvider
             |--------------------------------------------------------------------------
             */
 
-
             ->widgets([
-
-
                 \Filament\Widgets\AccountWidget::class,
 
-
-                \App\Filament\Widgets\SchoolStats::class,
-
-
-                \App\Filament\Widgets\StatsOverview::class,
-
-
-                \App\Filament\Widgets\TeacherChart::class,
-
-
-                \App\Filament\Widgets\UpcomingAgenda::class,
-
-
-                \App\Filament\Widgets\LatestNews::class,
-
+                \App\Filament\Widgets\DashboardStats::class,
 
                 \App\Filament\Widgets\QuickActions::class,
-
-
             ])
-
 
 
             /*
@@ -207,39 +152,25 @@ class DeveloperPanelProvider extends PanelProvider
             |--------------------------------------------------------------------------
             */
 
-
             ->middleware([
-
-
                 EncryptCookies::class,
-
 
                 AddQueuedCookiesToResponse::class,
 
-
                 StartSession::class,
-
 
                 AuthenticateSession::class,
 
-
                 ShareErrorsFromSession::class,
-
 
                 VerifyCsrfToken::class,
 
-
                 SubstituteBindings::class,
-
 
                 DisableBladeIconComponents::class,
 
-
                 DispatchServingFilamentEvent::class,
-
-
             ])
-
 
 
             /*
@@ -248,15 +179,9 @@ class DeveloperPanelProvider extends PanelProvider
             |--------------------------------------------------------------------------
             */
 
-
             ->plugins([
-
-
                 FilamentShieldPlugin::make(),
-
-
             ])
-
 
 
             /*
@@ -265,15 +190,8 @@ class DeveloperPanelProvider extends PanelProvider
             |--------------------------------------------------------------------------
             */
 
-
             ->authMiddleware([
-
-
                 Authenticate::class,
-
-
             ]);
-
     }
-
 }

@@ -2,15 +2,15 @@
 
 namespace App\Filament\Resources\Teachers\Tables;
 
-use App\Filament\Exports\TeacherExporter;
-use App\Filament\Imports\TeacherImporter;
-
+use App\Models\EducationUnit;
+use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ExportAction;
 use Filament\Actions\ImportAction;
-
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class TeachersTable
@@ -19,23 +19,35 @@ class TeachersTable
     {
         return $table
             ->columns([
-                TextColumn::make('educationUnit.name')
-                    ->label('Unit Pendidikan')
-                    ->searchable()
-                    ->sortable(),
+
+                ImageColumn::make('photo')
+                    ->label('Foto')
+                    ->disk('public')
+                    ->circular(),
 
                 TextColumn::make('name')
                     ->label('Nama Guru')
                     ->searchable()
                     ->sortable(),
 
+                TextColumn::make('educationUnit.name')
+                    ->label('Unit Pendidikan')
+                    ->searchable()
+                    ->sortable(),
+
                 TextColumn::make('nip')
-                    ->label('NIP')
+                    ->label('NIP / NIK')
                     ->searchable(),
 
-                TextColumn::make('nuptk')
-                    ->label('NUPTK')
-                    ->searchable(),
+                TextColumn::make('gender')
+                    ->label('JK')
+                    ->formatStateUsing(
+                        fn ($state) => match ($state) {
+                            'L' => 'Laki-laki',
+                            'P' => 'Perempuan',
+                            default => '-',
+                        }
+                    ),
 
                 TextColumn::make('position')
                     ->label('Jabatan')
@@ -49,22 +61,64 @@ class TeachersTable
                     ->label('Ditambahkan')
                     ->dateTime('d M Y')
                     ->sortable(),
+
+            ])
+
+            ->filters([
+
+                SelectFilter::make('education_unit_id')
+                    ->label('Unit Pendidikan')
+                    ->relationship(
+                        'educationUnit',
+                        'name'
+                    )
+                    ->searchable()
+                    ->preload(),
+
+                SelectFilter::make('gender')
+                    ->label('Jenis Kelamin')
+                    ->options([
+                        'L' => 'Laki-laki',
+                        'P' => 'Perempuan',
+                    ]),
+
+                SelectFilter::make('status')
+                    ->label('Status')
+                    ->options([
+                        'Tetap' => 'Guru Tetap',
+                        'Tidak Tetap' => 'Guru Tidak Tetap',
+                        'Honorer' => 'Guru Honorer',
+                        'Kontrak' => 'Guru Kontrak',
+                    ]),
+
             ])
 
             ->headerActions([
+
                 ImportAction::make()
-                    ->importer(TeacherImporter::class),
+                    ->label('Import Excel')
+                    ->importer(
+                        \App\Filament\Imports\TeacherImporter::class
+                    ),
 
                 ExportAction::make()
-                    ->exporter(TeacherExporter::class),
+                    ->label('Export Excel')
+                    ->exporter(
+                        \App\Filament\Exports\TeacherExporter::class
+                    ),
+
             ])
 
-            ->actions([
+            ->recordActions([
                 EditAction::make(),
             ])
 
-            ->bulkActions([
-                DeleteBulkAction::make(),
+            ->toolbarActions([
+
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
+
             ]);
     }
 }

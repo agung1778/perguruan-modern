@@ -7,6 +7,9 @@ use App\Models\Ppdb;
 
 class PpdbController extends Controller
 {
+    /**
+     * Menampilkan daftar PPDB.
+     */
     public function index()
     {
         $units = EducationUnit::query()
@@ -33,19 +36,25 @@ class PpdbController extends Controller
         );
     }
 
+    /**
+     * Menampilkan detail PPDB.
+     */
     public function show(Ppdb $ppdb)
     {
+        // Jika PPDB tidak dipublikasikan,
+        // tampilkan halaman 404.
         abort_unless(
             $ppdb->is_published &&
             $ppdb->status === 'published',
             404
         );
 
-        $ppdb->load(
-            'educationUnit'
-        );
+        // Load unit pendidikan.
+        $ppdb->load('educationUnit');
 
+        // Ambil PPDB terkait dari unit pendidikan yang sama.
         $related = Ppdb::query()
+            ->with('educationUnit')
             ->where(
                 'education_unit_id',
                 $ppdb->education_unit_id

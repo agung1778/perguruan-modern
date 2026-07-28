@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Filament\Pages;
-use BackedEnum;
+
 use Filament\Pages\Dashboard as BaseDashboard;
 
 class Dashboard extends BaseDashboard
@@ -10,30 +10,27 @@ class Dashboard extends BaseDashboard
 
     protected static ?string $navigationLabel = 'Dashboard';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-home';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-home';
+
+    protected static ?int $navigationSort = -1;
+
+    public function getHeading(): string
+    {
+        return 'Dashboard';
+    }
+
+    public function getSubheading(): ?string
+    {
+        return 'Ringkasan informasi dan aktivitas website Perguruan Amaliah.';
+    }
 
     public function getColumns(): int | array
     {
         return [
             'default' => 1,
             'sm' => 2,
+            'lg' => 4,
             'xl' => 4,
-        ];
-    }
-
-    public function getHeaderWidgets(): array
-    {
-        return [
-            \App\Filament\Widgets\StatsOverview::class,
-            \App\Filament\Widgets\QuickActions::class,
-        ];
-    }
-
-    public function getFooterWidgets(): array
-    {
-        return [
-            \App\Filament\Widgets\UpcomingAgenda::class,
-            \App\Filament\Widgets\LatestNews::class,
         ];
     }
 }

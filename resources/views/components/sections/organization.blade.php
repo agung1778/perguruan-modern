@@ -21,7 +21,6 @@
         ====================================================== --}}
         <div class="mx-auto max-w-3xl text-center">
 
-            {{-- Label --}}
             <div class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold uppercase tracking-wider text-emerald-700">
 
                 <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
@@ -31,7 +30,6 @@
             </div>
 
 
-            {{-- Title --}}
             <h2 class="mt-5 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
 
                 Yayasan Amaliah
@@ -39,8 +37,7 @@
             </h2>
 
 
-            {{-- Accent --}}
-            <div class="mt-6 flex justify-center items-center gap-2">
+            <div class="mt-6 flex items-center justify-center gap-2">
 
                 <span class="h-1 w-14 rounded-full bg-emerald-600"></span>
 
@@ -49,7 +46,6 @@
             </div>
 
 
-            {{-- Description --}}
             <p class="mx-auto mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
 
                 Mengenal jajaran organisasi yang mengelola dan mengembangkan
@@ -61,122 +57,213 @@
 
 
         {{-- =====================================================
-            ORGANIZATION CARDS
+            ORGANIZATION CHART
         ====================================================== --}}
-        <div class="mt-16 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
-
-            @foreach($organizations as $item)
-
-                {{-- =================================================
-                    ORGANIZATION CARD
-                ================================================== --}}
-                <article
-                    class="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-7 text-center shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-emerald-200 hover:shadow-xl hover:shadow-emerald-900/10"
-                >
-
-                    {{-- Top Accent --}}
-                    <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-emerald-600 via-emerald-400 to-emerald-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+        <div class="relative mt-20">
 
 
-                    {{-- =================================================
-                        PHOTO / AVATAR
-                    ================================================== --}}
-                    <div class="relative mx-auto w-fit">
+            {{-- =================================================
+                TOP LEADER
+            ================================================== --}}
+            @php
+                $leader = $organizations->first();
+                $members = $organizations->skip(1);
+            @endphp
 
-                        {{-- Decorative Ring --}}
-                        <div class="absolute -inset-2 rounded-full border border-emerald-200/70 transition-all duration-500 group-hover:scale-110 group-hover:border-emerald-400"></div>
+
+            @if($leader)
+
+                <div class="flex justify-center">
+
+                    <article
+                        class="group relative w-full max-w-sm overflow-hidden rounded-2xl border-2 border-emerald-500 bg-white p-5 shadow-xl shadow-emerald-900/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                    >
+
+                        {{-- Top Accent --}}
+                        <div class="absolute inset-x-0 top-0 h-1.5 bg-emerald-600"></div>
 
 
-                        @if(filled($item->photo))
+                        <div class="flex items-center gap-4">
+
 
                             {{-- Photo --}}
-                            <div class="relative h-28 w-28 overflow-hidden rounded-full border-4 border-white bg-emerald-50 shadow-lg ring-4 ring-emerald-50">
+                            @if(filled($leader->photo))
 
-                                <img
-                                    src="{{ Storage::url($item->photo) }}"
-                                    alt="{{ $item->name }}"
-                                    loading="lazy"
-                                    class="h-full w-full object-cover transition duration-500 group-hover:scale-110"
-                                >
+                                <div class="h-20 w-20 shrink-0 overflow-hidden rounded-full border-4 border-white bg-emerald-50 shadow-md ring-2 ring-emerald-100">
+
+                                    <img
+                                        src="{{ Storage::url($leader->photo) }}"
+                                        alt="{{ $leader->name }}"
+                                        class="h-full w-full object-cover"
+                                    >
+
+                                </div>
+
+                            @else
+
+                                <div class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 text-2xl font-bold text-white shadow-md">
+
+                                    {{ strtoupper(mb_substr($leader->name, 0, 1)) }}
+
+                                </div>
+
+                            @endif
+
+
+                            {{-- Information --}}
+                            <div class="min-w-0">
+
+                                <h3 class="text-lg font-extrabold text-slate-900">
+
+                                    {{ $leader->name }}
+
+                                </h3>
+
+
+                                @if(filled($leader->position))
+
+                                    <p class="mt-1 text-sm font-bold uppercase tracking-wide text-emerald-600">
+
+                                        {{ $leader->position }}
+
+                                    </p>
+
+                                @endif
 
                             </div>
-
-                        @else
-
-                            {{-- Initial Avatar --}}
-                            <div class="relative flex h-28 w-28 items-center justify-center rounded-full border-4 border-white bg-gradient-to-br from-emerald-600 to-emerald-800 text-3xl font-bold text-white shadow-lg ring-4 ring-emerald-50">
-
-                                {{ strtoupper(mb_substr($item->name, 0, 1)) }}
-
-                            </div>
-
-                        @endif
-
-                    </div>
-
-
-                    {{-- =================================================
-                        NAME
-                    ================================================== --}}
-                    <h3 class="mt-7 line-clamp-2 text-xl font-bold leading-snug text-slate-900">
-
-                        {{ $item->name }}
-
-                    </h3>
-
-
-                    {{-- =================================================
-                        POSITION
-                    ================================================== --}}
-                    @if(filled($item->position))
-
-                        <div class="mt-3">
-
-                            <span class="inline-flex rounded-full bg-emerald-50 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wide text-emerald-700">
-
-                                {{ $item->position }}
-
-                            </span>
 
                         </div>
 
-                    @endif
+                    </article>
+
+                </div>
 
 
-                    {{-- =================================================
-                        DESCRIPTION
-                    ================================================== --}}
-                    @if(filled($item->description))
+                {{-- Vertical Connector --}}
+                @if($members->count())
 
-                        <p class="mt-5 line-clamp-3 text-sm leading-7 text-slate-500">
+                    <div class="mx-auto h-12 w-px bg-emerald-400"></div>
 
-                            {{ Str::limit(
-                                strip_tags($item->description),
-                                100
-                            ) }}
+                @endif
 
-                        </p>
-
-                    @else
-
-                        <p class="mt-5 text-sm leading-7 text-slate-400">
-
-                            Bagian dari jajaran pengelola
-                            {{ $website?->school_name ?? 'Perguruan Amaliah' }}.
-
-                        </p>
-
-                    @endif
+            @endif
 
 
-                    {{-- =================================================
-                        BOTTOM DECORATION
-                    ================================================== --}}
-                    <div class="mx-auto mt-6 h-1 w-8 rounded-full bg-emerald-200 transition-all duration-300 group-hover:w-14 group-hover:bg-emerald-500"></div>
+            {{-- =================================================
+                MAIN ORGANIZATION LINE
+            ================================================== --}}
+            @if($members->count())
 
-                </article>
+                <div class="relative">
 
-            @endforeach
+
+                    {{-- Horizontal Connector --}}
+                    <div class="absolute left-[10%] right-[10%] top-0 hidden h-px bg-emerald-400 lg:block"></div>
+
+
+                    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+
+                        @foreach($members as $item)
+
+                            <div class="relative">
+
+
+                                {{-- Vertical Connector --}}
+                                <div class="absolute left-1/2 top-0 hidden h-8 w-px -translate-y-full bg-emerald-400 lg:block"></div>
+
+
+                                {{-- Organization Card --}}
+                                <article
+                                    class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-900/10"
+                                >
+
+                                    {{-- Accent --}}
+                                    <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-600 via-emerald-400 to-emerald-600"></div>
+
+
+                                    <div class="flex items-center gap-4">
+
+
+                                        {{-- =================================================
+                                            PHOTO
+                                        ================================================== --}}
+                                        @if(filled($item->photo))
+
+                                            <div class="relative h-16 w-16 shrink-0 overflow-hidden rounded-full border-4 border-white bg-emerald-50 shadow-md ring-2 ring-emerald-100">
+
+                                                <img
+                                                    src="{{ Storage::url($item->photo) }}"
+                                                    alt="{{ $item->name }}"
+                                                    loading="lazy"
+                                                    class="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+                                                >
+
+                                            </div>
+
+                                        @else
+
+                                            <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 text-xl font-bold text-white shadow-md">
+
+                                                {{ strtoupper(mb_substr($item->name, 0, 1)) }}
+
+                                            </div>
+
+                                        @endif
+
+
+                                        {{-- =================================================
+                                            INFORMATION
+                                        ================================================== --}}
+                                        <div class="min-w-0 flex-1">
+
+                                            <h3 class="truncate text-base font-extrabold text-slate-900">
+
+                                                {{ $item->name }}
+
+                                            </h3>
+
+
+                                            @if(filled($item->position))
+
+                                                <p class="mt-1 text-xs font-bold uppercase tracking-wide text-emerald-600">
+
+                                                    {{ $item->position }}
+
+                                                </p>
+
+                                            @endif
+
+
+                                            @if(filled($item->description))
+
+                                                <p class="mt-2 line-clamp-2 text-xs leading-5 text-slate-500">
+
+                                                    {{ Str::limit(
+                                                        strip_tags($item->description),
+                                                        80
+                                                    ) }}
+
+                                                </p>
+
+                                            @endif
+
+                                        </div>
+
+                                    </div>
+
+                                </article>
+
+                            </div>
+
+                        @endforeach
+
+                    </div>
+
+                </div>
+
+            @endif
+
 
         </div>
 

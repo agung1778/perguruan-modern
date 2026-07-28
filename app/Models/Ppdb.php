@@ -38,25 +38,17 @@ class Ppdb extends Model
 
     public function educationUnit()
     {
-        return $this->belongsTo(
-            EducationUnit::class
-        );
+        return $this->belongsTo(EducationUnit::class);
     }
 
     public function scopeActive($query)
     {
-        return $query->where(
-            'is_active',
-            true
-        );
+        return $query->where('is_active', true);
     }
 
     public function scopePublished($query)
     {
-        return $query->where(
-            'is_published',
-            true
-        );
+        return $query ->where('is_published', true);
     }
 
     public function scopeOpen($query)
@@ -64,6 +56,7 @@ class Ppdb extends Model
         return $query
             ->where('is_active', true)
             ->where('is_published', true)
+            ->where('status', 'published')
             ->where(function ($query) {
                 $query
                     ->whereNull('registration_start')

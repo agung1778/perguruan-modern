@@ -19,14 +19,14 @@ class QuickActions extends Widget
         return [
             [
                 'label' => 'Tambah Berita',
-                'description' => 'Buat artikel berita baru',
+                'description' => 'Buat berita baru',
                 'icon' => 'heroicon-o-newspaper',
                 'url' => NewsArticleResource::getUrl('create'),
             ],
 
             [
                 'label' => 'Tambah Agenda',
-                'description' => 'Tambahkan kegiatan baru',
+                'description' => 'Buat agenda baru',
                 'icon' => 'heroicon-o-calendar-days',
                 'url' => AgendaResource::getUrl('create'),
             ],
@@ -40,7 +40,7 @@ class QuickActions extends Widget
 
             [
                 'label' => 'Tambah Guru',
-                'description' => 'Tambahkan data guru',
+                'description' => 'Tambah data guru',
                 'icon' => 'heroicon-o-user-plus',
                 'url' => TeacherResource::getUrl('create'),
             ],

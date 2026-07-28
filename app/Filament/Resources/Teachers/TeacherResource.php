@@ -2,19 +2,14 @@
 
 namespace App\Filament\Resources\Teachers;
 
-use App\Filament\Exports\TeacherExporter;
-use App\Filament\Imports\TeacherImporter;
+use App\Filament\Resources\Teachers\Schemas\TeacherForm;
+use App\Filament\Resources\Teachers\Tables\TeachersTable;
 use App\Models\Teacher;
-
-use Filament\Actions\DeleteAction;
-use Filament\Actions\EditAction;
-use Filament\Actions\ExportAction;
-use Filament\Actions\ImportAction;
 use BackedEnum;
-use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class TeacherResource extends Resource
 {
@@ -33,22 +28,18 @@ class TeacherResource extends Resource
         'Guru';
 
     protected static ?string $pluralModelLabel =
-        'Data Guru';
+        'Guru';
 
     protected static ?int $navigationSort = 2;
 
     public static function form(Schema $schema): Schema
     {
-        return \App\Filament\Resources\Teachers\Schemas\TeacherForm::configure(
-            $schema
-        );
+        return TeacherForm::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return \App\Filament\Resources\Teachers\Tables\TeachersTable::configure(
-            $table
-        );
+        return TeachersTable::configure($table);
     }
 
     public static function getPages(): array
