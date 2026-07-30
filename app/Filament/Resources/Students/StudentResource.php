@@ -14,7 +14,7 @@ use UnitEnum;
 class StudentResource extends Resource
 {
     protected static ?string $model = Student::class;
-
+protected static bool $shouldRegisterNavigation = false;
     protected static string|BackedEnum|null $navigationIcon =
         'heroicon-o-academic-cap';
 
