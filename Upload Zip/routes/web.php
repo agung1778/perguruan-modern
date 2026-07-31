@@ -1,0 +1,93 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\UnitController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PpdbController;
+
+Route::get('/', HomeController::class)
+    ->name('home');
+
+
+Route::get('/tentang', [AboutController::class, 'index'])
+    ->name('about');
+
+
+Route::prefix('unit-pendidikan')
+    ->name('units.')
+    ->group(function () {
+        Route::get('/', [UnitController::class, 'index'])
+            ->name('index');
+        Route::get('/{unit}', [UnitController::class, 'show'])
+            ->name('show');
+    });
+
+
+Route::prefix('berita')
+    ->name('news.')
+    ->group(function () {
+        Route::get('/', [NewsController::class, 'index'])
+            ->name('index');
+        Route::get('/{news}', [NewsController::class, 'show'])
+            ->name('show');
+    });
+
+
+Route::prefix('agenda')
+    ->name('agenda.')
+    ->group(function () {
+        Route::get('/', [AgendaController::class, 'index'])
+            ->name('index');
+        Route::get('/{agenda}', [AgendaController::class, 'show'])
+            ->name('show');
+    });
+
+
+Route::prefix('galeri')
+    ->name('gallery.')
+    ->group(function () {
+        Route::get('/', [GalleryController::class, 'index'])
+            ->name('index');
+        Route::get('/galeri/{album}', [GalleryController::class, 'show'])
+            ->name('show');
+    });
+
+
+Route::get('/testimoni', [TestimonialController::class, 'index'])
+    ->name('testimonials.index');
+
+
+Route::get('/kontak', [ContactController::class, 'index'])
+    ->name('contact');
+
+
+Route::get('/sitemap.xml', function () {
+
+    return response()
+        ->view('sitemap')
+        ->header('Content-Type', 'text/xml');
+
+});
+
+Route::prefix('ppdb')
+    ->name('ppdb.')
+    ->group(function () {
+
+        Route::get(
+            '/',
+            [PpdbController::class, 'index']
+        )->name('index');
+
+        Route::get(
+            '/{ppdb}',
+            [PpdbController::class, 'show']
+        )->name('show');
+
+    });
