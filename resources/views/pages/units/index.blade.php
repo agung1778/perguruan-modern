@@ -260,6 +260,12 @@ UNIT PENDIDIKAN
 
                         $latestStudents = $latestStudentData ?? collect();
 
+                        $latestMajorLabels = $latestStudents
+                            ->map(fn ($student) => $student->major_name ?? null)
+                            ->filter()
+                            ->unique()
+                            ->values();
+
                         $totalStudents = $latestStudents->sum('total_count');
 
                         $totalMale = $latestStudents->sum('male_count');
@@ -303,7 +309,6 @@ UNIT PENDIDIKAN
                                 </div>
 
                             @endif
-
 
                             {{-- =================================================
                                 TOTAL SISWA & GURU

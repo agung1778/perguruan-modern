@@ -1,4 +1,3 @@
-```blade
 {{-- =========================================================
     SECTION: UNIT PENDIDIKAN
     File:
@@ -77,6 +76,12 @@
                             ->pluck('academic_year')
                             ->filter()
                             ->first();
+
+                        $unitMajorLabels = $unit->students
+                            ->map(fn ($student) => $student->major_name ?? null)
+                            ->filter()
+                            ->unique()
+                            ->values();
                     @endphp
 
 
@@ -271,7 +276,6 @@
 
                             @endif
 
-
                             {{-- =============================================
                                 STATISTICS
                             ============================================== --}}
@@ -310,46 +314,6 @@
                                 </div>
 
                             </div>
-
-
-                            {{-- =============================================
-                                GENDER STATISTICS
-                            ============================================== --}}
-                            @if($unitStudentCount > 0)
-
-                                <div class="mt-3 grid grid-cols-2 gap-3">
-
-
-                                    {{-- Laki-laki --}}
-                                    <div class="rounded-xl border border-blue-100 bg-blue-50 p-3 text-center">
-
-                                        <div class="text-lg font-bold text-blue-700">
-                                            {{ number_format($unitMaleCount) }}
-                                        </div>
-
-                                        <div class="text-xs text-slate-600">
-                                            Laki-laki
-                                        </div>
-
-                                    </div>
-
-
-                                    {{-- Perempuan --}}
-                                    <div class="rounded-xl border border-pink-100 bg-pink-50 p-3 text-center">
-
-                                        <div class="text-lg font-bold text-pink-700">
-                                            {{ number_format($unitFemaleCount) }}
-                                        </div>
-
-                                        <div class="text-xs text-slate-600">
-                                            Perempuan
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            @endif
 
 
                             {{-- =============================================

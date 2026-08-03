@@ -1,4 +1,3 @@
-```blade
 <x-filament-widgets::widget>
     <x-filament::section>
         {{-- Header --}}
@@ -115,4 +114,4 @@
         @endif
     </x-filament::section>
 </x-filament-widgets::widget>
-```
+

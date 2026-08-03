@@ -52,6 +52,7 @@ class HomeController extends Controller
                             $latestAcademicYear
                         ) {
                             $query
+                                ->with('major')
                                 ->when(
                                     $latestAcademicYear,
                                     fn ($query) =>

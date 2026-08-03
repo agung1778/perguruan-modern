@@ -27,6 +27,28 @@ class UnitController extends Controller
             ->orderBy('name')
             ->get();
 
+        $units->each(function (EducationUnit $unit) {
+            $latestStudentData = $unit->students
+                ->filter(fn ($student) => $student->academic_year !== null)
+                ->sortByDesc('academic_year')
+                ->groupBy('academic_year')
+                ->first();
+
+            $latestAcademicYear = $latestStudentData?->first()?->academic_year;
+
+            $latestStudents = $latestStudentData ?? collect();
+
+            $unit->setAttribute(
+                'student_statistics',
+                (object) [
+                    'academic_year' => $latestAcademicYear,
+                    'total' => (int) $latestStudents->sum('total_count'),
+                    'male' => (int) $latestStudents->sum('male_count'),
+                    'female' => (int) $latestStudents->sum('female_count'),
+                ]
+            );
+        });
+
         return view(
             'pages.units.index',
             compact('units')

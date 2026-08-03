@@ -29,10 +29,19 @@ class StudentDataTable
                     ->sortable()
                     ->weight('bold'),
 
-                TextColumn::make('major.name')
+                TextColumn::make('major_name')
                     ->label('Jurusan')
-                    ->searchable()
-                    ->sortable()
+                    ->state(
+                        fn (StudentData $record): string =>
+                            $record->major_name
+                            ?? 'Tanpa Jurusan'
+                    )
+                    ->searchable(
+                        false
+                    )
+                    ->sortable(
+                        false
+                    )
                     ->placeholder('Tanpa Jurusan'),
 
                 TextColumn::make('generation')

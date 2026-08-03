@@ -15,6 +15,7 @@ class StudentData extends Model
     protected $fillable = [
         'education_unit_id',
         'major_id',
+        'major',
         'academic_year',
         'generation',
         'male_count',
@@ -61,6 +62,27 @@ class StudentData extends Model
             Major::class,
             'major_id'
         );
+    }
+
+    /**
+     * Nama jurusan yang aman ditampilkan,
+     * baik dari relasi major_id maupun data lama.
+     */
+    public function getMajorNameAttribute(): ?string
+    {
+        $major = null;
+
+        if ($this->relationLoaded('major')) {
+            $major = $this->getRelation('major');
+        } elseif (! blank($this->major_id)) {
+            $major = $this->major()->first();
+        }
+
+        if ($major instanceof Major) {
+            return $major->name;
+        }
+
+        return $this->getAttribute('major');
     }
 
     /**

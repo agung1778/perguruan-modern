@@ -588,8 +588,8 @@
 
                                                 <div class="font-semibold text-slate-900">
 
-                                                    @if($data->major)
-                                                        {{ $data->major->name }}
+                                                    @if($data->major_name)
+                                                        {{ $data->major_name }}
                                                     @else
                                                         Umum / Tanpa Jurusan
                                                     @endif
@@ -675,8 +675,8 @@
 
                                             <h4 class="font-bold text-slate-900">
 
-                                                @if($data->major)
-                                                    {{ $data->major->name }}
+                                                @if($data->major_name)
+                                                    {{ $data->major_name }}
                                                 @else
                                                     Umum / Tanpa Jurusan
                                                 @endif

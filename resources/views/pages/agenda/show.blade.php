@@ -8,7 +8,6 @@ HERO
 
 <section class="relative overflow-hidden bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-950">
 
-```
 {{-- Decorative Background --}}
 <div class="pointer-events-none absolute inset-0">
 
@@ -102,7 +101,6 @@ HERO
     </div>
 
 </div>
-```
 
 </section>
 
@@ -112,7 +110,6 @@ DETAIL AGENDA
 
 <section class="bg-slate-50 py-16 sm:py-20 lg:py-24">
 
-```
 <div class="mx-auto max-w-5xl px-5 sm:px-6 lg:px-8">
 
     <article class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
@@ -306,7 +303,6 @@ DETAIL AGENDA
     </article>
 
 </div>
-```
 
 </section>
 
