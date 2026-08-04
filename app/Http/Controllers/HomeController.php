@@ -20,11 +20,28 @@ class HomeController extends Controller
 {
     public function __invoke()
     {
+        $selectedAcademicYear = request()->query('academic_year');
+
         $data = Cache::remember(
-            'homepage.data',
+            'homepage.data.' . ($selectedAcademicYear ?? 'latest'),
             now()->addHours(6),
-            function () {
+            function () use ($selectedAcademicYear) {
                 $website = WebsiteSetting::first();
+
+                $academicYears = StudentData::query()
+                    ->whereNotNull('academic_year')
+                    ->distinct()
+                    ->orderByDesc('academic_year')
+                    ->pluck('academic_year');
+
+                $activeAcademicYear = $selectedAcademicYear;
+
+                if (
+                    blank($activeAcademicYear)
+                    || ! $academicYears->contains($activeAcademicYear)
+                ) {
+                    $activeAcademicYear = $academicYears->first();
+                }
 
                 $banners = HomepageBanner::query()
                     ->where('is_active', true)
@@ -39,26 +56,21 @@ class HomeController extends Controller
                 |--------------------------------------------------------------------------
                 */
 
-                $latestAcademicYear = StudentData::query()
-                    ->whereNotNull('academic_year')
-                    ->orderByDesc('academic_year')
-                    ->value('academic_year');
-
                 $units = EducationUnit::query()
                     ->active()
                     ->withCount('teachers')
                     ->with([
                         'students' => function ($query) use (
-                            $latestAcademicYear
+                            $activeAcademicYear
                         ) {
                             $query
                                 ->with('major')
                                 ->when(
-                                    $latestAcademicYear,
+                                    $activeAcademicYear,
                                     fn ($query) =>
                                         $query->where(
                                             'academic_year',
-                                            $latestAcademicYear
+                                            $activeAcademicYear
                                         )
                                 );
                         },
@@ -68,17 +80,17 @@ class HomeController extends Controller
 
                 $units->each(
                     function (EducationUnit $unit) use (
-                        $latestAcademicYear
+                        $activeAcademicYear
                     ) {
                         $latestStudents = $unit->students
                             ->where(
                                 'academic_year',
-                                $latestAcademicYear
+                                $activeAcademicYear
                             );
 
                         $unit->setAttribute(
                             'latest_academic_year',
-                            $latestAcademicYear
+                            $activeAcademicYear
                         );
 
                         $unit->setAttribute(
@@ -178,11 +190,11 @@ class HomeController extends Controller
 
                 $studentStatistics = StudentData::query()
                     ->when(
-                        $latestAcademicYear,
+                        $activeAcademicYear,
                         fn ($query) =>
                             $query->where(
                                 'academic_year',
-                                $latestAcademicYear
+                                $activeAcademicYear
                             )
                     )
                     ->selectRaw('
@@ -213,7 +225,7 @@ class HomeController extends Controller
 
                     'scholarship' => $totalScholarship,
 
-                    'academic_year' => $latestAcademicYear,
+                    'academic_year' => $activeAcademicYear,
 
                     'teachers' => Teacher::count(),
 
@@ -238,10 +250,13 @@ class HomeController extends Controller
                     'gallery',
                     'testimonials',
                     'stats',
-                    'latestAcademicYear'
+                    'academicYears',
+                    'activeAcademicYear'
                 );
             }
         );
+
+        $data['selectedAcademicYear'] = $selectedAcademicYear;
 
         return view(
             'pages.home',

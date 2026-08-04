@@ -24,6 +24,28 @@
 
             </div>
 
+            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(!empty($academicYears) && $academicYears->count()): ?>
+                <form method="GET" action="<?php echo e(route('home')); ?>" class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                    <label for="academic_year" class="text-sm font-semibold text-emerald-50/90">
+                        Tahun Ajaran
+                    </label>
+
+                    <select
+                        id="academic_year"
+                        name="academic_year"
+                        onchange="this.form.submit()"
+                        class="min-w-56 rounded-xl border border-emerald-300/30 bg-white/10 px-4 py-2 text-sm font-semibold text-white outline-none ring-0 transition focus:border-emerald-300/60 focus:bg-white/15"
+                    >
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $academicYears; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $year): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                            <option value="<?php echo e($year); ?>" <?php echo e($year == ($activeAcademicYear ?? $stats['academic_year']) ? 'selected' : ''); ?>>
+                                <?php echo e($year); ?>
+
+                            </option>
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+                    </select>
+                </form>
+            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
 
             
             <h2 class="mt-5 text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl">

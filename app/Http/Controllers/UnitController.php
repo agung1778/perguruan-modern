@@ -65,21 +65,30 @@ class UnitController extends Controller
             404
         );
 
-        /**
-         * Tahun ajaran terbaru khusus unit.
-         */
-        $latestAcademicYear = StudentData::query()
+        $selectedAcademicYear = request()->query('academic_year');
+
+        $academicYears = StudentData::query()
             ->where(
                 'education_unit_id',
                 $unit->id
             )
             ->whereNotNull('academic_year')
+            ->distinct()
             ->orderByDesc('academic_year')
-            ->value('academic_year');
+            ->pluck('academic_year');
+
+        $latestAcademicYear = $academicYears->first();
+
+        if (
+            blank($selectedAcademicYear)
+            || ! $academicYears->contains($selectedAcademicYear)
+        ) {
+            $selectedAcademicYear = $latestAcademicYear;
+        }
 
         /**
          * Semua data siswa unit pada
-         * tahun ajaran terbaru.
+         * tahun ajaran yang dipilih.
          *
          * Bisa terdiri dari banyak jurusan.
          */
@@ -88,12 +97,9 @@ class UnitController extends Controller
                 'education_unit_id',
                 $unit->id
             )
-            ->when(
-                $latestAcademicYear,
-                fn ($query) => $query->where(
-                    'academic_year',
-                    $latestAcademicYear
-                )
+            ->where(
+                'academic_year',
+                $selectedAcademicYear
             )
             ->with('major')
             ->orderBy(
@@ -178,7 +184,9 @@ class UnitController extends Controller
                 'latestAcademicYear',
                 'studentStatistics',
                 'scholarships',
-                'teachers'
+                'teachers',
+                'academicYears',
+                'selectedAcademicYear'
             )
         );
     }

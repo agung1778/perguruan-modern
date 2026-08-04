@@ -30,6 +30,27 @@
 
             </div>
 
+            @if(!empty($academicYears) && $academicYears->count())
+                <form method="GET" action="{{ route('home') }}" class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                    <label for="academic_year" class="text-sm font-semibold text-emerald-50/90">
+                        Tahun Ajaran
+                    </label>
+
+                    <select
+                        id="academic_year"
+                        name="academic_year"
+                        onchange="this.form.submit()"
+                        class="min-w-56 rounded-xl border border-emerald-300/30 bg-white/10 px-4 py-2 text-sm font-semibold text-white outline-none ring-0 transition focus:border-emerald-300/60 focus:bg-white/15"
+                    >
+                        @foreach($academicYears as $year)
+                            <option value="{{ $year }}" {{ $year == ($activeAcademicYear ?? $stats['academic_year']) ? 'selected' : '' }}>
+                                {{ $year }}
+                            </option>
+                        @endforeach
+                    </select>
+                </form>
+            @endif
+
 
             {{-- Title --}}
             <h2 class="mt-5 text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl">
