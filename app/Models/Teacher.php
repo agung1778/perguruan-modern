@@ -14,8 +14,10 @@ class Teacher extends Model
     protected $fillable = [
         'education_unit_id',
         'name',
+        'type',
         'photo',
         'nip',
+        'nuptk',
         'gender',
         'birth_place',
         'birth_date',
@@ -23,8 +25,9 @@ class Teacher extends Model
         'subject',
         'employment_status',
         'join_year',
-        'bio',
         'is_active',
+        'description',
+        'bio',
     ];
 
     protected $casts = [
@@ -42,7 +45,7 @@ class Teacher extends Model
     }
 
     /**
-     * Alias untuk kompatibilitas dengan kode lama.
+     * Alias kompatibilitas dengan kode lama.
      */
     public function unit(): BelongsTo
     {
@@ -53,11 +56,27 @@ class Teacher extends Model
     }
 
     /**
-     * Scope guru yang masih aktif.
+     * Scope tenaga pendidik aktif.
      */
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
+    }
+
+    /**
+     * Scope berdasarkan tipe.
+     */
+    public function scopeTeacher($query)
+    {
+        return $query->where('type', 'teacher');
+    }
+
+    /**
+     * Scope berdasarkan tipe staff.
+     */
+    public function scopeStaff($query)
+    {
+        return $query->where('type', 'staff');
     }
 
     /**
@@ -71,5 +90,16 @@ class Teacher extends Model
             'employment_status',
             $status
         );
+    }
+
+    /**
+     * Mendapatkan label tipe tenaga pendidik.
+     */
+    public function getTypeLabelAttribute(): string
+    {
+        return match ($this->type) {
+            'staff' => 'Karyawan / Staff',
+            default => 'Guru',
+        };
     }
 }

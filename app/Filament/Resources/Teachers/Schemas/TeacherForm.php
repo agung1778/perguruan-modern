@@ -2,12 +2,12 @@
 
 namespace App\Filament\Resources\Teachers\Schemas;
 
-use App\Models\EducationUnit;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -24,12 +24,23 @@ class TeacherForm
                 |--------------------------------------------------------------------------
                 */
 
-                Section::make('Data Guru')
+                Section::make('Data Tenaga Pendidik')
                     ->description(
-                        'Informasi utama mengenai tenaga pendidik.'
+                        'Kelola data guru dan karyawan/staff dalam satu sistem.'
                     )
-                    ->icon('heroicon-o-user')
+                    ->icon('heroicon-o-user-group')
                     ->schema([
+
+                        Select::make('type')
+                            ->label('Jenis Tenaga Pendidik')
+                            ->options([
+                                'teacher' => 'Guru',
+                                'staff' => 'Karyawan / Staff',
+                            ])
+                            ->default('teacher')
+                            ->required()
+                            ->native(false)
+                            ->live(),
 
                         Select::make('education_unit_id')
                             ->label('Unit Pendidikan')
@@ -58,24 +69,30 @@ class TeacherForm
                             ])
                             ->native(false),
 
-                        Select::make('status')
+                        TextInput::make('position')
+                            ->label('Jabatan')
+                            ->placeholder(
+                                'Contoh: Guru Matematika / Kepala Tata Usaha'
+                            )
+                            ->maxLength(255),
+
+                        Select::make('employment_status')
                             ->label('Status Kepegawaian')
                             ->options([
-                                'Tetap' => 'Guru Tetap',
-                                'Tidak Tetap' => 'Guru Tidak Tetap',
-                                'Honorer' => 'Guru Honorer',
-                                'Kontrak' => 'Guru Kontrak',
+                                'Tetap' => 'Tetap',
+                                'Tidak Tetap' => 'Tidak Tetap',
+                                'Honorer' => 'Honorer',
+                                'Kontrak' => 'Kontrak',
                             ])
                             ->searchable()
                             ->native(false),
 
-                        TextInput::make('position')
-                            ->label('Jabatan')
-                            ->maxLength(255),
-
-                        TextInput::make('education')
-                            ->label('Pendidikan Terakhir')
-                            ->placeholder('Contoh: S1 Pendidikan'),
+                        Toggle::make('is_active')
+                            ->label('Status Aktif')
+                            ->helperText(
+                                'Aktifkan jika tenaga pendidik masih aktif.'
+                            )
+                            ->default(true),
 
                     ])
                     ->columns(2),
@@ -88,7 +105,7 @@ class TeacherForm
 
                 Section::make('Data Kelahiran')
                     ->description(
-                        'Informasi tempat dan tanggal lahir guru.'
+                        'Informasi tempat dan tanggal lahir.'
                     )
                     ->icon('heroicon-o-calendar-days')
                     ->schema([
@@ -107,13 +124,45 @@ class TeacherForm
 
                 /*
                 |--------------------------------------------------------------------------
+                | DATA GURU
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make('Informasi Guru')
+                    ->description(
+                        'Informasi tambahan khusus untuk guru.'
+                    )
+                    ->icon('heroicon-o-academic-cap')
+                    ->schema([
+
+                        TextInput::make('subject')
+                            ->label('Mata Pelajaran')
+                            ->placeholder(
+                                'Contoh: Matematika'
+                            )
+                            ->maxLength(255),
+
+                        TextInput::make('join_year')
+                            ->label('Tahun Bergabung')
+                            ->numeric()
+                            ->minValue(1900)
+                            ->maxValue(date('Y')),
+
+                    ])
+                    ->visible(
+                        fn ($get) => $get('type') === 'teacher'
+                    )
+                    ->columns(2),
+
+                /*
+                |--------------------------------------------------------------------------
                 | FOTO
                 |--------------------------------------------------------------------------
                 */
 
-                Section::make('Foto Guru')
+                Section::make('Foto Tenaga Pendidik')
                     ->description(
-                        'Upload foto profil tenaga pendidik.'
+                        'Upload foto profil guru atau karyawan/staff.'
                     )
                     ->icon('heroicon-o-camera')
                     ->schema([
@@ -137,6 +186,9 @@ class TeacherForm
                 */
 
                 Section::make('Informasi Tambahan')
+                    ->description(
+                        'Tambahkan deskripsi atau profil singkat.'
+                    )
                     ->icon('heroicon-o-information-circle')
                     ->schema([
 

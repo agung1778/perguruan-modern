@@ -22,13 +22,13 @@ class TeacherResource extends Resource
         'Data Pendidikan';
 
     protected static ?string $navigationLabel =
-        'Data Guru';
+        'Data Guru / Karyawan';
 
     protected static ?string $modelLabel =
         'Guru';
 
     protected static ?string $pluralModelLabel =
-        'Guru';
+        'Guru / Karyawan';
 
     protected static ?int $navigationSort = 4;
 

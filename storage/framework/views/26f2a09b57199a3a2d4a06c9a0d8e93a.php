@@ -1,13 +1,22 @@
 <?php $__env->startSection('content'); ?>
 
 
-<section class="relative overflow-hidden bg-gradient-to-br from-emerald-950 via-green-900 to-emerald-800">
+<section class="relative overflow-hidden bg-emerald-950">
+
     
-    <div class="pointer-events-none absolute inset-0">
-        <div class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-emerald-400/10 blur-3xl"></div>
-        <div class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-green-300/10 blur-3xl"></div>
-        <div class="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/5 blur-3xl"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-950"></div>
+
+    
+    <div class="pointer-events-none absolute inset-0 overflow-hidden">
+
+        <div class="absolute -right-32 -top-32 h-80 w-80 rounded-full bg-emerald-400/10 blur-3xl"></div>
+
+        <div class="absolute -bottom-32 -left-32 h-80 w-80 rounded-full bg-emerald-300/10 blur-3xl"></div>
+
+        <div class="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full bg-emerald-500/5 blur-3xl"></div>
+
     </div>
+
 
     <div class="relative mx-auto max-w-7xl px-5 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
 
@@ -16,6 +25,7 @@
             class="mb-8 flex flex-wrap items-center gap-2 text-sm text-emerald-100/70"
             aria-label="Breadcrumb"
         >
+
             <a
                 href="<?php echo e(url('/')); ?>"
                 class="transition hover:text-white"
@@ -38,51 +48,56 @@
                 <?php echo e($unit->name); ?>
 
             </span>
+
         </nav>
+
 
         
         <div class="max-w-4xl">
 
-            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($unit->short_name): ?>
-                <span class="inline-flex rounded-full border border-emerald-300/20 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-emerald-200 backdrop-blur-sm">
-                    <?php echo e($unit->short_name); ?>
+            <span class="inline-flex rounded-full border border-emerald-300/20 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-emerald-200 backdrop-blur-sm">
+                <?php echo e($unit->short_name ?: 'Unit Pendidikan'); ?>
 
-                </span>
-            <?php else: ?>
-                <span class="inline-flex rounded-full border border-emerald-300/20 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-emerald-200 backdrop-blur-sm">
-                    Unit Pendidikan
-                </span>
-            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+            </span>
+
 
             <h1 class="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
                 <?php echo e($unit->name); ?>
 
             </h1>
 
+
             <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($unit->description): ?>
+
                 <p class="mt-6 max-w-3xl text-base leading-7 text-emerald-50/80 sm:text-lg sm:leading-8">
                     <?php echo e(Str::limit($unit->description, 300)); ?>
 
                 </p>
+
             <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
         </div>
+
     </div>
+
 </section>
 
 
 
-<section class="bg-slate-50 py-16 sm:py-20 lg:py-24">
+
+<section class="bg-slate-50 py-14 sm:py-20 lg:py-24">
 
     <div class="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+
 
         
         <div class="grid items-start gap-8 lg:grid-cols-5 lg:gap-12">
 
+
             
             <div class="lg:col-span-3">
 
-                <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm sm:rounded-3xl">
+                <div class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
 
                     <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($unit->photo): ?>
 
@@ -96,7 +111,7 @@
 
                     <?php else: ?>
 
-                        <div class="flex h-[280px] items-center justify-center bg-gradient-to-br from-emerald-800 to-green-950 sm:h-[420px] lg:h-[520px]">
+                        <div class="flex h-[280px] items-center justify-center bg-gradient-to-br from-emerald-800 to-emerald-950 sm:h-[420px] lg:h-[520px]">
 
                             <div class="text-center">
 
@@ -106,7 +121,7 @@
                                     viewBox="0 0 24 24"
                                     stroke-width="1.5"
                                     stroke="currentColor"
-                                    class="mx-auto h-16 w-16 text-emerald-300/50"
+                                    class="mx-auto h-16 w-16 text-emerald-300/40"
                                 >
                                     <path
                                         stroke-linecap="round"
@@ -119,6 +134,7 @@
                                         stroke-linejoin="round"
                                         d="M7.5 7.5h9M7.5 11.25h9M7.5 15h5.25"
                                     />
+
                                 </svg>
 
                                 <p class="mt-4 text-sm font-medium text-emerald-100/70">
@@ -136,52 +152,50 @@
             </div>
 
 
+
             
             <div class="lg:col-span-2">
 
-                <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:rounded-3xl sm:p-8 lg:p-10">
+                <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10">
+
 
                     
-                    <div>
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($unit->logo): ?>
 
-                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($unit->logo): ?>
+                        <div class="flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl border border-emerald-100 bg-emerald-50 p-3 sm:h-24 sm:w-24">
 
-                            <div class="flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl border border-emerald-100 bg-emerald-50 p-3 sm:h-24 sm:w-24">
+                            <img
+                                src="<?php echo e(Storage::url($unit->logo)); ?>"
+                                alt="Logo <?php echo e($unit->name); ?>"
+                                loading="lazy"
+                                decoding="async"
+                                class="h-full w-full object-contain"
+                            >
 
-                                <img
-                                    src="<?php echo e(Storage::url($unit->logo)); ?>"
-                                    alt="Logo <?php echo e($unit->name); ?>"
-                                    loading="lazy"
-                                    decoding="async"
-                                    class="h-full w-full object-contain"
-                                >
+                        </div>
 
-                            </div>
+                    <?php else: ?>
 
-                        <?php else: ?>
+                        <div class="flex h-20 w-20 items-center justify-center rounded-2xl bg-emerald-50 sm:h-24 sm:w-24">
 
-                            <div class="flex h-20 w-20 items-center justify-center rounded-2xl bg-emerald-50 sm:h-24 sm:w-24">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="h-10 w-10 text-emerald-600"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 3v18M3 9h18M5 21h14M5 9V5.25A2.25 2.25 0 0 1 7.25 3h9.5A2.25 2.25 0 0 1 19 5.25V9"
+                                />
+                            </svg>
 
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="h-10 w-10 text-emerald-600"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M12 3v18M3 9h18M5 21h14M5 9V5.25A2.25 2.25 0 0 1 7.25 3h9.5A2.25 2.25 0 0 1 19 5.25V9"
-                                    />
-                                </svg>
+                        </div>
 
-                            </div>
-
-                        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-
-                    </div>
+                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
 
                     
@@ -233,6 +247,7 @@
                                 rel="noopener noreferrer"
                                 class="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
                             >
+
                                 <span>
                                     Kunjungi Website Sekolah
                                 </span>
@@ -262,7 +277,7 @@
                     
                     <a
                         href="<?php echo e(route('units.index')); ?>"
-                        class="mt-4 flex w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3.5 text-sm font-semibold text-slate-700 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                        class="mt-4 flex w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3.5 text-sm font-semibold text-slate-700 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700"
                     >
                         ← Kembali ke Unit Pendidikan
                     </a>
@@ -274,8 +289,10 @@
         </div>
 
 
+
         
-        <div class="mt-12 border-t border-slate-200 pt-12 sm:mt-16 sm:pt-16">
+        <div class="mt-16 border-t border-slate-200 pt-16">
+
 
             
             <div class="max-w-3xl">
@@ -285,554 +302,76 @@
                 </span>
 
                 <h2 class="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-                    Statistik Siswa & Guru
+                    Statistik <?php echo e($unit->name); ?>
+
                 </h2>
 
-                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($academicYears && $academicYears->count()): ?>
-
-                    <form method="GET" action="<?php echo e(route('units.show', $unit)); ?>" class="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
-                        <label for="academic_year" class="text-sm font-semibold text-emerald-700">
-                            Pilih Tahun Ajaran
-                        </label>
-
-                        <select
-                            id="academic_year"
-                            name="academic_year"
-                            onchange="this.form.submit()"
-                            class="min-w-56 rounded-xl border border-emerald-200 bg-white px-4 py-2 text-sm font-semibold text-slate-800 outline-none transition focus:border-emerald-500"
-                        >
-                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $academicYears; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $year): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
-                                <option value="<?php echo e($year); ?>" <?php echo e($year == ($selectedAcademicYear ?? $latestAcademicYear) ? 'selected' : ''); ?>>
-                                    <?php echo e($year); ?>
-
-                                </option>
-                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
-                        </select>
-                    </form>
-
-                    <div class="mt-4 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.8"
-                            stroke="currentColor"
-                            class="h-5 w-5"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M6.75 3v2.25M17.25 3v2.25M3.75 9.75h16.5M5.25 5.25h13.5A1.5 1.5 0 0 1 20.25 6.75v12A1.5 1.5 0 0 1 18.75 20.25H5.25a1.5 1.5 0 0 1-1.5-1.5v-12a1.5 1.5 0 0 1 1.5-1.5Z"
-                            />
-                        </svg>
-
-                        Data Siswa Tahun Ajaran <?php echo e($selectedAcademicYear ?? $latestAcademicYear); ?>
-
-
-                    </div>
-
-                <?php else: ?>
-
-                    <p class="mt-5 text-sm font-medium text-slate-500">
-                        Data siswa belum tersedia.
-                    </p>
-
-                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-
                 <p class="mt-4 text-sm leading-7 text-slate-600 sm:text-base">
-                    Statistik siswa merupakan hasil agregasi seluruh data jurusan
-                    pada tahun ajaran <?php echo e($selectedAcademicYear ?? $latestAcademicYear ?? 'terbaru'); ?> untuk <?php echo e($unit->name); ?>.
+                    Informasi statistik siswa, tenaga pendidik, dan program beasiswa
+                    yang tersedia pada unit pendidikan ini.
                 </p>
 
             </div>
 
 
             
-            <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($academicYears && $academicYears->count()): ?>
+
+                <form
+                    method="GET"
+                    action="<?php echo e(route('units.show', $unit)); ?>"
+                    class="mt-6"
+                >
+
+                    <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+
+                        <label
+                            for="academic_year"
+                            class="text-sm font-semibold text-slate-700"
+                        >
+                            Tahun Ajaran
+                        </label>
+
+                        <select
+                            id="academic_year"
+                            name="academic_year"
+                            onchange="this.form.submit()"
+                            class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 sm:w-auto"
+                        >
+
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $academicYears; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $year): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+
+                                <option
+                                    value="<?php echo e($year); ?>"
+                                    <?php echo e($year == ($selectedAcademicYear ?? $latestAcademicYear) ? 'selected' : ''); ?>
+
+                                >
+                                    <?php echo e($year); ?>
+
+                                </option>
+
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+
+                        </select>
+
+                    </div>
+
+                </form>
+
+            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+
+
+            
+            <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
 
                 
                 <div class="rounded-2xl border border-emerald-100 bg-white p-6 shadow-sm">
 
-                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+                    <div class="flex items-center gap-4">
 
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="h-6 w-6"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-.083-.002-.166-.005-.248A6.72 6.72 0 0 0 9.75 12.75a6.72 6.72 0 0 0-5.245 6.127c-.003.082-.005.165-.005.248v.003m10.5 0a9.38 9.38 0 0 1-3.75.75 9.38 9.38 0 0 1-3.75-.75m7.5 0a24.255 24.255 0 0 1-7.5 0M12 12.75a3.375 3.375 0 1 0 0-6.75 3.375 3.375 0 0 0 0 6.75Z"
-                            />
-                        </svg>
-
-                    </div>
-
-                    <p class="mt-5 text-xs font-bold uppercase tracking-wider text-emerald-600">
-                        Total Siswa
-                    </p>
-
-                    <p class="mt-2 text-3xl font-extrabold text-slate-900">
-                        <?php echo e(number_format($studentStatistics['total'] ?? 0)); ?>
-
-                    </p>
-
-                </div>
-
-
-                
-                <div class="rounded-2xl border border-blue-100 bg-white p-6 shadow-sm">
-
-                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-700">
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="h-6 w-6"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M15.75 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Z"
-                            />
-
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M5.25 20.25a6.75 6.75 0 0 1 13.5 0"
-                            />
-
-                        </svg>
-
-                    </div>
-
-                    <p class="mt-5 text-xs font-bold uppercase tracking-wider text-blue-600">
-                        Laki-laki
-                    </p>
-
-                    <p class="mt-2 text-3xl font-extrabold text-slate-900">
-                        <?php echo e(number_format($studentStatistics['male'] ?? 0)); ?>
-
-                    </p>
-
-                </div>
-
-
-                
-                <div class="rounded-2xl border border-pink-100 bg-white p-6 shadow-sm">
-
-                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-pink-50 text-pink-700">
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="h-6 w-6"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M12 14.25a4.125 4.125 0 1 0 0-8.25 4.125 4.125 0 0 0 0 8.25Z"
-                            />
-
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M12 14.25V21m-3.75-3.75h7.5"
-                            />
-
-                        </svg>
-
-                    </div>
-
-                    <p class="mt-5 text-xs font-bold uppercase tracking-wider text-pink-600">
-                        Perempuan
-                    </p>
-
-                    <p class="mt-2 text-3xl font-extrabold text-slate-900">
-                        <?php echo e(number_format($studentStatistics['female'] ?? 0)); ?>
-
-                    </p>
-
-                </div>
-
-
-                
-                <div class="rounded-2xl border border-green-100 bg-white p-6 shadow-sm">
-
-                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-green-50 text-green-700">
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="h-6 w-6"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M18 18.72a9.094 9.094 0 0 0 3.75-.952 4.125 4.125 0 0 0-7.533-2.493M18 18.72v-.003c0-.083-.002-.166-.005-.248A6.72 6.72 0 0 0 12.75 12.75a6.72 6.72 0 0 0-5.245 6.127c-.003.082-.005.165-.005.248v.003m10.5 0a24.255 24.255 0 0 1-7.5 0M15.75 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Z"
-                            />
-                        </svg>
-
-                    </div>
-
-                    <p class="mt-5 text-xs font-bold uppercase tracking-wider text-green-600">
-                        Total Guru
-                    </p>
-
-                    <p class="mt-2 text-3xl font-extrabold text-slate-900">
-                        <?php echo e(number_format($unit->teachers_count ?? $teachers->count())); ?>
-
-                    </p>
-
-                </div>
-
-
-                
-                <div class="rounded-2xl border border-amber-100 bg-white p-6 shadow-sm">
-
-                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-700">
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="h-6 w-6"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M12 3v18m9-9H3"
-                            />
-
-                        </svg>
-
-                    </div>
-
-                    <p class="mt-5 text-xs font-bold uppercase tracking-wider text-amber-600">
-                        Penerima Beasiswa
-                    </p>
-
-                    <p class="mt-2 text-3xl font-extrabold text-slate-900">
-                        <?php echo e(number_format($studentStatistics['scholarship'] ?? 0)); ?>
-
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            
-            <div class="mt-12">
-
-                <div class="mb-6">
-
-                    <span class="text-sm font-bold uppercase tracking-wider text-emerald-600">
-                        Rincian Siswa
-                    </span>
-
-                    <h3 class="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-                        Data Siswa Berdasarkan Jurusan
-                    </h3>
-
-                    <p class="mt-3 text-sm leading-7 text-slate-600">
-                        Data berikut merupakan statistik siswa berdasarkan jurusan
-                        pada tahun ajaran <?php echo e($latestAcademicYear ?? 'terbaru'); ?>.
-                    </p>
-
-                </div>
-
-
-                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($studentData && $studentData->count()): ?>
-
-                    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-
-                        
-                        <div class="hidden overflow-x-auto md:block">
-
-                            <table class="w-full text-left">
-
-                                <thead class="bg-emerald-950 text-white">
-
-                                    <tr>
-
-                                        <th class="px-6 py-4 text-sm font-bold">
-                                            Jurusan
-                                        </th>
-
-                                        <th class="px-6 py-4 text-center text-sm font-bold">
-                                            Laki-laki
-                                        </th>
-
-                                        <th class="px-6 py-4 text-center text-sm font-bold">
-                                            Perempuan
-                                        </th>
-
-                                        <th class="px-6 py-4 text-center text-sm font-bold">
-                                            Total
-                                        </th>
-
-                                    </tr>
-
-                                </thead>
-
-                                <tbody class="divide-y divide-slate-100">
-
-                                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $studentData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
-
-                                        <tr class="transition hover:bg-emerald-50/50">
-
-                                            <td class="px-6 py-5">
-
-                                                <div class="font-semibold text-slate-900">
-
-                                                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($data->major_name): ?>
-                                                        <?php echo e($data->major_name); ?>
-
-                                                    <?php else: ?>
-                                                        Umum / Tanpa Jurusan
-                                                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-
-                                                </div>
-
-                                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($data->major?->short_name): ?>
-
-                                                    <div class="mt-1 text-xs font-medium text-emerald-600">
-                                                        <?php echo e($data->major->short_name); ?>
-
-                                                    </div>
-
-                                                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-
-                                            </td>
-
-
-                                            <td class="px-6 py-5 text-center font-semibold text-blue-700">
-                                                <?php echo e(number_format($data->male_count ?? 0)); ?>
-
-                                            </td>
-
-
-                                            <td class="px-6 py-5 text-center font-semibold text-pink-700">
-                                                <?php echo e(number_format($data->female_count ?? 0)); ?>
-
-                                            </td>
-
-
-                                            <td class="px-6 py-5 text-center">
-
-                                                <span class="inline-flex rounded-full bg-emerald-50 px-4 py-2 text-sm font-bold text-emerald-700">
-                                                    <?php echo e(number_format($data->total_count ?? 0)); ?>
-
-                                                </span>
-
-                                            </td>
-
-                                        </tr>
-
-                                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
-
-                                </tbody>
-
-
-                                
-                                <tfoot class="border-t-2 border-emerald-200 bg-emerald-50">
-
-                                    <tr>
-
-                                        <td class="px-6 py-5 text-sm font-extrabold uppercase text-emerald-900">
-                                            Total
-                                        </td>
-
-                                        <td class="px-6 py-5 text-center text-lg font-extrabold text-blue-700">
-                                            <?php echo e(number_format($studentStatistics['male'] ?? 0)); ?>
-
-                                        </td>
-
-                                        <td class="px-6 py-5 text-center text-lg font-extrabold text-pink-700">
-                                            <?php echo e(number_format($studentStatistics['female'] ?? 0)); ?>
-
-                                        </td>
-
-                                        <td class="px-6 py-5 text-center text-lg font-extrabold text-emerald-800">
-                                            <?php echo e(number_format($studentStatistics['total'] ?? 0)); ?>
-
-                                        </td>
-
-                                    </tr>
-
-                                </tfoot>
-
-                            </table>
-
-                        </div>
-
-
-                        
-                        <div class="divide-y divide-slate-100 md:hidden">
-
-                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $studentData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
-
-                                <div class="p-5">
-
-                                    <div class="flex items-center justify-between gap-4">
-
-                                        <div>
-
-                                            <h4 class="font-bold text-slate-900">
-
-                                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($data->major_name): ?>
-                                                    <?php echo e($data->major_name); ?>
-
-                                                <?php else: ?>
-                                                    Umum / Tanpa Jurusan
-                                                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-
-                                            </h4>
-
-                                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($data->major?->short_name): ?>
-
-                                                <p class="mt-1 text-xs font-medium text-emerald-600">
-                                                    <?php echo e($data->major->short_name); ?>
-
-                                                </p>
-
-                                            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-
-                                        </div>
-
-                                        <div class="text-right">
-
-                                            <p class="text-xs text-slate-500">
-                                                Total
-                                            </p>
-
-                                            <p class="text-xl font-extrabold text-emerald-700">
-                                                <?php echo e(number_format($data->total_count ?? 0)); ?>
-
-                                            </p>
-
-                                        </div>
-
-                                    </div>
-
-
-                                    <div class="mt-4 grid grid-cols-2 gap-3">
-
-                                        <div class="rounded-xl bg-blue-50 p-3 text-center">
-
-                                            <p class="text-xs font-medium text-blue-600">
-                                                Laki-laki
-                                            </p>
-
-                                            <p class="mt-1 text-lg font-bold text-blue-700">
-                                                <?php echo e(number_format($data->male_count ?? 0)); ?>
-
-                                            </p>
-
-                                        </div>
-
-
-                                        <div class="rounded-xl bg-pink-50 p-3 text-center">
-
-                                            <p class="text-xs font-medium text-pink-600">
-                                                Perempuan
-                                            </p>
-
-                                            <p class="mt-1 text-lg font-bold text-pink-700">
-                                                <?php echo e(number_format($data->female_count ?? 0)); ?>
-
-                                            </p>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
-
-
-                            
-                            <div class="bg-emerald-50 p-5">
-
-                                <p class="font-extrabold uppercase text-emerald-900">
-                                    Total Semua Jurusan
-                                </p>
-
-                                <div class="mt-4 grid grid-cols-3 gap-2">
-
-                                    <div class="text-center">
-
-                                        <p class="text-xs text-blue-600">
-                                            Laki-laki
-                                        </p>
-
-                                        <p class="mt-1 font-extrabold text-blue-700">
-                                            <?php echo e(number_format($studentStatistics['male'] ?? 0)); ?>
-
-                                        </p>
-
-                                    </div>
-
-
-                                    <div class="text-center">
-
-                                        <p class="text-xs text-pink-600">
-                                            Perempuan
-                                        </p>
-
-                                        <p class="mt-1 font-extrabold text-pink-700">
-                                            <?php echo e(number_format($studentStatistics['female'] ?? 0)); ?>
-
-                                        </p>
-
-                                    </div>
-
-
-                                    <div class="text-center">
-
-                                        <p class="text-xs text-emerald-600">
-                                            Total
-                                        </p>
-
-                                        <p class="mt-1 font-extrabold text-emerald-800">
-                                            <?php echo e(number_format($studentStatistics['total'] ?? 0)); ?>
-
-                                        </p>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                <?php else: ?>
-
-                    
-                    <div class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-12 text-center">
-
-                        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+                        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
 
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -840,127 +379,29 @@
                                 viewBox="0 0 24 24"
                                 stroke-width="1.5"
                                 stroke="currentColor"
-                                class="h-8 w-8"
+                                class="h-6 w-6"
                             >
                                 <path
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
-                                    d="M12 6v6l4 2"
+                                    d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-.083-.002-.166-.005-.248A6.72 6.72 0 0 0 9.75 12.75a6.72 6.72 0 0 0-5.245 6.127c-.003.082-.005.165-.005.248v.003m10.5 0a9.38 9.38 0 0 1-3.75.75 9.38 9.38 0 0 1-3.75-.75"
                                 />
-
                             </svg>
 
                         </div>
 
-                        <h4 class="mt-5 font-bold text-slate-900">
-                            Data Siswa Belum Tersedia
-                        </h4>
+                        <div>
 
-                        <p class="mt-2 text-sm text-slate-500">
-                            Belum ada data statistik siswa untuk unit pendidikan ini.
-                        </p>
+                            <p class="text-xs font-bold uppercase tracking-wider text-emerald-600">
+                                Total Siswa
+                            </p>
 
-                    </div>
+                            <p class="mt-1 text-2xl font-extrabold text-slate-900">
+                                <?php echo e(number_format($studentStatistics['total'] ?? 0)); ?>
 
-                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                            </p>
 
-            </div>
-
-
-            
-            <div class="mt-12">
-
-                <div class="mb-6">
-
-                    <span class="text-sm font-bold uppercase tracking-wider text-amber-600">
-                        Program Beasiswa
-                    </span>
-
-                    <h3 class="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-                        Rekap Penerima Beasiswa
-                    </h3>
-
-                    <p class="mt-3 text-sm leading-7 text-slate-600">
-                        Data beasiswa merupakan gabungan seluruh jurusan
-                        pada tahun ajaran terbaru.
-                    </p>
-
-                </div>
-
-
-                <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-
-                    
-                    <div class="rounded-2xl border border-emerald-100 bg-white p-6 shadow-sm">
-
-                        <p class="text-sm font-semibold text-emerald-600">
-                            Tahfiz
-                        </p>
-
-                        <p class="mt-2 text-3xl font-extrabold text-slate-900">
-                            <?php echo e(number_format($scholarships['Tahfiz'] ?? 0)); ?>
-
-                        </p>
-
-                    </div>
-
-
-                    
-                    <div class="rounded-2xl border border-blue-100 bg-white p-6 shadow-sm">
-
-                        <p class="text-sm font-semibold text-blue-600">
-                            Akademik
-                        </p>
-
-                        <p class="mt-2 text-3xl font-extrabold text-slate-900">
-                            <?php echo e(number_format($scholarships['Akademik'] ?? 0)); ?>
-
-                        </p>
-
-                    </div>
-
-
-                    
-                    <div class="rounded-2xl border border-purple-100 bg-white p-6 shadow-sm">
-
-                        <p class="text-sm font-semibold text-purple-600">
-                            Non-Akademik
-                        </p>
-
-                        <p class="mt-2 text-3xl font-extrabold text-slate-900">
-                            <?php echo e(number_format($scholarships['Non-Akademik'] ?? 0)); ?>
-
-                        </p>
-
-                    </div>
-
-
-                    
-                    <div class="rounded-2xl border border-pink-100 bg-white p-6 shadow-sm">
-
-                        <p class="text-sm font-semibold text-pink-600">
-                            Yatim
-                        </p>
-
-                        <p class="mt-2 text-3xl font-extrabold text-slate-900">
-                            <?php echo e(number_format($scholarships['Yatim'] ?? 0)); ?>
-
-                        </p>
-
-                    </div>
-
-
-                    
-                    <div class="rounded-2xl border border-amber-100 bg-white p-6 shadow-sm">
-
-                        <p class="text-sm font-semibold text-amber-600">
-                            Yayasan
-                        </p>
-
-                        <p class="mt-2 text-3xl font-extrabold text-slate-900">
-                            <?php echo e(number_format($scholarships['Beasiswa Yayasan'] ?? 0)); ?>
-
-                        </p>
+                        </div>
 
                     </div>
 
@@ -968,31 +409,122 @@
 
 
                 
-                <div class="mt-6 rounded-2xl border border-amber-200 bg-gradient-to-r from-amber-50 to-yellow-50 p-6 shadow-sm sm:p-8">
+                <div class="rounded-2xl border border-emerald-100 bg-white p-6 shadow-sm">
 
-                    <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+                    <div class="flex items-center gap-4">
+
+                        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="h-6 w-6"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-.083-.002-.166-.005-.248A6.72 6.72 0 0 0 9.75 12.75a6.72 6.72 0 0 0-5.245 6.127c-.003.082-.005.165-.005.248v.003m10.5 0a9.38 9.38 0 0 1-3.75-.75"
+                                />
+                            </svg>
+
+                        </div>
 
                         <div>
 
-                            <p class="text-sm font-bold uppercase tracking-wider text-amber-700">
-                                Total Penerima Beasiswa
+                            <p class="text-xs font-bold uppercase tracking-wider text-emerald-600">
+                                Guru
                             </p>
 
-                            <p class="mt-2 text-sm text-slate-600">
-                                Jumlah seluruh kategori beasiswa dari semua jurusan.
+                            <p class="mt-1 text-2xl font-extrabold text-slate-900">
+                                <?php echo e(number_format($teachers->where('type', 'teacher')->where('is_active', true)->count())); ?>
+
                             </p>
 
                         </div>
 
-                        <div class="text-left sm:text-right">
+                    </div>
 
-                            <p class="text-4xl font-extrabold text-amber-800">
-                                <?php echo e(number_format($studentStatistics['scholarship'] ?? 0)); ?>
+                </div>
+
+
+                
+                <div class="rounded-2xl border border-emerald-100 bg-white p-6 shadow-sm">
+
+                    <div class="flex items-center gap-4">
+
+                        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="h-6 w-6"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 6.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5ZM4.5 21a7.5 7.5 0 0 1 15 0"
+                                />
+                            </svg>
+
+                        </div>
+
+                        <div>
+
+                            <p class="text-xs font-bold uppercase tracking-wider text-emerald-600">
+                                Karyawan / Staff
+                            </p>
+
+                            <p class="mt-1 text-2xl font-extrabold text-slate-900">
+                                <?php echo e(number_format($teachers->where('type', 'staff')->where('is_active', true)->count())); ?>
 
                             </p>
 
-                            <p class="mt-1 text-sm font-medium text-amber-700">
-                                Penerima Beasiswa
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                
+                <div class="rounded-2xl border border-emerald-100 bg-white p-6 shadow-sm">
+
+                    <div class="flex items-center gap-4">
+
+                        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="h-6 w-6"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 3v18m9-9H3"
+                                />
+                            </svg>
+
+                        </div>
+
+                        <div>
+
+                            <p class="text-xs font-bold uppercase tracking-wider text-emerald-600">
+                                Beasiswa
+                            </p>
+
+                            <p class="mt-1 text-2xl font-extrabold text-slate-900">
+                                <?php echo e(number_format($studentStatistics['scholarship'] ?? 0)); ?>
+
                             </p>
 
                         </div>
@@ -1004,52 +536,490 @@
             </div>
 
 
+
             
-            <div class="mt-12">
+            <div
+                class="mt-12"
+                x-data="{ activeTab: 'students' }"
+            >
 
-                <div class="mb-6">
+                
+                <div class="overflow-x-auto pb-2">
 
-                    <span class="text-sm font-bold uppercase tracking-wider text-green-600">
-                        Tenaga Pendidik
-                    </span>
+                    <div class="flex min-w-max rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm">
 
-                    <h3 class="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-                        Rincian Guru
-                    </h3>
+                        <button
+                            type="button"
+                            @click="activeTab = 'students'"
+                            :class="activeTab === 'students'
+                                ? 'bg-emerald-700 text-white shadow-sm'
+                                : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'"
+                            class="flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition"
+                        >
 
-                    <p class="mt-3 text-sm leading-7 text-slate-600">
-                        Daftar tenaga pendidik yang terdaftar pada <?php echo e($unit->name); ?>.
-                    </p>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.7"
+                                stroke="currentColor"
+                                class="h-5 w-5"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493"
+                                />
+                            </svg>
+
+                            Data Siswa
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            @click="activeTab = 'teachers'"
+                            :class="activeTab === 'teachers'
+                                ? 'bg-emerald-700 text-white shadow-sm'
+                                : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'"
+                            class="flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition"
+                        >
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.7"
+                                stroke="currentColor"
+                                class="h-5 w-5"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 6.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5ZM4.5 21a7.5 7.5 0 0 1 15 0"
+                                />
+                            </svg>
+
+                            Tenaga Pendidik
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            @click="activeTab = 'scholarship'"
+                            :class="activeTab === 'scholarship'
+                                ? 'bg-emerald-700 text-white shadow-sm'
+                                : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'"
+                            class="flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition"
+                        >
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.7"
+                                stroke="currentColor"
+                                class="h-5 w-5"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 3v18m9-9H3"
+                                />
+                            </svg>
+
+                            Beasiswa
+
+                        </button>
+
+                    </div>
 
                 </div>
 
 
-                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($teachers && $teachers->count()): ?>
 
-                    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                
+                <div
+                    x-show="activeTab === 'students'"
+                    x-transition
+                    class="mt-6"
+                >
 
-                        <div class="divide-y divide-slate-100">
+                    <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
 
-                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $teachers->groupBy('status'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status => $statusTeachers): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
 
-                                <div class="flex items-center justify-between gap-4 px-6 py-5">
+                        
+                        <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
 
-                                    <div>
+                            <div>
 
-                                        <p class="font-semibold text-slate-800">
-                                            <?php echo e($status ?: 'Status Belum Ditentukan'); ?>
+                                <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">
+                                    Statistik Siswa
+                                </span>
 
-                                        </p>
+                                <h3 class="mt-2 text-2xl font-bold text-slate-900">
+                                    Data Siswa Berdasarkan Jurusan
+                                </h3>
 
-                                        <p class="mt-1 text-xs text-slate-500">
-                                            Status tenaga pendidik
-                                        </p>
+                                <p class="mt-2 text-sm leading-6 text-slate-500">
+                                    Rekapitulasi jumlah siswa berdasarkan jurusan
+                                    pada tahun ajaran yang dipilih.
+                                </p>
+
+                            </div>
+
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($selectedAcademicYear ?? $latestAcademicYear): ?>
+
+                                <span class="inline-flex w-fit rounded-full bg-emerald-50 px-4 py-2 text-xs font-bold text-emerald-700">
+                                    <?php echo e($selectedAcademicYear ?? $latestAcademicYear); ?>
+
+                                </span>
+
+                            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+                        </div>
+
+
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($studentData && $studentData->count()): ?>
+
+                            <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $studentData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+
+                                    <div class="rounded-2xl border border-slate-100 bg-slate-50 p-5 transition hover:border-emerald-200 hover:bg-emerald-50/40">
+
+                                        <div class="flex items-start justify-between gap-4">
+
+                                            <div>
+
+                                                <h4 class="font-bold text-slate-900">
+                                                    <?php echo e($data->major_name ?: 'Umum / Tanpa Jurusan'); ?>
+
+                                                </h4>
+
+                                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($data->major?->short_name): ?>
+
+                                                    <p class="mt-1 text-xs font-semibold text-emerald-600">
+                                                        <?php echo e($data->major->short_name); ?>
+
+                                                    </p>
+
+                                                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+                                            </div>
+
+                                            <div class="text-right">
+
+                                                <p class="text-xs text-slate-500">
+                                                    Total
+                                                </p>
+
+                                                <p class="text-xl font-extrabold text-emerald-700">
+                                                    <?php echo e(number_format($data->total_count ?? 0)); ?>
+
+                                                </p>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="mt-5 grid grid-cols-2 gap-3">
+
+                                            <div class="rounded-xl bg-white p-3 text-center">
+
+                                                <p class="text-xs font-medium text-slate-500">
+                                                    Laki-laki
+                                                </p>
+
+                                                <p class="mt-1 font-bold text-slate-800">
+                                                    <?php echo e(number_format($data->male_count ?? 0)); ?>
+
+                                                </p>
+
+                                            </div>
+
+
+                                            <div class="rounded-xl bg-white p-3 text-center">
+
+                                                <p class="text-xs font-medium text-slate-500">
+                                                    Perempuan
+                                                </p>
+
+                                                <p class="mt-1 font-bold text-slate-800">
+                                                    <?php echo e(number_format($data->female_count ?? 0)); ?>
+
+                                                </p>
+
+                                            </div>
+
+                                        </div>
 
                                     </div>
 
-                                    <span class="shrink-0 rounded-full bg-green-50 px-4 py-2 text-sm font-bold text-green-700">
-                                        <?php echo e(number_format($statusTeachers->count())); ?> Guru
-                                    </span>
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+
+                            </div>
+
+                        <?php else: ?>
+
+                            <div class="mt-8 rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-10 text-center">
+
+                                <p class="text-sm font-medium text-slate-500">
+                                    Data siswa belum tersedia.
+                                </p>
+
+                            </div>
+
+                        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+                    </div>
+
+                </div>
+
+
+
+                
+                <div
+                    x-show="activeTab === 'teachers'"
+                    x-transition
+                    class="mt-6"
+                >
+
+                    <?php
+
+                        $activeTeachers = $teachers
+                            ->where('is_active', true)
+                            ->where('type', 'teacher');
+
+                        $activeStaff = $teachers
+                            ->where('is_active', true)
+                            ->where('type', 'staff');
+
+                    ?>
+
+
+                    <div
+                        x-data="{ educatorTab: 'all' }"
+                        class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
+                    >
+
+
+                        
+                        <div>
+
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">
+                                Tenaga Pendidik
+                            </span>
+
+                            <h3 class="mt-2 text-2xl font-bold text-slate-900">
+                                Guru & Karyawan / Staff
+                            </h3>
+
+                            <p class="mt-2 text-sm leading-6 text-slate-500">
+                                Kenali tenaga pendidik dan karyawan yang berkontribusi
+                                dalam kegiatan pendidikan di <?php echo e($unit->name); ?>.
+                            </p>
+
+                        </div>
+
+
+                        
+                        <div class="mt-6 flex flex-wrap gap-2">
+
+                            <button
+                                type="button"
+                                @click="educatorTab = 'all'"
+                                :class="educatorTab === 'all'
+                                    ? 'bg-emerald-700 text-white'
+                                    : 'bg-slate-100 text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'"
+                                class="rounded-xl px-4 py-2.5 text-sm font-bold transition"
+                            >
+                                Semua
+                            </button>
+
+
+                            <button
+                                type="button"
+                                @click="educatorTab = 'teacher'"
+                                :class="educatorTab === 'teacher'
+                                    ? 'bg-emerald-700 text-white'
+                                    : 'bg-slate-100 text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'"
+                                class="rounded-xl px-4 py-2.5 text-sm font-bold transition"
+                            >
+                                Guru
+                            </button>
+
+
+                            <button
+                                type="button"
+                                @click="educatorTab = 'staff'"
+                                :class="educatorTab === 'staff'
+                                    ? 'bg-emerald-700 text-white'
+                                    : 'bg-slate-100 text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'"
+                                class="rounded-xl px-4 py-2.5 text-sm font-bold transition"
+                            >
+                                Karyawan / Staff
+                            </button>
+
+                        </div>
+
+
+
+                        
+                        <div
+                            x-show="educatorTab === 'all'"
+                            x-transition
+                            class="mt-8"
+                        >
+
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($teachers->where('is_active', true)->count()): ?>
+
+                                <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+                                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $teachers->where('is_active', true); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $teacher): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+
+                                        <?php echo $__env->make('partials.educator-card', [
+                                            'teacher' => $teacher
+                                        ], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+
+                                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+
+                                </div>
+
+                            <?php else: ?>
+
+                                <p class="py-10 text-center text-sm text-slate-500">
+                                    Belum ada data tenaga pendidik.
+                                </p>
+
+                            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+                        </div>
+
+
+
+                        
+                        <div
+                            x-show="educatorTab === 'teacher'"
+                            x-transition
+                            class="mt-8"
+                        >
+
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($activeTeachers->count()): ?>
+
+                                <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+                                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $activeTeachers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $teacher): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+
+                                        <?php echo $__env->make('partials.educator-card', [
+                                            'teacher' => $teacher
+                                        ], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+
+                                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+
+                                </div>
+
+                            <?php else: ?>
+
+                                <p class="py-10 text-center text-sm text-slate-500">
+                                    Belum ada data guru.
+                                </p>
+
+                            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+                        </div>
+
+
+
+                        
+                        <div
+                            x-show="educatorTab === 'staff'"
+                            x-transition
+                            class="mt-8"
+                        >
+
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($activeStaff->count()): ?>
+
+                                <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+                                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $activeStaff; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $teacher): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+
+                                        <?php echo $__env->make('partials.educator-card', [
+                                            'teacher' => $teacher
+                                        ], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+
+                                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+
+                                </div>
+
+                            <?php else: ?>
+
+                                <p class="py-10 text-center text-sm text-slate-500">
+                                    Belum ada data karyawan / staff.
+                                </p>
+
+                            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                
+                <div
+                    x-show="activeTab === 'scholarship'"
+                    x-transition
+                    class="mt-6"
+                >
+
+                    <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+
+
+                        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">
+                            Program Beasiswa
+                        </span>
+
+                        <h3 class="mt-2 text-2xl font-bold text-slate-900">
+                            Rekap Penerima Beasiswa
+                        </h3>
+
+                        <p class="mt-2 text-sm leading-6 text-slate-500">
+                            Informasi jumlah penerima beasiswa berdasarkan kategori.
+                        </p>
+
+
+                        
+                        <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = [
+                                'Tahfiz' => 'Tahfiz',
+                                'Akademik' => 'Akademik',
+                                'Non-Akademik' => 'Non-Akademik',
+                                'Yatim' => 'Yatim',
+                                'Beasiswa Yayasan' => 'Yayasan'
+                            ]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+
+                                <div class="rounded-2xl border border-slate-100 bg-slate-50 p-5">
+
+                                    <p class="text-sm font-semibold text-slate-600">
+                                        <?php echo e($label); ?>
+
+                                    </p>
+
+                                    <p class="mt-2 text-3xl font-extrabold text-emerald-700">
+                                        <?php echo e(number_format($scholarships[$key] ?? 0)); ?>
+
+                                    </p>
+
+                                    <p class="mt-1 text-xs text-slate-500">
+                                        Penerima
+                                    </p>
 
                                 </div>
 
@@ -1059,17 +1029,7 @@
 
                     </div>
 
-                <?php else: ?>
-
-                    <div class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-10 text-center">
-
-                        <p class="text-sm text-slate-500">
-                            Belum ada data guru yang tersedia.
-                        </p>
-
-                    </div>
-
-                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                </div>
 
             </div>
 

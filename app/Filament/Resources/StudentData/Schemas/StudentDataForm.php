@@ -79,21 +79,6 @@ class StudentDataForm
                                         'Masukkan tahun ajaran, contoh: 2025/2026.'
                                     ),
 
-                                /*
-                                |--------------------------------------------------------------------------
-                                | ANGKATAN
-                                |--------------------------------------------------------------------------
-                                */
-
-                                TextInput::make('generation')
-                                    ->label('Angkatan')
-                                    ->placeholder('Contoh: 2025')
-                                    ->maxLength(50)
-                                    ->nullable()
-                                    ->prefixIcon('heroicon-o-user-group')
-                                    ->helperText(
-                                        'Opsional. Masukkan angkatan secara manual.'
-                                    ),
 
                                 /*
                                 |--------------------------------------------------------------------------
