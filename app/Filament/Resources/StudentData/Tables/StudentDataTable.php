@@ -44,12 +44,6 @@ class StudentDataTable
                     )
                     ->placeholder('Tanpa Jurusan'),
 
-                TextColumn::make('generation')
-                    ->label('Angkatan')
-                    ->searchable()
-                    ->sortable()
-                    ->placeholder('-'),
-
                 TextColumn::make('academic_year')
                     ->label('Tahun Ajaran')
                     ->sortable()

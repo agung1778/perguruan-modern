@@ -18,6 +18,7 @@ class PpdbController extends Controller
                     $query->published();
                 },
             ])
+            ->orderBy('sort_order')
             ->orderBy('name')
             ->get();
 

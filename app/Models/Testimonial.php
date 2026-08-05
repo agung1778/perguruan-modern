@@ -14,7 +14,7 @@ class Testimonial extends Model
         'name',
         'photo',
         'position',
-        'content',
+        'message',
         'is_active',
     ];
 

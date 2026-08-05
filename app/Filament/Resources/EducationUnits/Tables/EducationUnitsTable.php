@@ -22,7 +22,7 @@ class EducationUnitsTable
                 ]);
             })
 
-            ->defaultSort('name', 'asc')
+            ->defaultSort('sort_order', 'asc')
 
             ->columns([
 
@@ -53,6 +53,12 @@ class EducationUnitsTable
                             ?: 'Tidak ada nama singkat'
                     ),
 
+
+                TextColumn::make('sort_order')
+                    ->label('Urutan')
+                    ->numeric()
+                    ->sortable()
+                    ->toggleable(),
 
                 /*
                 |--------------------------------------------------------------------------

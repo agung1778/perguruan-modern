@@ -75,6 +75,7 @@ class HomeController extends Controller
                                 );
                         },
                     ])
+                    ->orderBy('sort_order')
                     ->orderBy('name')
                     ->get();
 

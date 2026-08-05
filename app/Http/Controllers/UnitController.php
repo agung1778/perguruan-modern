@@ -24,6 +24,7 @@ class UnitController extends Controller
                         ->with('major');
                 },
             ])
+            ->orderBy('sort_order')
             ->orderBy('name')
             ->get();
 
@@ -109,6 +110,30 @@ class UnitController extends Controller
                 'generation'
             )
             ->get();
+
+        $studentData = $studentData
+            ->groupBy(
+                fn ($row) => $row->major_id ?? ($row->major ?? 'general')
+            )
+            ->map(function ($group) {
+                $first = $group->first();
+
+                return (object) [
+                    'major_id' => $first?->major_id,
+                    'major' => $first?->major,
+                    'major_name' => $first?->major_name
+                        ?: ($first?->major ?? 'Umum / Tanpa Jurusan'),
+                    'total_count' => (int) $group->sum('total_count'),
+                    'male_count' => (int) $group->sum('male_count'),
+                    'female_count' => (int) $group->sum('female_count'),
+                    'scholarship_tahfiz' => (int) $group->sum('scholarship_tahfiz'),
+                    'scholarship_akademik' => (int) $group->sum('scholarship_akademik'),
+                    'scholarship_non_akademik' => (int) $group->sum('scholarship_non_akademik'),
+                    'scholarship_yatim' => (int) $group->sum('scholarship_yatim'),
+                    'scholarship_yayasan' => (int) $group->sum('scholarship_yayasan'),
+                ];
+            })
+            ->values();
 
         /**
          * Statistik gabungan semua jurusan.

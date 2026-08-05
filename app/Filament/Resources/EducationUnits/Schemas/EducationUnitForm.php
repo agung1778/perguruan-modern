@@ -30,12 +30,19 @@ class EducationUnitForm
                             ->label('Nama Unit')
                             ->required()
                             ->maxLength(255)
-                            ->placeholder('Contoh: SMA Amaliah'),
+                            ->placeholder('Contoh: SD Amaliah'),
+
+                        TextInput::make('sort_order')
+                            ->label('Urutan')
+                            ->numeric()
+                            ->default(0)
+                            ->minValue(0)
+                            ->helperText('Semakin kecil angka, semakin dahulu tampil di daftar.'),
 
                         TextInput::make('short_name')
                             ->label('Nama Singkat')
                             ->maxLength(50)
-                            ->placeholder('Contoh: SMA'),
+                            ->placeholder('Contoh: SD'),
 
                         Textarea::make('description')
                             ->label('Deskripsi')

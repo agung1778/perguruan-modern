@@ -13,6 +13,7 @@ class EducationUnit extends Model
 
     protected $fillable = [
         'name',
+        'sort_order',
         'short_name',
         'description',
         'logo',
@@ -23,6 +24,7 @@ class EducationUnit extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
+        'sort_order' => 'integer',
     ];
 
     /**
