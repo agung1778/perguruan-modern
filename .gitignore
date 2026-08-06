@@ -1,30 +1,129 @@
+# =====================================================
+# DEPENDENCIES
+# =====================================================
+
 /vendor/
-node_modules/
-npm-debug.log
-yarn-error.log
+/node_modules/
 
-# Laravel 4 specific
-bootstrap/compiled.php
-app/storage/
+# NPM / Yarn logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Laravel 5 & Lumen specific
-public/storage
-public/hot
 
-# Laravel 5 & Lumen specific with changed public path
-public_html/storage
-public_html/hot
+# =====================================================
+# ENVIRONMENT & SECRETS
+# =====================================================
 
-storage/*.key
 .env
-Homestead.yaml
-Homestead.json
-/.vagrant
-.phpunit.result.cache
+.env.*
+!.env.example
+
+auth.json
+
+# Composer auth
+composer-auth.json
+
+
+# =====================================================
+# LARAVEL CACHE & STORAGE
+# =====================================================
+
+/storage/*.key
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+
+/bootstrap/cache/*
+
+# Laravel storage link
+/public/storage
+
+
+# =====================================================
+# VITE / FRONTEND BUILD
+# =====================================================
 
 /public/build
-/storage/pail
+/public/hot
+
+# Vite cache
+/.vite
+
+
+# =====================================================
+# TESTING
+# =====================================================
+
+.phpunit.result.cache
+
+
+# =====================================================
+# IDE / EDITOR
+# =====================================================
+
+.idea/
+.vscode/
+
+*.sublime-project
+*.sublime-workspace
+
+*.swp
+*.swo
+
+
+# =====================================================
+# OS FILES
+# =====================================================
+
+.DS_Store
+Thumbs.db
+
+
+# =====================================================
+# LOCAL DEVELOPMENT
+# =====================================================
+
+Homestead.yaml
+Homestead.json
+
+/.vagrant
+
+.phpactor.json
+
+
+# =====================================================
+# DATABASE LOCAL
+# =====================================================
+
+*.sqlite
+*.sqlite3
+
+
+# =====================================================
+# DEBUG / TEMP FILES
+# =====================================================
+
+*.log
+*.tmp
+*.cache
+
+
+# =====================================================
+# BACKUP FILES
+# =====================================================
+
+*.backup
+*.bak
+
 .env.backup
 .env.production
-.phpactor.json
-auth.json
+
+
+# =====================================================
+# LARAVEL PAIl
+# =====================================================
+
+/storage/pail
