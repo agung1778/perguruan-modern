@@ -110,14 +110,6 @@ class FoundationLeaderForm
                     ->icon('heroicon-o-document-text')
                     ->schema([
 
-                        Textarea::make('description')
-                            ->label('Deskripsi')
-                            ->rows(6)
-                            ->placeholder(
-                                'Tuliskan profil singkat pimpinan...'
-                            )
-                            ->columnSpanFull(),
-
                         Textarea::make('message')
                             ->label('Pesan / Sambutan')
                             ->rows(8)

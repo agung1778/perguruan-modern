@@ -48,7 +48,9 @@ class Ppdb extends Model
 
     public function scopePublished($query)
     {
-        return $query ->where('is_published', true);
+        return $query
+            ->where('is_published', true)
+            ->where('status', 'open');
     }
 
     public function scopeOpen($query)

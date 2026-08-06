@@ -93,22 +93,6 @@ class TeachersTable
 
             ])
 
-            ->headerActions([
-
-                ImportAction::make()
-                    ->label('Import Excel')
-                    ->importer(
-                        \App\Filament\Imports\TeacherImporter::class
-                    ),
-
-                ExportAction::make()
-                    ->label('Export Excel')
-                    ->exporter(
-                        \App\Filament\Exports\TeacherExporter::class
-                    ),
-
-            ])
-
             ->recordActions([
                 EditAction::make(),
             ])

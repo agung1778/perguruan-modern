@@ -52,14 +52,10 @@ class DeveloperPanelProvider extends PanelProvider
             ->brandName('SIP Yayasan Amaliah')
 
             ->brandLogo(
-                fn () => asset('storage/logo/logo.png')
+                fn () => asset('logo/logo.png')
             )
 
             ->brandLogoHeight('3rem')
-
-            ->favicon(
-                asset('storage/logo/favicon.png')
-            )
 
 
             /*

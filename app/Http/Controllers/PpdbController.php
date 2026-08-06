@@ -42,29 +42,23 @@ class PpdbController extends Controller
      */
     public function show(Ppdb $ppdb)
     {
-        // Jika PPDB tidak dipublikasikan,
-        // tampilkan halaman 404.
         abort_unless(
             $ppdb->is_published &&
-            $ppdb->status === 'published',
+            $ppdb->status === 'open',
             404
         );
 
-        // Load unit pendidikan.
         $ppdb->load('educationUnit');
 
-        // Ambil PPDB terkait dari unit pendidikan yang sama.
+        $units = EducationUnit::query()
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
         $related = Ppdb::query()
             ->with('educationUnit')
-            ->where(
-                'education_unit_id',
-                $ppdb->education_unit_id
-            )
-            ->where(
-                'id',
-                '!=',
-                $ppdb->id
-            )
+            ->where('education_unit_id', $ppdb->education_unit_id)
+            ->whereKeyNot($ppdb->id)
             ->published()
             ->latest()
             ->take(4)
@@ -74,7 +68,8 @@ class PpdbController extends Controller
             'pages.ppdb.show',
             compact(
                 'ppdb',
-                'related'
+                'related',
+                'units'
             )
         );
     }

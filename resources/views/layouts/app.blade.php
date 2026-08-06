@@ -19,10 +19,14 @@
     <meta name="description" content="{{ $website?->meta_description ?? 'Website resmi Perguruan Amaliah' }}">
     <meta name="robots" content="index, follow">
     {{-- =====================================================
-        FAVICON
+    FAVICON / LOGO YAYASAN
     ====================================================== --}}
-    @if(filled($website?->favicon))
+    @if(filled($website?->logo))
+        <link rel="icon" type="image/png" href="{{ Storage::url($website->logo) }}">
+    @elseif(filled($website?->favicon))
         <link rel="icon" type="image/png" href="{{ Storage::url($website->favicon) }}">
+    @else
+        <link rel="icon" type="image/png" href="{{ asset('logo/logo.png') }}">
     @endif
     {{-- =====================================================
         PRECONNECT
@@ -45,6 +49,7 @@
         EXTRA HEAD CONTENT
     ====================================================== --}}
     @stack('head')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
     {{-- =====================================================
@@ -65,5 +70,44 @@
         EXTRA SCRIPTS
     ====================================================== --}}
     @stack('scripts')
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+    new Swiper(".gallerySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 24,
+
+        loop: true,
+
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+        },
+
+        pagination: {
+            el: ".gallery-pagination",
+            clickable: true,
+        },
+
+        navigation: {
+            nextEl: ".gallery-next",
+            prevEl: ".gallery-prev",
+        },
+
+        breakpoints: {
+
+            640: {
+                slidesPerView: 2,
+            },
+
+            1024: {
+                slidesPerView: 3,
+            },
+
+        },
+
+    });
+</script>
 </body>
 </html>
