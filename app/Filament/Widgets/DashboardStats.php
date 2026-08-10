@@ -4,7 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\EducationUnit;
 use App\Models\NewsArticle;
-use App\Models\Student;
+use App\Models\StudentData;
 use App\Models\Teacher;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -17,7 +17,9 @@ class DashboardStats extends StatsOverviewWidget
 
             Stat::make(
                 'Total Siswa',
-                Student::count()
+                $total = StudentData::sum('male_count')
+                        + StudentData::sum('female_count'),
+                Stat::make('Total Siswa', $total),
             )
                 ->description('Jumlah seluruh siswa')
                 ->descriptionIcon('heroicon-o-academic-cap')
@@ -27,7 +29,7 @@ class DashboardStats extends StatsOverviewWidget
                 'Total Guru',
                 Teacher::count()
             )
-                ->description('Jumlah seluruh guru')
+                ->description('Jumlah seluruh guru dan karyawan')
                 ->descriptionIcon('heroicon-o-user-group')
                 ->color('success'),
 

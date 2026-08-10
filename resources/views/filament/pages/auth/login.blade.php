@@ -4,7 +4,7 @@
     <div class="amaliah-login-visual">
 
         <img
-            src="{{ asset('storage/logo/01KY6YKGTV86VMS5DQNNF0G5SS.jpg') }}"
+            src="{{ asset('logo/gedung.jpg') }}"
             alt="Gedung Yayasan Amaliah"
             class="amaliah-login-background"
         >
