@@ -150,16 +150,13 @@ class HomeController extends Controller
                 |--------------------------------------------------------------------------
                 */
 
+                
                 $agendas = Agenda::query()
-                    ->whereDate(
-                        'date',
-                        '>=',
-                        now()
-                    )
+                    ->active()
+                    ->whereDate('date', '>=', today())
                     ->orderBy('date')
                     ->take(5)
                     ->get();
-
                 /*
                 |--------------------------------------------------------------------------
                 | GALERI

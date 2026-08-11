@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Models;
+
 use App\Models\Concerns\HasUuid;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Agenda extends Model
@@ -9,25 +11,29 @@ class Agenda extends Model
     use HasUuid;
 
     protected $fillable = [
-
-    'title',
-    'slug',
-    'date',
-    'location',
-    'description',
-    'is_active'
-
+        'title',
+        'slug',
+        'date',
+        'location',
+        'description',
+        'is_active',
     ];
+
     protected $casts = [
-
-    'date'=>'date'
-
+        'date' => 'date',
+        'is_active' => 'boolean',
     ];
-    public function scopeActive($query)
-    {
-        return $query
 
-            ->where('is_active',true);
+    /**
+     * Scope untuk mengambil agenda yang aktif.
+     */
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('is_active', true);
     }
+
+    /**
+     * View yang digunakan oleh widget Filament.
+     */
     protected static string $view = 'filament.widgets.upcoming-agenda';
 }

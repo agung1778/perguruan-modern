@@ -53,8 +53,8 @@ class StudentData extends Model
     /**
      * Relasi ke jurusan.
      *
-     * major_id boleh NULL untuk unit
-     * seperti TK, SD, atau SMP.
+     * major_id dapat NULL untuk unit seperti:
+     * TK, SD, dan SMP.
      */
     public function major(): BelongsTo
     {
@@ -65,8 +65,11 @@ class StudentData extends Model
     }
 
     /**
-     * Nama jurusan yang aman ditampilkan,
-     * baik dari relasi major_id maupun data lama.
+     * Nama jurusan yang aman ditampilkan.
+     *
+     * Menggunakan relationship major jika tersedia.
+     * Jika tidak tersedia, menggunakan kolom major
+     * sebagai fallback.
      */
     public function getMajorNameAttribute(): ?string
     {

@@ -14,7 +14,6 @@ class TeacherExporter extends Exporter
     public static function getColumns(): array
     {
         return [
-
             ExportColumn::make('educationUnit.name')
                 ->label('Unit Pendidikan'),
 
@@ -47,17 +46,14 @@ class TeacherExporter extends Exporter
 
             ExportColumn::make('created_at')
                 ->label('Tanggal Ditambahkan'),
-
         ];
     }
 
     public static function getCompletedNotificationBody(
         Export $export
     ): string {
-        $body = 'Export data guru telah selesai. ' .
+        return 'Export data guru telah selesai. ' .
             number_format($export->successful_rows) .
             ' data berhasil diekspor.';
-
-        return $body;
     }
 }
