@@ -70,8 +70,7 @@ class HomeController extends Controller
                 'students' => function ($query) use ($activeAcademicYear) {
                     $query
                         ->where('academic_year', $activeAcademicYear)
-                        ->with('major')
-                        ->orderBy('major_name');
+                        ->with('major');
                 }
             ])
             ->orderBy('sort_order')
