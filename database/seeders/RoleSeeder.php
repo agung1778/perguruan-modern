@@ -11,14 +11,17 @@ class RoleSeeder extends Seeder
     {
         Role::create([
             'name'=>'Super Admin'
+	    'guard_name' => 'web'
         ]);
 
         Role::create([
             'name'=>'Admin Perguruan'
+'guard_name' => 'web
         ]);
 
         Role::create([
             'name'=>'Operator Sekolah'
-        ]);
+ 'guard_name' => 'web       
+]);
     }
 }
