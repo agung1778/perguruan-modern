@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class EducationUnit extends Model
 {
@@ -48,10 +48,6 @@ class EducationUnit extends Model
 
     /**
      * Relasi ke data siswa.
-     *
-     * Relationship tetap bernama "students"
-     * agar Controller dan Blade tetap sederhana,
-     * tetapi model yang digunakan adalah StudentData.
      */
     public function students(): HasMany
     {

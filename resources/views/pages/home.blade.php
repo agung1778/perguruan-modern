@@ -2,42 +2,30 @@
 
 @section('content')
 
-    {{-- HERO --}}
-    @include('components.sections.hero')
+@include('components.sections.hero')
 
-    {{-- SAMBUTAN --}}
-    @include('components.sections.welcome')
+@include('components.sections.welcome')
 
-    {{-- TENTANG PERGURUAN --}}
-    @include('components.sections.about')
+@include('components.sections.foundation', [
+    'leader' => $leader
+])
 
-    {{-- YAYASAN / PIMPINAN --}}
-    @include('components.sections.foundation', [
-        'leader' => $leader
-    ])
+@include('components.sections.about')
 
-    {{-- UNIT PENDIDIKAN --}}
-    @include('components.sections.units')
+@include('components.sections.statistics')
 
-    {{-- STATISTIK --}}
-    @include('components.sections.statistics')
+@include('components.sections.units')
 
-    {{-- STRUKTUR ORGANISASI --}}
-    @include('components.sections.organization')
+@include('components.sections.organization')
 
-    {{-- BERITA --}}
-    @include('components.sections.news')
+@include('components.sections.news')
 
-    {{-- AGENDA --}}
-    @include('components.sections.agenda')
+@include('components.sections.agenda')
 
-    {{-- GALERI --}}
-    @include('components.sections.gallery')
+@include('components.sections.gallery')
 
-    {{-- TESTIMONI --}}
-    @include('components.sections.testimonial')
+@include('components.sections.testimonial')
 
-    {{-- KONTAK --}}
-    @include('components.sections.contact')
+@include('components.sections.contact')
 
 @endsection

@@ -30,11 +30,24 @@ class DeveloperPanelProvider extends PanelProvider
     {
         return $panel
 
+            /*
+            |--------------------------------------------------------------------------
+            | Panel
+            |--------------------------------------------------------------------------
+            */
+
             ->default()
 
             ->id('developer')
 
             ->path('developer')
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Branding
+            |--------------------------------------------------------------------------
+            */
 
             ->brandName('SIP Yayasan Amaliah')
 
@@ -44,54 +57,134 @@ class DeveloperPanelProvider extends PanelProvider
 
             ->brandLogoHeight('3rem')
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | Authentication
+            |--------------------------------------------------------------------------
+            */
+
             ->login(
                 \App\Filament\Pages\Auth\Login::class
             )
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Colors
+            |--------------------------------------------------------------------------
+            */
 
             ->colors([
                 'primary' => Color::Emerald,
             ])
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | Theme
+            |--------------------------------------------------------------------------
+            */
+
             ->viteTheme(
                 'resources/css/filament/developer/theme.css'
             )
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Resources
+            |--------------------------------------------------------------------------
+            */
 
             ->discoverResources(
                 in: app_path('Filament/Resources'),
                 for: 'App\\Filament\\Resources'
             )
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | Pages
+            |--------------------------------------------------------------------------
+            */
+
             ->discoverPages(
                 in: app_path('Filament/Pages'),
                 for: 'App\\Filament\\Pages'
             )
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Widgets
+            |--------------------------------------------------------------------------
+            */
 
             ->discoverWidgets(
                 in: app_path('Filament/Widgets'),
                 for: 'App\\Filament\\Widgets'
             )
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | Dashboard Widgets
+            |--------------------------------------------------------------------------
+            */
+
             ->widgets([
                 \Filament\Widgets\AccountWidget::class,
+
                 \App\Filament\Widgets\DashboardStats::class,
+
                 \App\Filament\Widgets\QuickActions::class,
             ])
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | Middleware
+            |--------------------------------------------------------------------------
+            */
+
             ->middleware([
                 EncryptCookies::class,
+
                 AddQueuedCookiesToResponse::class,
+
                 StartSession::class,
+
                 AuthenticateSession::class,
+
                 ShareErrorsFromSession::class,
+
                 VerifyCsrfToken::class,
+
                 SubstituteBindings::class,
+
                 DisableBladeIconComponents::class,
+
                 DispatchServingFilamentEvent::class,
             ])
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Filament Shield
+            |--------------------------------------------------------------------------
+            */
 
             ->plugins([
                 FilamentShieldPlugin::make(),
             ])
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Authentication Middleware
+            |--------------------------------------------------------------------------
+            */
 
             ->authMiddleware([
                 Authenticate::class,

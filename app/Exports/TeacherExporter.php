@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exports;
+namespace App\Filament\Exports;
 
 use App\Models\Teacher;
 use Filament\Actions\Exports\ExportColumn;
