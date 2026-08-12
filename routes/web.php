@@ -67,15 +67,6 @@ Route::get('/testimoni', [TestimonialController::class, 'index'])
 Route::get('/kontak', [ContactController::class, 'index'])
     ->name('contact');
 
-
-Route::get('/sitemap.xml', function () {
-
-    return response()
-        ->view('sitemap')
-        ->header('Content-Type', 'text/xml');
-
-});
-
 Route::prefix('ppdb')
     ->name('ppdb.')
     ->group(function () {
