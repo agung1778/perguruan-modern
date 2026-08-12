@@ -73,30 +73,17 @@
                 </div>
             @endif
         </div>
-
         @if(isset($gallery) && $gallery->count())
             <div class="relative mt-10 sm:mt-12">
-                <div
-                    id="gallery-viewport"
-                    class="overflow-hidden"
-                >
-                    <div
-                        id="gallery-slider"
-                        class="flex gap-4 transition-transform duration-500 ease-out sm:gap-6"
-                        style="will-change: transform;"
-                    >
+                <div id="gallery-viewport" class="overflow-hidden">
+                    <div id="gallery-slider" class="flex gap-4 transition-transform duration-500 ease-out sm:gap-6">
                         @foreach($gallery as $album)
                             @php
                                 $cover = $album->photos->first();
                             @endphp
 
-                            <article
-                                class="gallery-card min-w-0 shrink-0 basis-full overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl hover:shadow-emerald-900/10 sm:basis-[calc(50%-12px)] lg:basis-[calc(33.333333%-16px)]"
-                            >
-                                <a
-                                    href="{{ route('gallery.show', $album) }}"
-                                    class="group block"
-                                >
+                            <article class="gallery-card shrink-0 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl hover:shadow-emerald-900/10">
+                                <a href="{{ route('gallery.show', $album) }}" class="group block">
                                     <div class="relative h-56 overflow-hidden sm:h-60 lg:h-64">
                                         @if($cover && filled($cover->photo))
                                             <img
@@ -171,7 +158,7 @@
                                             viewBox="0 0 24 24"
                                             stroke-width="2"
                                             stroke="currentColor"
-                                            class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                                            class="h-4 w-4"
                                         >
                                             <path
                                                 stroke-linecap="round"
@@ -254,21 +241,20 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const getMaxIndex = () => {
-        const visibleCards = getVisibleCards();
-        const totalCards = slider.querySelectorAll('.gallery-card').length;
+        const total = slider.querySelectorAll('.gallery-card').length;
+        const visible = getVisibleCards();
 
-        return Math.max(0, totalCards - visibleCards);
+        return Math.max(0, total - visible);
     };
 
-    const getCardStep = () => {
+    const getStep = () => {
         const card = slider.querySelector('.gallery-card');
 
         if (!card) {
             return viewport.clientWidth;
         }
 
-        const sliderStyle = window.getComputedStyle(slider);
-        const gap = parseFloat(sliderStyle.columnGap || sliderStyle.gap || 0);
+        const gap = window.innerWidth >= 640 ? 24 : 16;
 
         return card.getBoundingClientRect().width + gap;
     };
@@ -281,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
             maxIndex
         );
 
-        const offset = currentIndex * getCardStep();
+        const offset = currentIndex * getStep();
 
         slider.style.transitionDuration = animate ? '500ms' : '0ms';
         slider.style.transform = `translate3d(-${offset}px, 0, 0)`;
@@ -291,9 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     next.addEventListener('click', () => {
-        const maxIndex = getMaxIndex();
-
-        if (currentIndex < maxIndex) {
+        if (currentIndex < getMaxIndex()) {
             currentIndex++;
             updateSlider();
         }
@@ -318,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
             );
 
             updateSlider(false);
-        }, 100);
+        }, 150);
     });
 
     updateSlider(false);
