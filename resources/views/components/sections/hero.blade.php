@@ -11,7 +11,9 @@
                     }
                 },
                 destroy() {
-                    if (this.interval) clearInterval(this.interval)
+                    if (this.interval) {
+                        clearInterval(this.interval)
+                    }
                 },
                 next() {
                     this.active = (this.active + 1) % this.total
@@ -28,7 +30,6 @@
             @foreach($banners as $index => $banner)
                 <article
                     x-show="active === {{ $index }}"
-                    x-cloak
                     x-transition:enter="transition ease-out duration-700"
                     x-transition:enter-start="opacity-0 scale-[1.02]"
                     x-transition:enter-end="opacity-100 scale-100"
@@ -36,6 +37,7 @@
                     x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0"
                     class="absolute inset-0"
+                    style="{{ $index === 0 ? '' : 'display: none;' }}"
                 >
                     @if(filled($banner->image))
                         <img
@@ -99,23 +101,13 @@
 
             @if($banners->count() > 1)
                 <div class="absolute bottom-6 left-5 z-30 flex items-center gap-3 sm:bottom-8 sm:left-6 lg:left-8">
-                    <button
-                        type="button"
-                        @click="previous()"
-                        aria-label="Banner sebelumnya"
-                        class="group flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/20 text-white backdrop-blur-md transition-all duration-300 hover:border-emerald-400/50 hover:bg-emerald-600 sm:h-11 sm:w-11"
-                    >
+                    <button type="button" @click="previous()" aria-label="Banner sebelumnya" class="group flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/20 text-white backdrop-blur-md transition-all duration-300 hover:border-emerald-400/50 hover:bg-emerald-600 sm:h-11 sm:w-11">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4 transition-transform group-hover:-translate-x-0.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/>
                         </svg>
                     </button>
 
-                    <button
-                        type="button"
-                        @click="next()"
-                        aria-label="Banner berikutnya"
-                        class="group flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/20 text-white backdrop-blur-md transition-all duration-300 hover:border-emerald-400/50 hover:bg-emerald-600 sm:h-11 sm:w-11"
-                    >
+                    <button type="button" @click="next()" aria-label="Banner berikutnya" class="group flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/20 text-white backdrop-blur-md transition-all duration-300 hover:border-emerald-400/50 hover:bg-emerald-600 sm:h-11 sm:w-11">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4 transition-transform group-hover:translate-x-0.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m13.5 4.5 7.5 7.5m0 0-7.5 7.5M21 12H3"/>
                         </svg>
