@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Agenda;
 use App\Models\About;
+use App\Models\Agenda;
 use App\Models\EducationUnit;
 use App\Models\FoundationLeader;
 use App\Models\FoundationOrganization;
@@ -14,254 +14,211 @@ use App\Models\StudentData;
 use App\Models\Teacher;
 use App\Models\Testimonial;
 use App\Models\WebsiteSetting;
-use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
     public function __invoke()
     {
-        $selectedAcademicYear = request()->query('academic_year');
+        $selectedAcademicYear = request('academic_year');
 
-        $data = Cache::remember(
-            'homepage.data.' . ($selectedAcademicYear ?? 'latest'),
-            now()->addHours(6),
-            function () use ($selectedAcademicYear) {
-                $website = WebsiteSetting::first();
+        $website = WebsiteSetting::first();
 
-                $academicYears = StudentData::query()
-                    ->whereNotNull('academic_year')
-                    ->distinct()
-                    ->orderByDesc('academic_year')
-                    ->pluck('academic_year');
+        $academicYears = StudentData::query()
+            ->whereNotNull('academic_year')
+            ->distinct()
+            ->orderByDesc('academic_year')
+            ->pluck('academic_year');
 
-                $activeAcademicYear = $selectedAcademicYear;
+        $activeAcademicYear = $selectedAcademicYear;
 
-                if (
-                    blank($activeAcademicYear)
-                    || ! $academicYears->contains($activeAcademicYear)
-                ) {
-                    $activeAcademicYear = $academicYears->first();
+        if (
+            blank($activeAcademicYear) ||
+            !$academicYears->contains($activeAcademicYear)
+        ) {
+            $activeAcademicYear = $academicYears->first();
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Banner
+        |--------------------------------------------------------------------------
+        */
+
+        $banners = HomepageBanner::query()
+            ->where('is_active', true)
+            ->latest()
+            ->get();
+
+        /*
+        |--------------------------------------------------------------------------
+        | About
+        |--------------------------------------------------------------------------
+        */
+
+        $about = About::first();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Unit Pendidikan
+        |--------------------------------------------------------------------------
+        */
+
+        $units = EducationUnit::query()
+            ->active()
+            ->withCount('teachers')
+            ->with([
+                'students' => function ($query) use ($activeAcademicYear) {
+                    $query
+                        ->where('academic_year', $activeAcademicYear)
+                        ->with('major')
+                        ->orderBy('major_name');
                 }
+            ])
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
 
-                $banners = HomepageBanner::query()
-                    ->where('is_active', true)
-                    ->latest()
-                    ->get();
+        $units->each(function ($unit) use ($activeAcademicYear) {
 
-                $about = About::first();
+            $students = $unit->students;
 
-                /*
-                |--------------------------------------------------------------------------
-                | TAHUN AJARAN TERBARU GLOBAL
-                |--------------------------------------------------------------------------
-                */
+            $unit->latest_academic_year = $activeAcademicYear;
 
-                $units = EducationUnit::query()
-                    ->active()
-                    ->withCount('teachers')
-                    ->with([
-                        'students' => function ($query) use (
-                            $activeAcademicYear
-                        ) {
-                            $query
-                                ->with('major')
-                                ->when(
-                                    $activeAcademicYear,
-                                    fn ($query) =>
-                                        $query->where(
-                                            'academic_year',
-                                            $activeAcademicYear
-                                        )
-                                );
-                        },
-                    ])
-                    ->orderBy('sort_order')
-                    ->orderBy('name')
-                    ->get();
+            $unit->latest_student_total = $students->sum('total_count');
 
-                $units->each(
-                    function (EducationUnit $unit) use (
-                        $activeAcademicYear
-                    ) {
-                        $latestStudents = $unit->students
-                            ->where(
-                                'academic_year',
-                                $activeAcademicYear
-                            );
+            $unit->latest_student_male = $students->sum('male_count');
 
-                        $unit->setAttribute(
-                            'latest_academic_year',
-                            $activeAcademicYear
-                        );
+            $unit->latest_student_female = $students->sum('female_count');
 
-                        $unit->setAttribute(
-                            'latest_student_total',
-                            $latestStudents->sum(
-                                'total_count'
-                            )
-                        );
+            $unit->latest_scholarship =
+                $students->sum('scholarship_tahfiz')
+                + $students->sum('scholarship_akademik')
+                + $students->sum('scholarship_non_akademik')
+                + $students->sum('scholarship_yatim')
+                + $students->sum('scholarship_yayasan');
+        });
 
-                        $unit->setAttribute(
-                            'latest_student_male',
-                            $latestStudents->sum(
-                                'male_count'
-                            )
-                        );
+        /*
+        |--------------------------------------------------------------------------
+        | Organisasi
+        |--------------------------------------------------------------------------
+        */
 
-                        $unit->setAttribute(
-                            'latest_student_female',
-                            $latestStudents->sum(
-                                'female_count'
-                            )
-                        );
-                    }
-                );
+        $organizations = FoundationOrganization::query()
+            ->active()
+            ->ordered()
+            ->get();
 
-                /*
-                |--------------------------------------------------------------------------
-                | ORGANISASI
-                |--------------------------------------------------------------------------
-                */
+        $leader = FoundationLeader::latest()->first();
 
-                $organizations = FoundationOrganization::query()
-                    ->active()
-                    ->ordered()
-                    ->get();
+        /*
+        |--------------------------------------------------------------------------
+        | Berita
+        |--------------------------------------------------------------------------
+        */
 
-                $leader = FoundationLeader::query()
-                    ->latest()
-                    ->first();
+        $news = NewsArticle::query()
+            ->published()
+            ->latest('published_at')
+            ->take(6)
+            ->get();
 
-                /*
-                |--------------------------------------------------------------------------
-                | BERITA
-                |--------------------------------------------------------------------------
-                */
+        /*
+        |--------------------------------------------------------------------------
+        | Agenda
+        |--------------------------------------------------------------------------
+        */
 
-                $news = NewsArticle::query()
-                    ->published()
-                    ->latest('published_at')
-                    ->take(6)
-                    ->get();
+        $agendas = Agenda::query()
+            ->whereDate('date', '>=', today())
+            ->orderBy('date')
+            ->take(5)
+            ->get();
 
-                /*
-                |--------------------------------------------------------------------------
-                | AGENDA
-                |--------------------------------------------------------------------------
-                */
+        /*
+        |--------------------------------------------------------------------------
+        | Gallery
+        |--------------------------------------------------------------------------
+        */
 
-                $agendas = Agenda::query()
-                    ->whereDate(
-                        'date',
-                        '>=',
-                        now()
-                    )
-                    ->orderBy('date')
-                    ->take(5)
-                    ->get();
+        $gallery = GalleryAlbum::query()
+            ->with([
+                'photos' => fn($q) => $q->latest()
+            ])
+            ->latest()
+            ->take(6)
+            ->get();
 
-                /*
-                |--------------------------------------------------------------------------
-                | GALERI
-                |--------------------------------------------------------------------------
-                */
+        /*
+        |--------------------------------------------------------------------------
+        | Testimoni
+        |--------------------------------------------------------------------------
+        */
 
-                $gallery = GalleryAlbum::query()
-                    ->with('photos')
-                    ->latest()
-                    ->take(6)
-                    ->get();
+        $testimonials = Testimonial::query()
+            ->latest()
+            ->take(6)
+            ->get();
 
-                /*
-                |--------------------------------------------------------------------------
-                | TESTIMONI
-                |--------------------------------------------------------------------------
-                */
+        /*
+        |--------------------------------------------------------------------------
+        | Statistik
+        |--------------------------------------------------------------------------
+        */
 
-                $testimonials = Testimonial::query()
-                    ->latest()
-                    ->take(6)
-                    ->get();
+        $statistics = StudentData::query()
+            ->where('academic_year', $activeAcademicYear)
+            ->selectRaw("
+                SUM(total_count) total,
+                SUM(male_count) male,
+                SUM(female_count) female,
+                SUM(scholarship_tahfiz) tahfiz,
+                SUM(scholarship_akademik) akademik,
+                SUM(scholarship_non_akademik) non_akademik,
+                SUM(scholarship_yatim) yatim,
+                SUM(scholarship_yayasan) yayasan
+            ")
+            ->first();
 
-                /*
-                |--------------------------------------------------------------------------
-                | STATISTIK HOMEPAGE
-                |--------------------------------------------------------------------------
-                */
+        $stats = [
 
-                $studentStatistics = StudentData::query()
-                    ->when(
-                        $activeAcademicYear,
-                        fn ($query) =>
-                            $query->where(
-                                'academic_year',
-                                $activeAcademicYear
-                            )
-                    )
-                    ->selectRaw('
-                        COALESCE(SUM(male_count), 0) as male,
-                        COALESCE(SUM(female_count), 0) as female,
-                        COALESCE(SUM(total_count), 0) as total,
-                        COALESCE(SUM(scholarship_tahfiz), 0) as scholarship_tahfiz,
-                        COALESCE(SUM(scholarship_akademik), 0) as scholarship_akademik,
-                        COALESCE(SUM(scholarship_non_akademik), 0) as scholarship_non_akademik,
-                        COALESCE(SUM(scholarship_yatim), 0) as scholarship_yatim,
-                        COALESCE(SUM(scholarship_yayasan), 0) as scholarship_yayasan
-                    ')
-                    ->first();
+            'students' => (int) ($statistics->total ?? 0),
 
-                $totalScholarship =
-                    (int) $studentStatistics->scholarship_tahfiz
-                    + (int) $studentStatistics->scholarship_akademik
-                    + (int) $studentStatistics->scholarship_non_akademik
-                    + (int) $studentStatistics->scholarship_yatim
-                    + (int) $studentStatistics->scholarship_yayasan;
+            'male' => (int) ($statistics->male ?? 0),
 
-                $stats = [
-                    'students' => (int) $studentStatistics->total,
+            'female' => (int) ($statistics->female ?? 0),
 
-                    'male' => (int) $studentStatistics->male,
+            'scholarship' =>
+                (int) ($statistics->tahfiz ?? 0)
+                + (int) ($statistics->akademik ?? 0)
+                + (int) ($statistics->non_akademik ?? 0)
+                + (int) ($statistics->yatim ?? 0)
+                + (int) ($statistics->yayasan ?? 0),
 
-                    'female' => (int) $studentStatistics->female,
+            'teachers' => Teacher::count(),
 
-                    'scholarship' => $totalScholarship,
+            'units' => EducationUnit::active()->count(),
 
-                    'academic_year' => $activeAcademicYear,
+            'news' => NewsArticle::published()->count(),
 
-                    'teachers' => Teacher::count(),
+            'academic_year' => $activeAcademicYear,
+        ];
 
-                    'units' => EducationUnit::query()
-                        ->active()
-                        ->count(),
-
-                    'news' => NewsArticle::query()
-                        ->published()
-                        ->count(),
-                ];
-
-                return compact(
-                    'website',
-                    'banners',
-                    'about',
-                    'units',
-                    'organizations',
-                    'leader',
-                    'news',
-                    'agendas',
-                    'gallery',
-                    'testimonials',
-                    'stats',
-                    'academicYears',
-                    'activeAcademicYear'
-                );
-            }
-        );
-
-        $data['selectedAcademicYear'] = $selectedAcademicYear;
-
-        return view(
-            'pages.home',
-            $data
-        );
+        return view('pages.home', [
+            'website'               => $website,
+            'banners'               => $banners,
+            'about'                 => $about,
+            'units'                 => $units,
+            'organizations'         => $organizations,
+            'leader'                => $leader,
+            'news'                  => $news,
+            'agendas'               => $agendas,
+            'gallery'               => $gallery,
+            'testimonials'          => $testimonials,
+            'stats'                 => $stats,
+            'academicYears'         => $academicYears,
+            'activeAcademicYear'    => $activeAcademicYear,
+            'selectedAcademicYear'  => $selectedAcademicYear,
+        ]);
     }
 }
