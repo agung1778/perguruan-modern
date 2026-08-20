@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\FoundationLeader;
+use App\Models\FoundationOrganization;
 use App\Models\WebsiteSetting;
 
 
@@ -15,11 +17,19 @@ class AboutController extends Controller
 
         $website = WebsiteSetting::first();
 
+        $leaders = FoundationLeader::query()
+            ->latest()
+            ->get();
+
+        $organizations = FoundationOrganization::query()
+            ->active()
+            ->ordered()
+            ->get();
 
 
         return view(
             'pages.about',
-            compact('website')
+            compact('website', 'leaders', 'organizations')
         );
 
 

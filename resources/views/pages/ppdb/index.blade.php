@@ -157,7 +157,7 @@
                                         {{ strip_tags($ppdb->description) }}
                                     </p>
                                 </div>
-                            @endif-$_COOKIE
+                            @endif
                             {{-- Actions --}}
                             <div class="mt-auto flex flex-col gap-3 pt-7 sm:flex-row">
                                 <a href="{{ route('ppdb.show', $ppdb) }}" class="flex-1 rounded-xl bg-emerald-700 px-5 py-3 text-center text-sm font-bold text-white transition hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">

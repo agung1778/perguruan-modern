@@ -25,6 +25,11 @@ class PpdbController extends Controller
         $ppdbs = Ppdb::query()
             ->with('educationUnit')
             ->published()
+            ->when(
+                request('unit'),
+                fn ($query, $unit) =>
+                    $query->where('education_unit_id', $unit)
+            )
             ->latest()
             ->paginate(12);
 

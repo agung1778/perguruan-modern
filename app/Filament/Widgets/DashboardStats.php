@@ -17,9 +17,8 @@ class DashboardStats extends StatsOverviewWidget
 
             Stat::make(
                 'Total Siswa',
-                $total = StudentData::sum('male_count')
-                        + StudentData::sum('female_count'),
-                Stat::make('Total Siswa', $total),
+                StudentData::sum('male_count')
+                    + StudentData::sum('female_count'),
             )
                 ->description('Jumlah seluruh siswa')
                 ->descriptionIcon('heroicon-o-academic-cap')
