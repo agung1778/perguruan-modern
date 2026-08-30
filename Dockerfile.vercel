@@ -65,7 +65,7 @@ RUN npm run build
 # ---------------------------------------------------------------------------
 # Stage 3: Runtime (FrankenPHP)
 # ---------------------------------------------------------------------------
-FROM dunglas/frankenphp:8.4
+FROM dunglas/frankenphp:1-php8.4.24
 
 RUN install-php-extensions \
         pdo_mysql \
