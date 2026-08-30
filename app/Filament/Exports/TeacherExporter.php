@@ -33,14 +33,17 @@ class TeacherExporter extends Exporter
             ExportColumn::make('birth_date')
                 ->label('Tanggal Lahir'),
 
+            ExportColumn::make('type')
+                ->label('Jenis'),
+
             ExportColumn::make('position')
                 ->label('Jabatan'),
 
-            ExportColumn::make('status')
-                ->label('Status'),
+            ExportColumn::make('employment_status')
+                ->label('Status Kepegawaian'),
 
-            ExportColumn::make('education')
-                ->label('Pendidikan'),
+            ExportColumn::make('subject')
+                ->label('Mata Pelajaran'),
 
             ExportColumn::make('description')
                 ->label('Deskripsi'),
@@ -54,8 +57,8 @@ class TeacherExporter extends Exporter
     public static function getCompletedNotificationBody(
         Export $export
     ): string {
-        $body = 'Export data guru telah selesai. ' .
-            number_format($export->successful_rows) .
+        $body = 'Export data guru telah selesai. '.
+            number_format($export->successful_rows).
             ' data berhasil diekspor.';
 
         return $body;

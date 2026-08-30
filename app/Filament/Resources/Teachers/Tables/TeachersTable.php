@@ -2,12 +2,9 @@
 
 namespace App\Filament\Resources\Teachers\Tables;
 
-use App\Models\EducationUnit;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ExportAction;
-use Filament\Actions\ImportAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -53,7 +50,7 @@ class TeachersTable
                     ->label('Jabatan')
                     ->searchable(),
 
-                TextColumn::make('status')
+                TextColumn::make('employment_status')
                     ->label('Status')
                     ->badge(),
 
@@ -82,7 +79,7 @@ class TeachersTable
                         'P' => 'Perempuan',
                     ]),
 
-                SelectFilter::make('status')
+                SelectFilter::make('employment_status')
                     ->label('Status')
                     ->options([
                         'Tetap' => 'Guru Tetap',

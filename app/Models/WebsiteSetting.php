@@ -11,6 +11,8 @@ class WebsiteSetting extends Model
 
     protected $fillable = [
         'school_name',
+        'site_name',
+        'welcome_message',
         'logo',
         'favicon',
 

@@ -50,11 +50,11 @@ class TeacherImporter extends Importer
             ImportColumn::make('position')
                 ->label('Jabatan'),
 
-            ImportColumn::make('status')
-                ->label('Status'),
+            ImportColumn::make('employment_status')
+                ->label('Status Kepegawaian'),
 
-            ImportColumn::make('education')
-                ->label('Pendidikan Terakhir'),
+            ImportColumn::make('subject')
+                ->label('Mata Pelajaran'),
 
             ImportColumn::make('description')
                 ->label('Deskripsi'),
@@ -64,14 +64,14 @@ class TeacherImporter extends Importer
 
     public function resolveRecord(): ?Teacher
     {
-        return new Teacher();
+        return new Teacher;
     }
 
     protected function beforeSave(): void
     {
         $unitName = $this->data['education_unit'] ?? null;
 
-        if (!$unitName) {
+        if (! $unitName) {
             return;
         }
 
@@ -87,13 +87,13 @@ class TeacherImporter extends Importer
     public static function getCompletedNotificationBody(
         Import $import
     ): string {
-        $body = 'Import data guru telah selesai. ' .
-            number_format($import->successful_rows) .
+        $body = 'Import data guru telah selesai. '.
+            number_format($import->successful_rows).
             ' data berhasil diimpor.';
 
         if ($failedRowsCount = $import->getFailedRowsCount()) {
-            $body .= ' ' .
-                number_format($failedRowsCount) .
+            $body .= ' '.
+                number_format($failedRowsCount).
                 ' data gagal diimpor.';
         }
 

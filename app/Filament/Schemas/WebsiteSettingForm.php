@@ -48,6 +48,25 @@ class WebsiteSettingForm
                     ])
                     ->columns(2),
 
+                Section::make('Sambutan Halaman Depan')
+                    ->description('Tulisan sambutan yang tampil pada bagian Welcome halaman beranda.')
+                    ->icon('heroicon-o-chat-bubble-left-right')
+                    ->schema([
+
+                        TextInput::make('site_name')
+                            ->label('Nama Singkat / Marka Perguruan')
+                            ->placeholder('Contoh: Perguruan Amaliah')
+                            ->maxLength(255),
+
+                        Textarea::make('welcome_message')
+                            ->label('Pesan Sambutan')
+                            ->rows(5)
+                            ->helperText('Teks sambutan yang muncul di bagian "Sambutan" pada halaman beranda.')
+                            ->columnSpanFull(),
+
+                    ])
+                    ->columns(1),
+
                 Section::make('Tentang Perguruan')
                     ->description('Informasi profil, sejarah, visi, dan misi Perguruan.')
                     ->icon('heroicon-o-information-circle')
