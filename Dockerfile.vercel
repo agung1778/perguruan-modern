@@ -11,6 +11,7 @@ RUN apt-get update \
         libjpeg-dev \
         libwebp-dev \
         libfreetype6-dev \
+        libonig-dev \
         libzip-dev \
         libicu-dev \
         git \
