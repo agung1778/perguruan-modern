@@ -1,0 +1,17 @@
+node_modules
+npm-debug.log*
+.yarn
+.pnpm
+vendor
+.env
+.env.*
+!.env.example
+public/build
+public/hot
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/framework/testing
+.vercel
+.git
