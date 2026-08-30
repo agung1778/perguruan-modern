@@ -1,2 +1,9 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /developer/
+Disallow: /livewire/
+Disallow: /vendor/
+Disallow: /up
+Disallow: /storage/framework/
+
+Sitemap: https://ravox.my.id/sitemap.xml

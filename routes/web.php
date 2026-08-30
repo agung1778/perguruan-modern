@@ -1,24 +1,25 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\UnitController;
-use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AgendaController;
-use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PpdbController;
+use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\UnitController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)
     ->name('home');
 
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])
+    ->name('sitemap');
 
 Route::get('/tentang', [AboutController::class, 'index'])
     ->name('about');
-
 
 Route::prefix('unit-pendidikan')
     ->name('units.')
@@ -29,7 +30,6 @@ Route::prefix('unit-pendidikan')
             ->name('show');
     });
 
-
 Route::prefix('berita')
     ->name('news.')
     ->group(function () {
@@ -38,7 +38,6 @@ Route::prefix('berita')
         Route::get('/{news}', [NewsController::class, 'show'])
             ->name('show');
     });
-
 
 Route::prefix('agenda')
     ->name('agenda.')
@@ -49,7 +48,6 @@ Route::prefix('agenda')
             ->name('show');
     });
 
-
 Route::prefix('galeri')
     ->name('gallery.')
     ->group(function () {
@@ -59,10 +57,8 @@ Route::prefix('galeri')
             ->name('show');
     });
 
-
 Route::get('/testimoni', [TestimonialController::class, 'index'])
     ->name('testimonials.index');
-
 
 Route::get('/kontak', [ContactController::class, 'index'])
     ->name('contact');

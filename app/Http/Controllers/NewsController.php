@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-    use App\Models\NewsArticle;
-    use App\Models\NewsCategory;
-
+use App\Models\NewsArticle;
+use App\Models\NewsCategory;
 
 class NewsController extends Controller
 {
     public function index()
     {
-        $news = NewsArticle::with('category')
-            ->latest()
+        $news = NewsArticle::query()
+            ->with('category')
+            ->published()
+            ->latest('published_at')
             ->paginate(10);
 
         $categories = NewsCategory::all();

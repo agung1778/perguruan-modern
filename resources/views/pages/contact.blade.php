@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Kontak')
+
 @section('content')
 {{-- =========================================================
 HERO CONTACT

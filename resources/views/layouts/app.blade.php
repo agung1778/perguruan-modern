@@ -10,14 +10,59 @@
     {{-- =====================================================
         SEO
     ====================================================== --}}
-    <title>
-        @yield(
-            'title',
-            $website?->school_name ?? config('app.name')
-        )
-    </title>
-    <meta name="description" content="{{ $website?->meta_description ?? 'Website resmi Perguruan Amaliah' }}">
+    @php
+        $schoolName = $website?->school_name ?? 'Perguruan Amaliah';
+        $pageTitle = trim(strip_tags(trim((string) View::getSection('title', ''))));
+        $metaTitle = $pageTitle !== ''
+            ? $pageTitle . ' | ' . $schoolName
+            : $schoolName;
+        $metaDescription = $website?->meta_description
+            ?? ($seo_defaults['description'] ?? 'Website resmi Perguruan Amaliah');
+        $currentUrl = url()->current();
+        $schoolLogo = $website?->logo
+            ? Storage::url($website->logo)
+            : asset('logo/logo.png');
+    @endphp
+    <title>{{ $metaTitle }}</title>
+    <meta name="description" content="{{ $metaDescription }}">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ $currentUrl }}">
+    {{-- =====================================================
+        OPEN GRAPH
+    ====================================================== --}}
+    <meta property="og:site_name" content="{{ $schoolName }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ $metaTitle }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:url" content="{{ $currentUrl }}">
+    <meta property="og:image" content="{{ $schoolLogo }}">
+    <meta name="twitter:card" content="summary_large_image">
+    {{-- =====================================================
+        STRUCTURED DATA (Organization)
+    ====================================================== --}}
+    <script type="application/ld+json">
+    {
+        "@@context": "https://schema.org",
+        "@type": "Organization",
+        "name": {!! json_encode($schoolName) !!},
+        "url": {!! json_encode(config('app.url')) !!},
+        "logo": {!! json_encode($schoolLogo) !!},
+        "image": {!! json_encode($schoolLogo) !!},
+        "description": {!! json_encode($metaDescription) !!},
+        "email": {!! json_encode($website?->email ?? '') !!},
+        "telephone": {!! json_encode($website?->phone ?? '') !!},
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": {!! json_encode($website?->address ?? '') !!},
+            "addressCountry": "ID"
+        },
+        "sameAs": [
+            {!! json_encode($website?->facebook ?? '') !!},
+            {!! json_encode($website?->instagram ?? '') !!},
+            {!! json_encode($website?->youtube ?? '') !!}
+        ]
+    }
+    </script>
     {{-- =====================================================
     FAVICON / LOGO YAYASAN
     ====================================================== --}}
